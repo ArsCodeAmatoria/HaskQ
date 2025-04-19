@@ -8,8 +8,11 @@
   "framework": "docusaurus-2",
   "ignoreCommand": "git diff HEAD~ HEAD --quiet . \":(exclude)apps/landing/**\" \":(exclude)apps/playground/**\" \":(exclude)apps/docs/**\"",
   "rewrites": [
-    { "source": "/playground", "destination": "/playground" },
+    { "source": "/playground", "destination": "/playground/index.html" },
     { "source": "/playground/(.*)", "destination": "/playground/$1" },
+    { "source": "/docs", "destination": "/docs/index.html" },
+    { "source": "/docs/(.*)", "destination": "/docs/$1" },
+    { "source": "/", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/$1" }
   ],
   "builds": [
@@ -37,5 +40,11 @@
         "buildCommand": "cd apps/docs && npm run build"
       }
     }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/playground", "dest": "/playground/index.html" },
+    { "src": "/docs", "dest": "/docs/index.html" }
   ]
 } 
