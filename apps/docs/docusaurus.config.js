@@ -93,16 +93,18 @@ const config = {
       image: 'img/social-card.png',
       navbar: {
         title: 'HaskQ',
-        logo: {
-          alt: 'HaskQ Logo',
-          src: 'img/logo.svg',
-        },
+        hideOnScroll: false,
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Documentation',
+          },
+          {
+            href: 'http://localhost:3002',
+            label: 'Landing',
+            position: 'right',
           },
           {
             href: 'http://localhost:3003/playground',
