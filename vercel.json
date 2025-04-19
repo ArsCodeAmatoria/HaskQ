@@ -5,12 +5,14 @@
   },
   "buildCommand": "npm run build",
   "outputDirectory": ".",
+  "framework": "turborepo",
   "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
   "rewrites": [
-    { "source": "/docs", "destination": "/docs" },
-    { "source": "/docs/(.*)", "destination": "/docs/$1" },
-    { "source": "/playground", "destination": "/playground" },
-    { "source": "/playground/(.*)", "destination": "/playground/$1" },
-    { "source": "/(.*)", "destination": "/$1" }
+    { "source": "/docs", "destination": "/apps/docs/build" },
+    { "source": "/docs/(.*)", "destination": "/apps/docs/build/$1" },
+    { "source": "/playground", "destination": "/apps/playground/dist" },
+    { "source": "/playground/(.*)", "destination": "/apps/playground/dist/$1" },
+    { "source": "/", "destination": "/apps/landing/dist/index.html" },
+    { "source": "/(.*)", "destination": "/apps/landing/dist/$1" }
   ]
 } 
