@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Editor from '@monaco-editor/react'
-import { Play, Download, Upload, Copy, RotateCcw, Save } from 'lucide-react'
+import Header from '../components/Header'
+import CodeEditor from '../components/CodeEditor'
+import CircuitVisualizer from '../components/CircuitVisualizer'
+import ExamplesPanel from '../components/ExamplesPanel'
 
 const DEFAULT_CODE = `-- Create a Bell state |Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)
 bellState :: Circ (Qubit, Qubit)
@@ -24,7 +26,7 @@ export default function Playground() {
   const [result, setResult] = useState<string | null>(null)
   const [isSimulating, setIsSimulating] = useState(false)
 
-  // Simulate function (mock implementation)
+  // Simulate function (mock implementation - would be connected to WebAssembly)
   const simulateCode = () => {
     setIsSimulating(true)
     
@@ -33,108 +35,141 @@ export default function Playground() {
       setResult(`
 Circuit with 2 qubits:
 
-0: --H-------●-------M--
-             |
-1: ----------X-------M--
+0: --H--●--M--
+        |
+1: -----X--M--
 
-Simulation result:
+Simulation results:
 - Probability of |00⟩: 0.5
 - Probability of |11⟩: 0.5
 - Probability of |01⟩: 0.0
 - Probability of |10⟩: 0.0
 
-Measurement outcome: [Zero, Zero] or [One, One] with equal probability
+Measurement outcomes:
+- 50% chance: [Zero, Zero]
+- 50% chance: [One, One]
+- 0% chance:  [Zero, One]
+- 0% chance:  [One, Zero]
+
+This is the Bell state |Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩), which demonstrates quantum entanglement.
+The measurement of one qubit determines the state of the other qubit, regardless of distance.
       `)
       setIsSimulating(false)
     }, 1500)
   }
 
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-quantum-dark-950 to-quantum-dark-900 text-white">
-      <header className="border-b border-quantum-dark-800 py-4">
-        <div className="container-custom flex justify-between items-center">
-          <h1 className="text-2xl font-bold">HaskQ Playground</h1>
-          <div className="flex items-center space-x-2">
-            <button className="btn bg-quantum-blue-600 hover:bg-quantum-blue-700 text-white px-3 py-2 rounded-md flex items-center" onClick={simulateCode}>
-              <Play className="mr-2 h-4 w-4" />
-              {isSimulating ? 'Simulating...' : 'Run Simulation'}
-            </button>
-            <button className="btn bg-quantum-dark-800 hover:bg-quantum-dark-700 text-white px-3 py-2 rounded-md flex items-center">
-              <Save className="mr-2 h-4 w-4" />
-              Save
-            </button>
-          </div>
-        </div>
-      </header>
+  // Reset code to default
+  const resetCode = () => {
+    setCode(DEFAULT_CODE)
+  }
 
-      <div className="container-custom py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Code Editor */}
-          <div className="bg-quantum-dark-800 rounded-md overflow-hidden shadow-xl h-[600px]">
-            <div className="bg-quantum-dark-900 px-4 py-2 text-sm font-medium flex justify-between items-center">
-              <span>Circuit Code</span>
-              <div className="flex space-x-2">
-                <button className="text-quantum-dark-400 hover:text-quantum-blue-400">
-                  <Copy className="h-4 w-4" />
-                </button>
-                <button className="text-quantum-dark-400 hover:text-quantum-blue-400" onClick={() => setCode(DEFAULT_CODE)}>
-                  <RotateCcw className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-            <Editor
-              height="calc(100% - 36px)"
-              defaultLanguage="haskell"
-              value={code}
-              onChange={(value) => setCode(value || '')}
-              theme="vs-dark"
-              options={{
-                fontSize: 14,
-                minimap: { enabled: false },
-                scrollBeyondLastLine: false,
-                automaticLayout: true,
-              }}
+  // Save circuit (mock implementation)
+  const saveCircuit = () => {
+    const savedData = {
+      code: code,
+      timestamp: new Date().toISOString()
+    }
+    localStorage.setItem('savedCircuit', JSON.stringify(savedData))
+    alert('Circuit saved to local storage!')
+  }
+
+  // Export circuit (mock implementation)
+  const exportCircuit = () => {
+    const dataStr = "data:text/plain;charset=utf-8," + encodeURIComponent(code)
+    const downloadAnchorNode = document.createElement('a')
+    downloadAnchorNode.setAttribute("href", dataStr)
+    downloadAnchorNode.setAttribute("download", "haskq-circuit.hs")
+    document.body.appendChild(downloadAnchorNode)
+    downloadAnchorNode.click()
+    downloadAnchorNode.remove()
+  }
+
+  // Handle example selection
+  const handleExampleSelect = (exampleCode: string) => {
+    setCode(exampleCode)
+  }
+
+  return (
+    <>
+      <Header 
+        onRunSimulation={simulateCode}
+        onSaveCircuit={saveCircuit}
+        onExportCircuit={exportCircuit}
+        isSimulating={isSimulating}
+        className=""
+      />
+      
+      <main style={{ 
+        minHeight: '100vh',
+        backgroundColor: '#121212', 
+        color: 'white',
+        padding: '24px'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: '24px'
+        }}>
+          {/* Left Column - Code Editor */}
+          <div style={{
+            backgroundColor: '#2a2a2a',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            minHeight: '500px'
+          }}>
+            <CodeEditor
+              code={code}
+              onChange={setCode}
+              resetCode={resetCode}
             />
           </div>
-
-          {/* Circuit Visualization and Results */}
-          <div className="flex flex-col h-[600px]">
-            {/* Circuit Visualization */}
-            <div className="bg-quantum-dark-800 rounded-md overflow-hidden shadow-xl flex-1 mb-4">
-              <div className="bg-quantum-dark-900 px-4 py-2 text-sm font-medium">
-                Circuit Visualization
-              </div>
-              <div className="p-4 h-[calc(100%-36px)] overflow-auto font-mono text-sm whitespace-pre">
-                {result || "Run the simulation to see the circuit visualization and results."}
-              </div>
+          
+          {/* Right Column - Circuit Visualization & Examples */}
+          <div style={{
+            backgroundColor: '#2a2a2a',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            minHeight: '400px'
+          }}>
+            <div style={{
+              backgroundColor: '#1a1a1a',
+              padding: '8px 16px',
+              borderBottom: '1px solid #3a3a3a',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}>
+              Circuit Visualization
             </div>
-
-            {/* Examples */}
-            <div className="bg-quantum-dark-800 rounded-md overflow-hidden shadow-xl">
-              <div className="bg-quantum-dark-900 px-4 py-2 text-sm font-medium">
-                Examples
-              </div>
-              <div className="p-4 grid grid-cols-2 gap-2">
-                <ExampleButton name="Bell State" onClick={() => setCode(DEFAULT_CODE)} />
-                <ExampleButton name="Teleportation" onClick={() => {}} />
-                <ExampleButton name="Deutsch Algorithm" onClick={() => {}} />
-                <ExampleButton name="Grover Search" onClick={() => {}} />
-              </div>
+            <CircuitVisualizer 
+              result={result}
+              isSimulating={isSimulating}
+            />
+          </div>
+          
+          <div style={{
+            backgroundColor: '#2a2a2a',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            minHeight: '200px'
+          }}>
+            <div style={{
+              backgroundColor: '#1a1a1a',
+              padding: '8px 16px',
+              borderBottom: '1px solid #3a3a3a',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}>
+              Example Circuits
             </div>
+            <ExamplesPanel onSelectExample={handleExampleSelect} />
           </div>
         </div>
-      </div>
-    </main>
-  )
-}
-
-function ExampleButton({ name, onClick }: { name: string, onClick: () => void }) {
-  return (
-    <button 
-      className="bg-quantum-dark-700 hover:bg-quantum-dark-600 rounded-md px-4 py-2 text-sm font-medium"
-      onClick={onClick}
-    >
-      {name}
-    </button>
+      </main>
+    </>
   )
 } 

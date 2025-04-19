@@ -8,16 +8,83 @@
   }
   
   body {
-    @apply antialiased;
+    @apply antialiased min-h-screen bg-gradient-to-b from-quantum-dark-950 to-quantum-dark-900 text-white;
+  }
+
+  h1 {
+    @apply text-2xl font-bold;
+  }
+
+  h2 {
+    @apply text-xl font-semibold;
+  }
+
+  h3 {
+    @apply text-lg font-medium;
   }
 
   code {
     @apply font-mono rounded bg-quantum-dark-800 px-1.5 py-0.5;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-quantum-dark-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-quantum-dark-600 rounded-full hover:bg-quantum-dark-500 transition-colors;
   }
 }
 
 @layer components {
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply bg-quantum-blue-600 hover:bg-quantum-blue-700 text-white px-3 py-2 rounded-md flex items-center justify-center gap-2 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-quantum-dark-700 hover:bg-quantum-dark-600 text-white px-3 py-2 rounded-md flex items-center justify-center gap-2 transition-colors;
+  }
+
+  .btn-outline {
+    @apply border border-quantum-dark-600 hover:border-quantum-blue-500 text-white hover:text-quantum-blue-400 px-3 py-2 rounded-md flex items-center justify-center gap-2 transition-colors;
+  }
+
+  .card {
+    @apply bg-quantum-dark-800 rounded-md overflow-hidden shadow-xl;
+  }
+
+  .card-header {
+    @apply bg-quantum-dark-900 px-4 py-2 text-sm font-medium flex justify-between items-center border-b border-quantum-dark-700;
+  }
+}
+
+@layer utilities {
+  .glass-effect {
+    @apply bg-quantum-dark-800/80 backdrop-blur-sm;
+  }
+
+  .circuit-element {
+    @apply border border-quantum-blue-700 rounded-md px-2 py-1 text-center text-xs font-semibold;
+  }
+
+  .quantum-animate-pulse {
+    animation: quantum-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes quantum-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
   }
 } 
