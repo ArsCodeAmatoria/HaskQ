@@ -4,19 +4,6 @@
     "silent": true
   },
   "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".",
-  "projects": {
-    "apps/landing": {
-      "framework": "nextjs"
-    },
-    "apps/playground": {
-      "framework": "nextjs"
-    },
-    "apps/docs": {
-      "framework": "docusaurus-2"
-    }
-  },
   "rewrites": [
     { "source": "/playground", "destination": "/playground" },
     { "source": "/playground/(.*)", "destination": "/playground/$1" },
