@@ -45,6 +45,7 @@ const config = {
           editUrl: 'https://github.com/haskq/haskq/tree/main/apps/docs/',
           remarkPlugins: [math],
           rehypePlugins: [katex],
+          routeBasePath: '/',
         },
         blog: {
           showReadingTime: true,
@@ -80,7 +81,7 @@ const config = {
         },
         items: [
           {
-            to: '/',
+            to: 'http://localhost:3002',
             label: 'Home',
             position: 'left',
           },
@@ -106,15 +107,15 @@ const config = {
             items: [
               {
                 label: 'Introduction',
-                to: '/docs/intro',
+                to: '/intro',
               },
               {
                 label: 'Core Concepts',
-                to: '/docs/category/core-concepts',
+                to: '/category/core-concepts',
               },
               {
-                label: 'API Reference',
-                to: '/docs/category/api',
+                label: 'Tutorials',
+                to: '/category/tutorials',
               },
             ],
           },
