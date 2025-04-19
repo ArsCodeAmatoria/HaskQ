@@ -8,9 +8,8 @@ export default function LandingPage() {
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-quantum-gradient">
-        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-10">
-          <div className="h-full w-full bg-quantum-grid bg-repeat"></div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-quantum-dark-950 via-quantum-dark-900 to-quantum-blue-900">
+        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-10 bg-grid-pattern">
         </div>
         <div className="container-custom relative z-10 flex flex-col items-center justify-center py-20 text-center">
           <motion.div

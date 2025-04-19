@@ -44,6 +44,10 @@ module.exports = {
       backgroundImage: {
         'quantum-gradient': 'linear-gradient(135deg, #0d0d0d 0%, #001a33 50%, #003666 100%)',
         'quantum-grid': "url('/img/quantum-grid.svg')",
+        'grid-pattern': 'linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
+      },
+      backgroundSize: {
+        'grid-pattern': '20px 20px',
       },
       keyframes: {
         superposition: {
