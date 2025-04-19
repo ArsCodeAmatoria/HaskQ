@@ -46,6 +46,8 @@ const config = {
           remarkPlugins: [math],
           rehypePlugins: [katex],
           routeBasePath: '/',
+          // Set the home page document
+          homePageId: 'intro',
         },
         blog: {
           showReadingTime: true,
