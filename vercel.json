@@ -15,13 +15,19 @@
   "builds": [
     { 
       "src": "apps/landing/next.config.js", 
-      "use": "@vercel/next",
-      "config": { "path": "apps/landing" }
+      "use": "@vercel/static",
+      "config": { 
+        "distDir": "apps/landing/out",
+        "buildCommand": "cd apps/landing && npm run build"
+      }
     },
     { 
       "src": "apps/playground/next.config.js", 
-      "use": "@vercel/next",
-      "config": { "path": "apps/playground" }
+      "use": "@vercel/static",
+      "config": { 
+        "distDir": "apps/playground/out",
+        "buildCommand": "cd apps/playground && npm run build"
+      }
     },
     { 
       "src": "apps/docs/docusaurus.config.js", 

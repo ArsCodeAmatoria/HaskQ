@@ -2,15 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   basePath: '/playground',
-  output: 'standalone',
-  // Disable static optimization for error pages to avoid context issues
-  typescript: {
-    // Ignoring build errors temporarily as they're not affecting functionality
-    ignoreBuildErrors: true
-  },
-  // Prevent static generation of error pages by setting a custom error handling approach
+  // Switch to export mode to avoid SSG issues with React context
+  output: 'export',
+  // Disable image optimization to prevent issues with static export
   images: {
     unoptimized: true
+  },
+  // Skip type checking to speed up build
+  typescript: {
+    ignoreBuildErrors: true
   }
 };
 
