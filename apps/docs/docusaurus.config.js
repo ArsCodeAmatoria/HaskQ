@@ -80,6 +80,11 @@ const config = {
         },
         items: [
           {
+            to: '/',
+            label: 'Home',
+            position: 'left',
+          },
+          {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
