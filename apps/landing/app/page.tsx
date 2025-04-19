@@ -37,7 +37,7 @@ export default function LandingPage() {
             <a href="#get-started" className="btn-primary px-6 py-3">
               Get Started <ArrowRight className="ml-2 h-4 w-4" />
             </a>
-            <a href="/docs" className="btn-secondary px-6 py-3">
+            <a href="http://localhost:3000/docs" className="btn-secondary px-6 py-3">
               View Docs <Book className="ml-2 h-4 w-4" />
             </a>
             <a href="/playground" className="btn-outline px-6 py-3">
@@ -137,7 +137,7 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
             Start building quantum circuits with HaskQ today. Check out our documentation, examples, and join our community.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="/docs/introduction" className="bg-white text-quantum-blue-700 hover:bg-quantum-blue-50 btn px-6 py-3">
+            <a href="http://localhost:3000/docs/introduction" className="bg-white text-quantum-blue-700 hover:bg-quantum-blue-50 btn px-6 py-3">
               Get Started Guide
             </a>
             <a href="https://github.com/haskq/haskq" className="bg-quantum-blue-700 hover:bg-quantum-blue-800 btn px-6 py-3">
@@ -171,9 +171,9 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2">
-                <li><a href="/docs" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Documentation</a></li>
-                <li><a href="/tutorials" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Tutorials</a></li>
-                <li><a href="/api" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">API Reference</a></li>
+                <li><a href="http://localhost:3000/docs" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Documentation</a></li>
+                <li><a href="http://localhost:3000/docs/category/tutorials" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Tutorials</a></li>
+                <li><a href="http://localhost:3000/docs/category/api" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">API Reference</a></li>
                 <li><a href="/playground" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Playground</a></li>
               </ul>
             </div>
