@@ -40,11 +40,5 @@
         "buildCommand": "cd apps/docs && npm run build"
       }
     }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/playground", "dest": "/playground/index.html" },
-    { "src": "/docs", "dest": "/docs/index.html" }
   ]
 } 
