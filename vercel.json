@@ -5,7 +5,7 @@
   },
   "buildCommand": "npm run build",
   "outputDirectory": ".",
-  "framework": "turborepo",
+  "framework": "docusaurus-2",
   "ignoreCommand": "git diff HEAD~ HEAD --quiet . \":(exclude)apps/landing/**\" \":(exclude)apps/playground/**\" \":(exclude)apps/docs/**\"",
   "rewrites": [
     { "source": "/playground", "destination": "/playground" },
