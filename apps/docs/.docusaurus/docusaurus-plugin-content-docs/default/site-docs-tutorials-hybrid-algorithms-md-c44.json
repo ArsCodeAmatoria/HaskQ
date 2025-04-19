@@ -1,0 +1,17 @@
+{
+  "unversionedId": "tutorials/hybrid-algorithms",
+  "id": "tutorials/hybrid-algorithms",
+  "title": "Hybrid Quantum-Classical Algorithms",
+  "description": "This page explains how to implement hybrid quantum-classical algorithms in HaskQ.",
+  "source": "@site/docs/tutorials/hybrid-algorithms.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/hybrid-algorithms",
+  "permalink": "/tutorials/hybrid-algorithms",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "unversionedId": "tutorials/error-correction",
+  "id": "tutorials/error-correction",
+  "title": "Error Correction in HaskQ",
+  "description": "This page explains how to implement error correction codes in HaskQ.",
+  "source": "@site/docs/tutorials/error-correction.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/error-correction",
+  "permalink": "/tutorials/error-correction",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  }
+}

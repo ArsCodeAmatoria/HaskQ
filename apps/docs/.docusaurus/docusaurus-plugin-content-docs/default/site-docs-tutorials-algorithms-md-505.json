@@ -1,0 +1,17 @@
+{
+  "unversionedId": "tutorials/algorithms",
+  "id": "tutorials/algorithms",
+  "title": "Quantum Algorithms in HaskQ",
+  "description": "This page contains examples of quantum algorithms implemented in HaskQ.",
+  "source": "@site/docs/tutorials/algorithms.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/algorithms",
+  "permalink": "/tutorials/algorithms",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  }
+}

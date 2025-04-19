@@ -56,14 +56,46 @@
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "playground",
+              "path": "/playground"
+            },
+            {
               "id": "project-structure",
               "path": "/project-structure",
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "tutorials/algorithms",
+              "path": "/tutorials/algorithms"
+            },
+            {
               "id": "tutorials/bell-states",
               "path": "/tutorials/bell-states",
               "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "tutorials/error-correction",
+              "path": "/tutorials/error-correction"
+            },
+            {
+              "id": "tutorials/fault-tolerance",
+              "path": "/tutorials/fault-tolerance"
+            },
+            {
+              "id": "tutorials/hybrid-algorithms",
+              "path": "/tutorials/hybrid-algorithms"
+            },
+            {
+              "id": "tutorials/noise-models",
+              "path": "/tutorials/noise-models"
+            },
+            {
+              "id": "tutorials/optimization",
+              "path": "/tutorials/optimization"
+            },
+            {
+              "id": "tutorials/surface-codes",
+              "path": "/tutorials/surface-codes"
             }
           ],
           "draftIds": [],

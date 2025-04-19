@@ -1,0 +1,17 @@
+{
+  "unversionedId": "tutorials/optimization",
+  "id": "tutorials/optimization",
+  "title": "Circuit Optimization",
+  "description": "This page explains how to optimize quantum circuits in HaskQ.",
+  "source": "@site/docs/tutorials/optimization.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/optimization",
+  "permalink": "/tutorials/optimization",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "sidebar_position": 8
+  }
+}

@@ -39,6 +39,16 @@ module HaskQ.Prelude
   , ghzState
   , teleport
   , deutschJozsa
+  
+    -- * Error Correction
+  , encodeBitFlip
+  , decodeBitFlip
+  , correctBitFlip
+  , encodePhaseFlip
+  , decodePhaseFlip
+  , correctPhaseFlip
+  , encodeShor
+  , decodeShor
   ) where
 
 import HaskQ.Core.Types
@@ -46,5 +56,6 @@ import HaskQ.Core.Gates
 import HaskQ.Core.Circuit
 import HaskQ.Core.Measurement
 import HaskQ.Core.Examples
+import HaskQ.Core.ErrorCorrection
 
 -- | Re-export everything needed for quantum programming with HaskQ 

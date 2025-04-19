@@ -1,0 +1,17 @@
+{
+  "unversionedId": "tutorials/fault-tolerance",
+  "id": "tutorials/fault-tolerance",
+  "title": "Fault Tolerance",
+  "description": "This page explains how to implement fault-tolerant quantum computing in HaskQ.",
+  "source": "@site/docs/tutorials/fault-tolerance.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/fault-tolerance",
+  "permalink": "/tutorials/fault-tolerance",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  }
+}

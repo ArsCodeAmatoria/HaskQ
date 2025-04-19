@@ -4,14 +4,15 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
-  "title": "HaskQ Documentation",
-  "tagline": "Quantum Circuits, Purely Functional",
-  "favicon": "img/favicon.ico",
-  "url": "https://docs.haskq.org",
+  "title": "HaskQ",
+  "tagline": "A linear quantum programming language",
+  "favicon": "img/favicon.svg",
+  "url": "https://haskq.vercel.app",
   "baseUrl": "/",
-  "organizationName": "haskq",
-  "projectName": "haskq",
-  "onBrokenLinks": "throw",
+  "trailingSlash": false,
+  "organizationName": "ArsCodeAmatoria",
+  "projectName": "HaskQ",
+  "onBrokenLinks": "warn",
   "onBrokenMarkdownLinks": "warn",
   "i18n": {
     "defaultLocale": "en",
@@ -21,13 +22,29 @@ export default {
     "path": "i18n",
     "localeConfigs": {}
   },
+  "scripts": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML",
+      "async": true
+    }
+  ],
+  "stylesheets": [
+    {
+      "href": "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css",
+      "type": "text/css",
+      "integrity": "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X",
+      "crossorigin": "anonymous"
+    }
+  ],
+  "plugins": [
+    null
+  ],
   "presets": [
     [
       "classic",
       {
         "docs": {
           "sidebarPath": "/Users/kojinfox/HaskQ/apps/docs/sidebars.js",
-          "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/",
           "remarkPlugins": [
             null
           ],
@@ -36,53 +53,37 @@ export default {
           ],
           "routeBasePath": "/"
         },
-        "blog": {
-          "showReadingTime": true,
-          "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/"
-        },
+        "blog": false,
         "theme": {
           "customCss": "/Users/kojinfox/HaskQ/apps/docs/src/css/custom.css"
         }
       }
     ]
   ],
-  "stylesheets": [
-    {
-      "href": "https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
-      "type": "text/css",
-      "integrity": "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
-      "crossorigin": "anonymous"
-    }
-  ],
   "themeConfig": {
-    "image": "img/haskq-social-card.jpg",
+    "image": "img/social-card.png",
     "navbar": {
       "title": "HaskQ",
       "hideOnScroll": false,
       "items": [
         {
-          "to": "http://localhost:3002",
-          "label": "Home",
-          "position": "left"
-        },
-        {
           "type": "docSidebar",
           "sidebarId": "tutorialSidebar",
           "position": "left",
-          "label": "Docs"
+          "label": "Documentation"
         },
         {
-          "to": "/blog",
-          "label": "Blog",
-          "position": "left"
+          "href": "http://localhost:3002",
+          "label": "Home",
+          "position": "right"
         },
         {
-          "to": "http://localhost:3003",
+          "href": "http://localhost:3003/playground",
           "label": "Playground",
-          "position": "left"
+          "position": "right"
         },
         {
-          "href": "https://github.com/haskq/haskq",
+          "href": "https://github.com/ArsCodeAmatoria/HaskQ",
           "label": "GitHub",
           "position": "right"
         }
@@ -92,11 +93,11 @@ export default {
       "style": "dark",
       "links": [
         {
-          "title": "Docs",
+          "title": "Documentation",
           "items": [
             {
-              "label": "Introduction",
-              "to": "/intro"
+              "label": "Getting Started",
+              "to": "/getting-started"
             },
             {
               "label": "Core Concepts",
@@ -109,32 +110,19 @@ export default {
           ]
         },
         {
-          "title": "Community",
+          "title": "Resources",
           "items": [
             {
-              "label": "GitHub Discussions",
-              "href": "https://github.com/haskq/haskq/discussions"
-            },
-            {
-              "label": "Twitter",
-              "href": "https://twitter.com/haskq"
-            }
-          ]
-        },
-        {
-          "title": "More",
-          "items": [
-            {
-              "label": "Blog",
-              "to": "/blog"
-            },
-            {
-              "label": "GitHub",
-              "href": "https://github.com/haskq/haskq"
+              "label": "Home",
+              "href": "http://localhost:3002"
             },
             {
               "label": "Playground",
-              "href": "http://localhost:3003"
+              "href": "http://localhost:3003/playground"
+            },
+            {
+              "label": "GitHub",
+              "href": "https://github.com/ArsCodeAmatoria/HaskQ"
             }
           ]
         }
@@ -349,9 +337,9 @@ export default {
       ]
     },
     "colorMode": {
-      "defaultMode": "dark",
+      "defaultMode": "light",
       "disableSwitch": false,
-      "respectPrefersColorScheme": true
+      "respectPrefersColorScheme": false
     },
     "docs": {
       "versionPersistence": "localStorage",
@@ -372,9 +360,7 @@ export default {
     "static"
   ],
   "customFields": {},
-  "plugins": [],
   "themes": [],
-  "scripts": [],
   "headTags": [],
   "clientModules": [],
   "titleDelimiter": "|",

@@ -3,12 +3,33 @@
   "github": {
     "silent": true
   },
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "framework": "turborepo",
+  "ignoreCommand": "git diff HEAD~ HEAD --quiet . \":(exclude)apps/landing/**\" \":(exclude)apps/playground/**\" \":(exclude)apps/docs/**\"",
   "rewrites": [
     { "source": "/playground", "destination": "/playground" },
     { "source": "/playground/(.*)", "destination": "/playground/$1" },
-    { "source": "/docs", "destination": "/docs" },
-    { "source": "/docs/(.*)", "destination": "/docs/$1" },
     { "source": "/(.*)", "destination": "/$1" }
+  ],
+  "builds": [
+    { 
+      "src": "apps/landing/next.config.js", 
+      "use": "@vercel/next",
+      "config": { "path": "apps/landing" }
+    },
+    { 
+      "src": "apps/playground/next.config.js", 
+      "use": "@vercel/next",
+      "config": { "path": "apps/playground" }
+    },
+    { 
+      "src": "apps/docs/docusaurus.config.js", 
+      "use": "@vercel/static",
+      "config": { 
+        "distDir": "apps/docs/build",
+        "buildCommand": "cd apps/docs && npm run build"
+      }
+    }
   ]
 } 

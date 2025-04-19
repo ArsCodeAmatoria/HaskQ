@@ -11,8 +11,6 @@
           "className": "docs-version-current",
           "path": "/",
           "tagsPath": "/tags",
-          "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs",
-          "editUrlLocalized": "https://github.com/haskq/haskq/tree/main/apps/docs/i18n/en/docusaurus-plugin-content-docs/current",
           "isLast": true,
           "routePriority": -1,
           "sidebarFilePath": "/Users/kojinfox/HaskQ/apps/docs/sidebars.js",
@@ -29,7 +27,6 @@
               "slug": "/core-concepts/circuit-composition",
               "permalink": "/core-concepts/circuit-composition",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/circuit-composition.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 2,
@@ -56,7 +53,6 @@
               "slug": "/core-concepts/linear-types",
               "permalink": "/core-concepts/linear-types",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/linear-types.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 6,
@@ -83,7 +79,6 @@
               "slug": "/core-concepts/measurement",
               "permalink": "/core-concepts/measurement",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/measurement.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 4,
@@ -110,7 +105,6 @@
               "slug": "/core-concepts/quantum-computing-basics",
               "permalink": "/core-concepts/quantum-computing-basics",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/quantum-computing-basics.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -137,7 +131,6 @@
               "slug": "/core-concepts/quantum-gates",
               "permalink": "/core-concepts/quantum-gates",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/quantum-gates.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -164,7 +157,6 @@
               "slug": "/core-concepts/simulation",
               "permalink": "/core-concepts/simulation",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/simulation.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 5,
@@ -191,7 +183,6 @@
               "slug": "/getting-started",
               "permalink": "/getting-started",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/getting-started.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 2,
@@ -218,7 +209,6 @@
               "slug": "/installation",
               "permalink": "/installation",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/installation.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 3,
@@ -245,7 +235,6 @@
               "slug": "/",
               "permalink": "/",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/intro.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -260,6 +249,23 @@
               }
             },
             {
+              "unversionedId": "playground",
+              "id": "playground",
+              "title": "HaskQ Playground",
+              "description": "The HaskQ Playground is an interactive environment where you can write, test, and visualize quantum circuits directly in your browser.",
+              "source": "@site/docs/playground.md",
+              "sourceDirName": ".",
+              "slug": "/playground",
+              "permalink": "/playground",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "sidebar_position": 6
+              }
+            },
+            {
               "unversionedId": "project-structure",
               "id": "project-structure",
               "title": "Project Structure",
@@ -269,7 +275,6 @@
               "slug": "/project-structure",
               "permalink": "/project-structure",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/project-structure.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 4,
@@ -287,6 +292,23 @@
               }
             },
             {
+              "unversionedId": "tutorials/algorithms",
+              "id": "tutorials/algorithms",
+              "title": "Quantum Algorithms in HaskQ",
+              "description": "This page contains examples of quantum algorithms implemented in HaskQ.",
+              "source": "@site/docs/tutorials/algorithms.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/algorithms",
+              "permalink": "/tutorials/algorithms",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              }
+            },
+            {
               "unversionedId": "tutorials/bell-states",
               "id": "tutorials/bell-states",
               "title": "Creating Bell States",
@@ -296,7 +318,6 @@
               "slug": "/tutorials/bell-states",
               "permalink": "/tutorials/bell-states",
               "draft": false,
-              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/tutorials/bell-states.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -307,6 +328,108 @@
               "previous": {
                 "title": "Quantum Simulation",
                 "permalink": "/core-concepts/simulation"
+              }
+            },
+            {
+              "unversionedId": "tutorials/error-correction",
+              "id": "tutorials/error-correction",
+              "title": "Error Correction in HaskQ",
+              "description": "This page explains how to implement error correction codes in HaskQ.",
+              "source": "@site/docs/tutorials/error-correction.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/error-correction",
+              "permalink": "/tutorials/error-correction",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              }
+            },
+            {
+              "unversionedId": "tutorials/fault-tolerance",
+              "id": "tutorials/fault-tolerance",
+              "title": "Fault Tolerance",
+              "description": "This page explains how to implement fault-tolerant quantum computing in HaskQ.",
+              "source": "@site/docs/tutorials/fault-tolerance.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/fault-tolerance",
+              "permalink": "/tutorials/fault-tolerance",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              }
+            },
+            {
+              "unversionedId": "tutorials/hybrid-algorithms",
+              "id": "tutorials/hybrid-algorithms",
+              "title": "Hybrid Quantum-Classical Algorithms",
+              "description": "This page explains how to implement hybrid quantum-classical algorithms in HaskQ.",
+              "source": "@site/docs/tutorials/hybrid-algorithms.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/hybrid-algorithms",
+              "permalink": "/tutorials/hybrid-algorithms",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              }
+            },
+            {
+              "unversionedId": "tutorials/noise-models",
+              "id": "tutorials/noise-models",
+              "title": "Quantum Noise Models",
+              "description": "This page explains how to simulate quantum noise in HaskQ.",
+              "source": "@site/docs/tutorials/noise-models.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/noise-models",
+              "permalink": "/tutorials/noise-models",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 7,
+              "frontMatter": {
+                "sidebar_position": 7
+              }
+            },
+            {
+              "unversionedId": "tutorials/optimization",
+              "id": "tutorials/optimization",
+              "title": "Circuit Optimization",
+              "description": "This page explains how to optimize quantum circuits in HaskQ.",
+              "source": "@site/docs/tutorials/optimization.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/optimization",
+              "permalink": "/tutorials/optimization",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 8,
+              "frontMatter": {
+                "sidebar_position": 8
+              }
+            },
+            {
+              "unversionedId": "tutorials/surface-codes",
+              "id": "tutorials/surface-codes",
+              "title": "Surface Codes",
+              "description": "This page explains how to implement surface code error correction in HaskQ.",
+              "source": "@site/docs/tutorials/surface-codes.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/surface-codes",
+              "permalink": "/tutorials/surface-codes",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "sidebar_position": 6
               }
             }
           ],
@@ -387,21 +510,12 @@
       ]
     }
   },
-  "docusaurus-plugin-content-blog": {
-    "default": {
-      "blogSidebarTitle": "Recent posts",
-      "blogPosts": [],
-      "blogListPaginated": [],
-      "blogTags": {},
-      "blogTagsListPath": "/blog/tags",
-      "blogTagsPaginated": []
-    }
-  },
   "docusaurus-plugin-content-pages": {
     "default": null
   },
   "docusaurus-plugin-debug": {},
   "docusaurus-theme-classic": {},
+  "docusaurus-tailwindcss": {},
   "docusaurus-bootstrap-plugin": {},
   "docusaurus-mdx-fallback-plugin": {}
 }

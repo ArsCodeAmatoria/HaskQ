@@ -39,7 +39,7 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', '365'),
+    component: ComponentCreator('/', '647'),
     routes: [
       {
         path: '/',
@@ -96,16 +96,56 @@ export default [
         sidebar: "tutorialSidebar"
       },
       {
+        path: '/playground',
+        component: ComponentCreator('/playground', '309'),
+        exact: true
+      },
+      {
         path: '/project-structure',
         component: ComponentCreator('/project-structure', '8d3'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
       {
+        path: '/tutorials/algorithms',
+        component: ComponentCreator('/tutorials/algorithms', '675'),
+        exact: true
+      },
+      {
         path: '/tutorials/bell-states',
         component: ComponentCreator('/tutorials/bell-states', '954'),
         exact: true,
         sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/tutorials/error-correction',
+        component: ComponentCreator('/tutorials/error-correction', 'a09'),
+        exact: true
+      },
+      {
+        path: '/tutorials/fault-tolerance',
+        component: ComponentCreator('/tutorials/fault-tolerance', 'd2b'),
+        exact: true
+      },
+      {
+        path: '/tutorials/hybrid-algorithms',
+        component: ComponentCreator('/tutorials/hybrid-algorithms', 'c86'),
+        exact: true
+      },
+      {
+        path: '/tutorials/noise-models',
+        component: ComponentCreator('/tutorials/noise-models', 'fe3'),
+        exact: true
+      },
+      {
+        path: '/tutorials/optimization',
+        component: ComponentCreator('/tutorials/optimization', 'efe'),
+        exact: true
+      },
+      {
+        path: '/tutorials/surface-codes',
+        component: ComponentCreator('/tutorials/surface-codes', '79d'),
+        exact: true
       }
     ]
   },
