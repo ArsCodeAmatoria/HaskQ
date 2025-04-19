@@ -13,17 +13,16 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://docs.haskq.org',
+  url: 'https://hask-q.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'haskq', // Usually your GitHub org/user name.
-  projectName: 'haskq', // Usually your repo name.
+  organizationName: 'ArsCodeAmatoria', // Usually your GitHub org/user name.
+  projectName: 'HaskQ', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -42,7 +41,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/haskq/haskq/tree/main/apps/docs/',
+          editUrl: 'https://github.com/ArsCodeAmatoria/HaskQ/tree/main/apps/docs/',
           remarkPlugins: [math],
           rehypePlugins: [katex],
           routeBasePath: '/',
@@ -52,7 +51,7 @@ const config = {
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: 'https://github.com/haskq/haskq/tree/main/apps/docs/',
+          editUrl: 'https://github.com/ArsCodeAmatoria/HaskQ/tree/main/apps/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -83,23 +82,63 @@ const config = {
         },
         items: [
           {
-            to: 'http://localhost:3002',
-            label: 'Home',
+            to: '/',
+            label: 'Documentation',
             position: 'left',
+            activeBaseRegex: '/$',
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Docs',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/haskq/haskq',
+            href: 'https://github.com/ArsCodeAmatoria/HaskQ',
             label: 'GitHub',
             position: 'right',
           },
+          {
+            href: 'https://hask-q.vercel.app/playground',
+            label: 'Playground',
+            position: 'right',
+          },
         ],
+      },
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Documentation',
+            items: [
+              {
+                label: 'Getting Started',
+                to: '/getting-started',
+              },
+              {
+                label: 'Core Concepts',
+                to: '/category/core-concepts',
+              },
+              {
+                label: 'Tutorials',
+                to: '/category/tutorials',
+              },
+            ],
+          },
+          {
+            title: 'Resources',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/ArsCodeAmatoria/HaskQ',
+              },
+              {
+                label: 'Playground',
+                href: 'https://hask-q.vercel.app/playground',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} HaskQ. Built with Docusaurus.`,
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+        additionalLanguages: ['haskell'],
       },
     }),
 };
