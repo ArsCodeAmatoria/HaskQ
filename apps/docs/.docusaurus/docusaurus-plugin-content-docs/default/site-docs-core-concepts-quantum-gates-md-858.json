@@ -1,0 +1,27 @@
+{
+  "unversionedId": "core-concepts/quantum-gates",
+  "id": "core-concepts/quantum-gates",
+  "title": "Quantum Gates",
+  "description": "In quantum computing, gates are the fundamental building blocks for quantum circuits, similar to how logic gates are used in classical computing. This guide explores the quantum gates implemented in HaskQ.",
+  "source": "@site/docs/core-concepts/quantum-gates.md",
+  "sourceDirName": "core-concepts",
+  "slug": "/core-concepts/quantum-gates",
+  "permalink": "/core-concepts/quantum-gates",
+  "draft": false,
+  "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/quantum-gates.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Circuit Composition",
+    "permalink": "/core-concepts/circuit-composition"
+  },
+  "next": {
+    "title": "Measurement and Classical Control",
+    "permalink": "/core-concepts/measurement"
+  }
+}

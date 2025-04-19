@@ -1,0 +1,27 @@
+{
+  "unversionedId": "core-concepts/simulation",
+  "id": "core-concepts/simulation",
+  "title": "Quantum Simulation",
+  "description": "HaskQ includes a powerful quantum circuit simulator that allows you to test and analyze quantum algorithms without a physical quantum computer. This document explains how simulation works in HaskQ and how to use it effectively.",
+  "source": "@site/docs/core-concepts/simulation.md",
+  "sourceDirName": "core-concepts",
+  "slug": "/core-concepts/simulation",
+  "permalink": "/core-concepts/simulation",
+  "draft": false,
+  "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/simulation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Measurement and Classical Control",
+    "permalink": "/core-concepts/measurement"
+  },
+  "next": {
+    "title": "Creating Bell States",
+    "permalink": "/tutorials/bell-states"
+  }
+}

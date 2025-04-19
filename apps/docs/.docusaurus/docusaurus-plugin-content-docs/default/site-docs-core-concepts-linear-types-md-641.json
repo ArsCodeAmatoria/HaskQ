@@ -1,0 +1,27 @@
+{
+  "unversionedId": "core-concepts/linear-types",
+  "id": "core-concepts/linear-types",
+  "title": "Linear Types in Quantum Computing",
+  "description": "HaskQ leverages GHC's LinearTypes extension to enforce the no-cloning theorem of quantum mechanics. This document explains what linear types are, why they're essential for quantum programming, and how to use them effectively in HaskQ.",
+  "source": "@site/docs/core-concepts/linear-types.md",
+  "sourceDirName": "core-concepts",
+  "slug": "/core-concepts/linear-types",
+  "permalink": "/core-concepts/linear-types",
+  "draft": false,
+  "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/linear-types.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Quantum Computing Basics",
+    "permalink": "/core-concepts/quantum-computing-basics"
+  },
+  "next": {
+    "title": "Circuit Composition",
+    "permalink": "/core-concepts/circuit-composition"
+  }
+}

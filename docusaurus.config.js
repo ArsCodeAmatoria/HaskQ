@@ -46,6 +46,8 @@ const config = {
           remarkPlugins: [math],
           rehypePlugins: [katex],
           routeBasePath: '/',
+          // Set the home page document
+          homePageId: 'intro',
         },
         blog: {
           showReadingTime: true,
@@ -72,10 +74,13 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/haskq-social-card.jpg',
+      image: 'img/haskq-social-card.png',
       navbar: {
         title: 'HaskQ',
-        hideOnScroll: false,
+        logo: {
+          alt: 'HaskQ Logo',
+          src: 'img/logo.png',
+        },
         items: [
           {
             to: 'http://localhost:3002',
@@ -90,79 +95,11 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            to: 'http://localhost:3003',
-            label: 'Playground',
-            position: 'left',
-          },
-          {
             href: 'https://github.com/haskq/haskq',
             label: 'GitHub',
             position: 'right',
           },
         ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Introduction',
-                to: '/intro',
-              },
-              {
-                label: 'Core Concepts',
-                to: '/category/core-concepts',
-              },
-              {
-                label: 'Tutorials',
-                to: '/category/tutorials',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'GitHub Discussions',
-                href: 'https://github.com/haskq/haskq/discussions',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/haskq',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/haskq/haskq',
-              },
-              {
-                label: 'Playground',
-                href: 'http://localhost:3003',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} HaskQ. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-        additionalLanguages: ['haskell', 'bash'],
-      },
-      colorMode: {
-        defaultMode: 'dark',
-        disableSwitch: false,
-        respectPrefersColorScheme: true,
       },
     }),
 };

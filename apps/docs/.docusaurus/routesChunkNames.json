@@ -1,0 +1,96 @@
+{
+  "/__docusaurus/debug-d2c": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    }
+  },
+  "/__docusaurus/debug/config-c76": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    }
+  },
+  "/__docusaurus/debug/content-3c5": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    },
+    "allContent": "allContent---docusaurus-debug-content-246-9aa"
+  },
+  "/__docusaurus/debug/globalData-778": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    }
+  },
+  "/__docusaurus/debug/metadata-375": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    }
+  },
+  "/__docusaurus/debug/registry-b85": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    }
+  },
+  "/__docusaurus/debug/routes-ac3": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-7-ee-fd8"
+    }
+  },
+  "/-365": {
+    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__context": {
+      "plugin": "plugin---20-a-3f4"
+    },
+    "versionMetadata": "versionMetadata---935-fcf"
+  },
+  "/-96c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---0-e-3-279"
+  },
+  "/core-concepts/circuit-composition-8f5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-circuit-compositione-7-b-9c8"
+  },
+  "/core-concepts/linear-types-20f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-linear-types-641-927"
+  },
+  "/core-concepts/measurement-33f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-measurement-295-219"
+  },
+  "/core-concepts/quantum-computing-basics-789": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-quantum-computing-basicsaf-6-c7a"
+  },
+  "/core-concepts/quantum-gates-fe0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-quantum-gates-858-e4d"
+  },
+  "/core-concepts/simulation-569": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-simulation-7-c-1-fb8"
+  },
+  "/getting-started-c9b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---getting-startedd-58-456"
+  },
+  "/installation-2e7": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---installation-3-b-8-fd1"
+  },
+  "/project-structure-8d3": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---project-structurea-5-f-e7a"
+  },
+  "/tutorials/bell-states-954": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---tutorials-bell-statesfe-0-412"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "unversionedId": "core-concepts/measurement",
+  "id": "core-concepts/measurement",
+  "title": "Measurement and Classical Control",
+  "description": "Measurement is a fundamental operation in quantum computing that bridges the quantum and classical worlds. This document explains how measurement works in HaskQ and how to use measurement results to control classical operations.",
+  "source": "@site/docs/core-concepts/measurement.md",
+  "sourceDirName": "core-concepts",
+  "slug": "/core-concepts/measurement",
+  "permalink": "/core-concepts/measurement",
+  "draft": false,
+  "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/measurement.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Quantum Gates",
+    "permalink": "/core-concepts/quantum-gates"
+  },
+  "next": {
+    "title": "Quantum Simulation",
+    "permalink": "/core-concepts/simulation"
+  }
+}

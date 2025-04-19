@@ -1,0 +1,407 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "label": "Next",
+          "banner": null,
+          "badge": false,
+          "noIndex": false,
+          "className": "docs-version-current",
+          "path": "/",
+          "tagsPath": "/tags",
+          "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs",
+          "editUrlLocalized": "https://github.com/haskq/haskq/tree/main/apps/docs/i18n/en/docusaurus-plugin-content-docs/current",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "/Users/kojinfox/HaskQ/apps/docs/sidebars.js",
+          "contentPath": "/Users/kojinfox/HaskQ/apps/docs/docs",
+          "contentPathLocalized": "/Users/kojinfox/HaskQ/apps/docs/i18n/en/docusaurus-plugin-content-docs/current",
+          "docs": [
+            {
+              "unversionedId": "core-concepts/circuit-composition",
+              "id": "core-concepts/circuit-composition",
+              "title": "Circuit Composition",
+              "description": "Circuit composition is a fundamental concept in quantum computing that enables building complex quantum algorithms from simpler components. HaskQ provides elegant ways to compose quantum circuits using Haskell's functional programming paradigm.",
+              "source": "@site/docs/core-concepts/circuit-composition.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/circuit-composition",
+              "permalink": "/core-concepts/circuit-composition",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/circuit-composition.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Linear Types in Quantum Computing",
+                "permalink": "/core-concepts/linear-types"
+              },
+              "next": {
+                "title": "Quantum Gates",
+                "permalink": "/core-concepts/quantum-gates"
+              }
+            },
+            {
+              "unversionedId": "core-concepts/linear-types",
+              "id": "core-concepts/linear-types",
+              "title": "Linear Types in Quantum Computing",
+              "description": "HaskQ leverages GHC's LinearTypes extension to enforce the no-cloning theorem of quantum mechanics. This document explains what linear types are, why they're essential for quantum programming, and how to use them effectively in HaskQ.",
+              "source": "@site/docs/core-concepts/linear-types.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/linear-types",
+              "permalink": "/core-concepts/linear-types",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/linear-types.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "sidebar_position": 6
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Computing Basics",
+                "permalink": "/core-concepts/quantum-computing-basics"
+              },
+              "next": {
+                "title": "Circuit Composition",
+                "permalink": "/core-concepts/circuit-composition"
+              }
+            },
+            {
+              "unversionedId": "core-concepts/measurement",
+              "id": "core-concepts/measurement",
+              "title": "Measurement and Classical Control",
+              "description": "Measurement is a fundamental operation in quantum computing that bridges the quantum and classical worlds. This document explains how measurement works in HaskQ and how to use measurement results to control classical operations.",
+              "source": "@site/docs/core-concepts/measurement.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/measurement",
+              "permalink": "/core-concepts/measurement",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/measurement.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Gates",
+                "permalink": "/core-concepts/quantum-gates"
+              },
+              "next": {
+                "title": "Quantum Simulation",
+                "permalink": "/core-concepts/simulation"
+              }
+            },
+            {
+              "unversionedId": "core-concepts/quantum-computing-basics",
+              "id": "core-concepts/quantum-computing-basics",
+              "title": "Quantum Computing Basics",
+              "description": "This document provides a brief introduction to the fundamental concepts of quantum computing.",
+              "source": "@site/docs/core-concepts/quantum-computing-basics.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/quantum-computing-basics",
+              "permalink": "/core-concepts/quantum-computing-basics",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/quantum-computing-basics.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Project Structure",
+                "permalink": "/project-structure"
+              },
+              "next": {
+                "title": "Linear Types in Quantum Computing",
+                "permalink": "/core-concepts/linear-types"
+              }
+            },
+            {
+              "unversionedId": "core-concepts/quantum-gates",
+              "id": "core-concepts/quantum-gates",
+              "title": "Quantum Gates",
+              "description": "In quantum computing, gates are the fundamental building blocks for quantum circuits, similar to how logic gates are used in classical computing. This guide explores the quantum gates implemented in HaskQ.",
+              "source": "@site/docs/core-concepts/quantum-gates.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/quantum-gates",
+              "permalink": "/core-concepts/quantum-gates",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/quantum-gates.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Circuit Composition",
+                "permalink": "/core-concepts/circuit-composition"
+              },
+              "next": {
+                "title": "Measurement and Classical Control",
+                "permalink": "/core-concepts/measurement"
+              }
+            },
+            {
+              "unversionedId": "core-concepts/simulation",
+              "id": "core-concepts/simulation",
+              "title": "Quantum Simulation",
+              "description": "HaskQ includes a powerful quantum circuit simulator that allows you to test and analyze quantum algorithms without a physical quantum computer. This document explains how simulation works in HaskQ and how to use it effectively.",
+              "source": "@site/docs/core-concepts/simulation.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/simulation",
+              "permalink": "/core-concepts/simulation",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/core-concepts/simulation.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Measurement and Classical Control",
+                "permalink": "/core-concepts/measurement"
+              },
+              "next": {
+                "title": "Creating Bell States",
+                "permalink": "/tutorials/bell-states"
+              }
+            },
+            {
+              "unversionedId": "getting-started",
+              "id": "getting-started",
+              "title": "Getting Started with HaskQ",
+              "description": "This guide will help you get started with HaskQ, from installation to creating your first quantum circuit.",
+              "source": "@site/docs/getting-started.md",
+              "sourceDirName": ".",
+              "slug": "/getting-started",
+              "permalink": "/getting-started",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/getting-started.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Introduction to HaskQ",
+                "permalink": "/"
+              },
+              "next": {
+                "title": "Installation",
+                "permalink": "/installation"
+              }
+            },
+            {
+              "unversionedId": "installation",
+              "id": "installation",
+              "title": "Installation",
+              "description": "This guide covers how to install and set up HaskQ on your system.",
+              "source": "@site/docs/installation.md",
+              "sourceDirName": ".",
+              "slug": "/installation",
+              "permalink": "/installation",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/installation.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Getting Started with HaskQ",
+                "permalink": "/getting-started"
+              },
+              "next": {
+                "title": "Project Structure",
+                "permalink": "/project-structure"
+              }
+            },
+            {
+              "unversionedId": "intro",
+              "id": "intro",
+              "title": "Introduction to HaskQ",
+              "description": "Welcome to HaskQ, a quantum computing framework built in Haskell that combines the elegance of functional programming with the power of quantum computing.",
+              "source": "@site/docs/intro.md",
+              "sourceDirName": ".",
+              "slug": "/",
+              "permalink": "/",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/intro.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "slug": "/"
+              },
+              "sidebar": "tutorialSidebar",
+              "next": {
+                "title": "Getting Started with HaskQ",
+                "permalink": "/getting-started"
+              }
+            },
+            {
+              "unversionedId": "project-structure",
+              "id": "project-structure",
+              "title": "Project Structure",
+              "description": "Understanding the structure of the HaskQ project will help you navigate the codebase and contribute effectively.",
+              "source": "@site/docs/project-structure.md",
+              "sourceDirName": ".",
+              "slug": "/project-structure",
+              "permalink": "/project-structure",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/project-structure.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Installation",
+                "permalink": "/installation"
+              },
+              "next": {
+                "title": "Quantum Computing Basics",
+                "permalink": "/core-concepts/quantum-computing-basics"
+              }
+            },
+            {
+              "unversionedId": "tutorials/bell-states",
+              "id": "tutorials/bell-states",
+              "title": "Creating Bell States",
+              "description": "This tutorial guides you through creating a Bell state, one of the fundamental entangled quantum states, using HaskQ.",
+              "source": "@site/docs/tutorials/bell-states.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/bell-states",
+              "permalink": "/tutorials/bell-states",
+              "draft": false,
+              "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/tutorials/bell-states.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Simulation",
+                "permalink": "/core-concepts/simulation"
+              }
+            }
+          ],
+          "drafts": [],
+          "sidebars": {
+            "tutorialSidebar": [
+              {
+                "type": "category",
+                "label": "Introduction",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "intro"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "getting-started"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "installation"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "project-structure"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Core Concepts",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/quantum-computing-basics"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/linear-types"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/circuit-composition"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/quantum-gates"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/measurement"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/simulation"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Tutorials",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "tutorials/bell-states"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-blog": {
+    "default": {
+      "blogSidebarTitle": "Recent posts",
+      "blogPosts": [],
+      "blogListPaginated": [],
+      "blogTags": {},
+      "blogTagsListPath": "/blog/tags",
+      "blogTagsPaginated": []
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": null
+  },
+  "docusaurus-plugin-debug": {},
+  "docusaurus-theme-classic": {},
+  "docusaurus-bootstrap-plugin": {},
+  "docusaurus-mdx-fallback-plugin": {}
+}

@@ -36,10 +36,21 @@ initializeState n = SimState
   , measurements = []
   }
 
+-- | Mapping between Core.CircuitState and SimState
+fromCoreState :: Core.CircuitState -> SimState
+fromCoreState _ = initializeState 1  -- Default to 1 qubit if state is unknown
+
 -- | Run a quantum circuit simulation
 runSimulation :: Int -> Circ a %1-> (SimState, a)
 runSimulation numQubits (Circ circuit) =
-  circuit (undefined :: Core.CircuitState) -- Actual implementation needed
+  let 
+    initialState = initializeState numQubits
+    dummyState = undefined :: Core.CircuitState
+    (_, result) = circuit dummyState
+  in 
+    -- For now, return a dummy simulation with an initialized state
+    -- In a real implementation, we would translate between Core.CircuitState and SimState
+    (initialState, result)
 
 -- | Simulate a circuit and get the output
 simulateCircuit :: Int -> Circ a %1-> CircuitOutput a

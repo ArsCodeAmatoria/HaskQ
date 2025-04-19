@@ -1,0 +1,23 @@
+{
+  "unversionedId": "tutorials/bell-states",
+  "id": "tutorials/bell-states",
+  "title": "Creating Bell States",
+  "description": "This tutorial guides you through creating a Bell state, one of the fundamental entangled quantum states, using HaskQ.",
+  "source": "@site/docs/tutorials/bell-states.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/bell-states",
+  "permalink": "/tutorials/bell-states",
+  "draft": false,
+  "editUrl": "https://github.com/haskq/haskq/tree/main/apps/docs/docs/tutorials/bell-states.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Quantum Simulation",
+    "permalink": "/core-concepts/simulation"
+  }
+}
