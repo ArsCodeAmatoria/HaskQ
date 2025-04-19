@@ -16,7 +16,7 @@ const config = {
   url: 'https://haskq.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/docs/',
+  baseUrl: '/',
   trailingSlash: false,
 
   // GitHub pages deployment config.
@@ -105,7 +105,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://haskq.vercel.app/playground',
+            href: 'http://localhost:3003/playground',
             label: 'Playground',
             position: 'right',
           },
