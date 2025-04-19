@@ -1,6 +1,7 @@
 {-# LANGUAGE LinearTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE GADTs #-}
+{-# LANGUAGE RankNTypes #-}
 
 module HaskQ.Simulator.Circuit
   ( SimState
@@ -9,6 +10,7 @@ module HaskQ.Simulator.Circuit
   , simulateCircuit
   , applyOperation
   , extractMeasurement
+  , createQubit
   ) where
 
 import qualified HaskQ.Core.Types as Core
@@ -20,11 +22,13 @@ import Data.Complex
 import qualified Prelude as P
 import Prelude.Linear
 import Control.Monad.Linear
+import Data.Bifunctor (first)
 
 -- | The simulation state containing the current state vector and qubit mappings
 data SimState = SimState
   { stateVector :: StateVector
   , qubits :: [Int]  -- Maps logical qubits to physical qubits in the state vector
+  , nextQubit :: Int -- Next qubit index to allocate
   , measurements :: [Measurement]
   } deriving (Show)
 
@@ -32,25 +36,86 @@ data SimState = SimState
 initializeState :: Int -> SimState
 initializeState n = SimState
   { stateVector = createStateVector n
-  , qubits = [0..(n-1)]
+  , qubits = []  -- No qubits allocated initially
+  , nextQubit = 0
   , measurements = []
   }
 
--- | Mapping between Core.CircuitState and SimState
+-- | Create a new qubit in the |0⟩ state
+createQubit :: SimState %1-> (SimState, Qubit)
+createQubit state =
+  let qubitIdx = nextQubit state
+      -- Dummy Qubit value - in a real implementation this would be a proper reference
+      qubit = undefined :: Qubit
+      newState = state { qubits = qubits state ++ [qubitIdx]
+                       , nextQubit = qubitIdx + 1
+                       }
+  in (newState, qubit)
+
+-- | Mapping from Core.CircuitState to SimState
+-- This is a mock implementation since we don't have access to the actual Core.CircuitState
 fromCoreState :: Core.CircuitState -> SimState
-fromCoreState _ = initializeState 1  -- Default to 1 qubit if state is unknown
+fromCoreState _ = initializeState 10  -- Default to 10 qubits
+
+-- | Convert from SimState to Core.CircuitState (placeholder)
+toCoreState :: SimState -> Core.CircuitState
+toCoreState _ = undefined
+
+-- Wrapper for Core.Circ to intercept operations
+wrapCircuit :: (forall a. Core.Circ a %1-> (SimState, a)) -> Core.Circ b %1-> (Core.CircuitState, b)
+wrapCircuit f circ = 
+  let 
+    (simState, result) = f circ
+  in
+    (toCoreState simState, result)
 
 -- | Run a quantum circuit simulation
 runSimulation :: Int -> Circ a %1-> (SimState, a)
 runSimulation numQubits (Circ circuit) =
   let 
     initialState = initializeState numQubits
-    dummyState = undefined :: Core.CircuitState
-    (_, result) = circuit dummyState
-  in 
-    -- For now, return a dummy simulation with an initialized state
-    -- In a real implementation, we would translate between Core.CircuitState and SimState
-    (initialState, result)
+    
+    -- Interpreter for Circ operations
+    interpret :: Circ a %1-> (SimState, a)
+    interpret (Circ c) = 
+      let 
+        wrappedC = wrapCircuit interpret
+        -- This is the trick: we replace the Core.CircuitState with our SimState
+        simulatedC simState = c undefined  -- We use undefined as a dummy value
+      in
+        case c of
+          -- Handle the qubit creation operation
+          Core.qubit -> createQubit initialState
+            
+          -- Handle gate application
+          Core.applyGate gate qubit ->
+            let 
+              -- Find the qubit index
+              qubitIdx = 0  -- In a real implementation, we would look up the qubit index
+              
+              -- Apply the gate to the state vector
+              newState = applyOperation gate qubitIdx initialState
+            in
+              (newState, qubit)  -- Return the qubit unchanged (in a real implementation it would be updated)
+            
+          -- Handle measurement
+          Core.measure qubit ->
+            let 
+              -- Find the qubit index
+              qubitIdx = 0  -- In a real implementation, we would look up the qubit index
+              
+              -- Perform the measurement
+              (result, newSv) = extractMeasurement qubitIdx (stateVector initialState)
+              
+              -- Update the state
+              newState = initialState { stateVector = newSv, measurements = measurements initialState ++ [result] }
+            in
+              (newState, (result, qubit))  -- Return the measurement result and the qubit
+              
+          -- For all other operations, we just pass through
+          _ -> (initialState, simulatedC initialState)
+  in
+    interpret (Circ circuit)
 
 -- | Simulate a circuit and get the output
 simulateCircuit :: Int -> Circ a %1-> CircuitOutput a
@@ -65,7 +130,7 @@ simulateCircuit numQubits circ =
 applyOperation :: Core.Gate -> Int -> SimState -> SimState
 applyOperation gate targetQubit state =
   let sv = stateVector state
-      qubitIdx = qubits state !! targetQubit
+      qubitIdx = if not (null (qubits state)) then qubits state !! targetQubit else targetQubit
       newSv = applyGate gate sv
   in state { stateVector = newSv }
 

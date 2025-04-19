@@ -17,6 +17,7 @@ common warnings
 library
     import:           warnings
     exposed-modules:  
+        HaskQ.Prelude
         HaskQ.Core.Types
         HaskQ.Core.Gates
         HaskQ.Core.Circuit

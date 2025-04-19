@@ -124,8 +124,63 @@ applyTwoQubitGate matrix controlQubit targetQubit stateVector =
 
 -- | Expand a single-qubit matrix to operate on the full state space
 expandMatrix :: V.Vector (V.Vector (Complex Double)) -> Int -> Int -> V.Vector (V.Vector (Complex Double))
-expandMatrix matrix targetQubit n = undefined -- Implementation omitted for brevity
+expandMatrix matrix targetQubit n = 
+  let dim = 2^n  -- Dimension of the full state space
+      
+      -- Helper function to determine if bit at position 'pos' is set in number 'x'
+      bitIsSet x pos = (x P..&. (1 P.shift pos)) /= 0
+      
+      -- Create the full matrix
+      fullMatrix = V.generate dim $ \i -> 
+        V.generate dim $ \j -> 
+          if bitAt i targetQubit == bitAt j targetQubit
+          then 1 :+ 0  -- Identity for bits that don't match the target
+          else
+            let 
+              -- Extract the relevant bits for the matrix lookup
+              iTargetBit = if bitIsSet i targetQubit then 1 else 0
+              jTargetBit = if bitIsSet j targetQubit then 1 else 0
+              
+              -- Check if all other bits are the same (identity operation on other qubits)
+              otherBitsSame = (i `P.xor` j) == (1 P.shift targetQubit)
+            in
+              if otherBitsSame 
+              then matrix V.! iTargetBit V.! jTargetBit
+              else 0 :+ 0  -- Zero for elements that don't match the pattern
+  in fullMatrix
+
+-- | Extract the bit value at a specific position
+bitAt :: Int -> Int -> Int
+bitAt num pos = if (num P..&. (1 P.shift pos)) /= 0 then 1 else 0
 
 -- | Expand a two-qubit matrix to operate on the full state space
 expandTwoQubitMatrix :: V.Vector (V.Vector (Complex Double)) -> Int -> Int -> Int -> V.Vector (V.Vector (Complex Double))
-expandTwoQubitMatrix matrix controlQubit targetQubit n = undefined -- Implementation omitted for brevity 
+expandTwoQubitMatrix matrix controlQubit targetQubit n =
+  let dim = 2^n  -- Dimension of the full state space
+      
+      -- Helper function to determine if bit at position 'pos' is set in number 'x'
+      bitIsSet x pos = (x P..&. (1 P.shift pos)) /= 0
+      
+      -- Create the full matrix
+      fullMatrix = V.generate dim $ \i -> 
+        V.generate dim $ \j -> 
+          let 
+            -- Extract the relevant bits for the control and target qubits
+            iControlBit = bitAt i controlQubit
+            iTargetBit = bitAt i targetQubit
+            jControlBit = bitAt j controlQubit
+            jTargetBit = bitAt j targetQubit
+            
+            -- Calculate the index in the 4x4 matrix
+            matrixI = iControlBit * 2 + iTargetBit
+            matrixJ = jControlBit * 2 + jTargetBit
+            
+            -- Check if all other bits are the same
+            otherBitsSame = ((i `P.xor` j) P..&. P.complement ((1 P.shift controlQubit) P..|. (1 P.shift targetQubit))) == 0
+          in
+            if otherBitsSame
+            then matrix V.! matrixI V.! matrixJ
+            else if i == j  -- Identity for unaffected states
+              then 1 :+ 0
+              else 0 :+ 0
+  in fullMatrix 
