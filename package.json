@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=haskq-landing",
+    "dev:all": "turbo run dev",
     "dev:landing": "cd apps/landing && npm run dev",
     "dev:docs": "cd apps/docs && npm run dev",
     "dev:playground": "cd apps/playground && npm run dev",

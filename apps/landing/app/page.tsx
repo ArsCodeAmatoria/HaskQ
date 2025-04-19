@@ -40,7 +40,7 @@ export default function LandingPage() {
             <a href="http://localhost:3000" className="btn-secondary px-6 py-3">
               View Docs <Book className="ml-2 h-4 w-4" />
             </a>
-            <a href="http://localhost:3003" className="btn-outline px-6 py-3">
+            <a href="http://localhost:3003/playground" className="btn-outline px-6 py-3">
               Try Playground <Code className="ml-2 h-4 w-4" />
             </a>
           </motion.div>
@@ -174,7 +174,7 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
                 <li><a href="http://localhost:3000" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Documentation</a></li>
                 <li><a href="http://localhost:3000/category/tutorials" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Tutorials</a></li>
                 <li><a href="http://localhost:3000/category/api" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">API Reference</a></li>
-                <li><a href="http://localhost:3003" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Playground</a></li>
+                <li><a href="http://localhost:3003/playground" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Playground</a></li>
               </ul>
             </div>
             

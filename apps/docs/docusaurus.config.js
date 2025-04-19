@@ -103,7 +103,7 @@ const config = {
           },
           {
             href: 'http://localhost:3002',
-            label: 'Landing',
+            label: 'Home',
             position: 'right',
           },
           {
@@ -122,17 +122,33 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Documentation',
             items: [
               {
-                label: 'Documentation',
-                to: '/',
+                label: 'Getting Started',
+                to: '/getting-started',
+              },
+              {
+                label: 'Core Concepts',
+                to: '/category/core-concepts',
+              },
+              {
+                label: 'Tutorials',
+                to: '/category/tutorials',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Resources',
             items: [
+              {
+                label: 'Home',
+                href: 'http://localhost:3002',
+              },
+              {
+                label: 'Playground',
+                href: 'http://localhost:3003/playground',
+              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/haskq/haskq',
