@@ -9,12 +9,12 @@
       "src": "apps/docs/package.json",
       "use": "@vercel/static-build",
       "config": { 
-        "distDir": "build",
-        "buildCommand": "npm run build"
+        "distDir": "apps/docs/build",
+        "buildCommand": "cd apps/docs && npm run build"
       }
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/(.*)", "dest": "/apps/docs/build/$1" }
   ]
 } 
