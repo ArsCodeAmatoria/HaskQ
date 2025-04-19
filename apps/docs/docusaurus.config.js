@@ -21,8 +21,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'haskq', // Usually your GitHub org/user name.
-  projectName: 'haskq', // Usually your repo name.
+  organizationName: 'ArsCodeAmatoria', // Usually your GitHub org/user name.
+  projectName: 'HaskQ', // Usually your repo name.
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -112,7 +112,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/haskq/haskq',
+            href: 'https://github.com/ArsCodeAmatoria/HaskQ',
             label: 'GitHub',
             position: 'right',
           },
@@ -151,7 +151,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/haskq/haskq',
+                href: 'https://github.com/ArsCodeAmatoria/HaskQ',
               },
             ],
           },
