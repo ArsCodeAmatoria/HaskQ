@@ -98,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
           
           <a 
-            href="https://github.com/quantum-lab/haskq" 
+            href="https://github.com/ArsCodeAmatoria/HaskQ" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-gray-800 hover:bg-gray-700 text-white p-1.5 rounded-md"

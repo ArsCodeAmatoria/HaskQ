@@ -173,6 +173,114 @@ groverAlgorithm = do
 -- Run Grover's algorithm
 main :: Circ (Measurement, Measurement)
 main = groverAlgorithm`
+  },
+  {
+    id: 'shors-algorithm',
+    name: 'Shor\'s Algorithm',
+    description: 'Exponential speedup for integer factorization, threatening classical cryptography.',
+    difficulty: 'advanced',
+    code: `-- Shor's Algorithm for period finding
+-- This is a simplified demonstration version
+
+-- Quantum Fourier Transform (QFT)
+qft :: [Qubit] -> Circ [Qubit]
+qft [] = pure []
+qft (q:qs) = do
+  -- Apply Hadamard to the first qubit
+  q' <- hadamard q
+  
+  -- Apply controlled rotations
+  q'' <- applyControlledRotations q' qs 2
+  
+  -- Recursively apply QFT to the rest
+  qs' <- qft qs
+  
+  -- Return the transformed qubits
+  pure (q'' : qs')
+  where
+    applyControlledRotations :: Qubit -> [Qubit] -> Int -> Circ Qubit
+    applyControlledRotations q [] _ = pure q
+    applyControlledRotations q (c:cs) n = do
+      -- Apply controlled rotation
+      q' <- controlledPhaseShift c q (2*pi / (2^n))
+      -- Continue with remaining qubits
+      applyControlledRotations q' cs (n+1)
+
+-- Inverse QFT
+iqft :: [Qubit] -> Circ [Qubit]
+iqft qs = do
+  -- Reverse the qubits
+  let rqs = reverse qs
+  -- Apply QFT
+  rqs' <- qft rqs
+  -- Reverse back
+  pure (reverse rqs')
+
+-- Modular exponentiation function (a^x mod N)
+-- Simplified version for demonstration
+modExp :: Int -> [Qubit] -> [Qubit] -> Int -> Circ ([Qubit], [Qubit])
+modExp a x output n = do
+  -- For each qubit in x
+  (x', output') <- applyModExp x output 0
+  pure (x', output')
+  where
+    applyModExp :: [Qubit] -> [Qubit] -> Int -> Circ ([Qubit], [Qubit])
+    applyModExp [] out _ = pure ([], out)
+    applyModExp (q:qs) out i = do
+      -- If qubit is |1⟩, multiply output by a^(2^i) mod N
+      (q', out') <- controlledModMul q out (modPow a (2^i) n)
+      -- Continue with remaining qubits
+      (qs', out'') <- applyModExp qs out' (i+1)
+      pure (q':qs', out'')
+
+-- Controlled modular multiplication
+-- Simplified for demonstration
+controlledModMul :: Qubit -> [Qubit] -> Int -> Circ (Qubit, [Qubit])
+controlledModMul control output factor = do
+  -- Apply quantum multiplication controlled by control qubit
+  -- This is a simplified version
+  pure (control, output)
+
+-- Helper function: a^b mod n
+modPow :: Int -> Int -> Int -> Int
+modPow a b n = (a^b) \`mod\` n
+
+-- Shor's algorithm for factoring N=15
+shorsAlgorithm :: Circ [Measurement]
+shorsAlgorithm = do
+  -- For factoring N=15, we use a=7 (coprime to N)
+  
+  -- Initialize register x with 4 qubits in superposition
+  xRegister <- withQubits 4 $ \\\\qs -> do
+    -- Apply Hadamard to all qubits
+    qs' <- mapM hadamard qs
+    pure qs'
+  
+  -- Initialize output register with |1⟩
+  outputRegister <- withQubits 4 $ \\\\qs -> do
+    -- Set to |1⟩ (only first qubit is |1⟩, rest are |0⟩)
+    first <- gateX (head qs)
+    pure (first : tail qs)
+  
+  -- Apply modular exponentiation
+  (xRegister', _) <- modExp 7 xRegister outputRegister 15
+  
+  -- Apply inverse QFT to the x register
+  xRegister'' <- iqft xRegister'
+  
+  -- Measure all qubits in x register
+  measurements <- mapM measureQubit xRegister''
+  
+  pure measurements
+  where
+    measureQubit :: Qubit -> Circ Measurement
+    measureQubit q = do
+      (m, _) <- measure q
+      pure m
+
+-- Main circuit
+main :: Circ [Measurement]
+main = shorsAlgorithm`
   }
 ]
 
