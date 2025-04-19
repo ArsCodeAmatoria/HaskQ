@@ -3,42 +3,18 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "npm run build",
-  "outputDirectory": ".",
   "framework": "docusaurus-2",
-  "ignoreCommand": "git diff HEAD~ HEAD --quiet . \":(exclude)apps/landing/**\" \":(exclude)apps/playground/**\" \":(exclude)apps/docs/**\"",
-  "rewrites": [
-    { "source": "/playground", "destination": "/playground/index.html" },
-    { "source": "/playground/(.*)", "destination": "/playground/$1" },
-    { "source": "/docs", "destination": "/docs/index.html" },
-    { "source": "/docs/(.*)", "destination": "/docs/$1" },
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/$1" }
-  ],
   "builds": [
     { 
-      "src": "apps/landing/next.config.js", 
-      "use": "@vercel/static",
+      "src": "apps/docs/package.json",
+      "use": "@vercel/static-build",
       "config": { 
-        "distDir": "apps/landing/out",
-        "buildCommand": "cd apps/landing && npm run build"
-      }
-    },
-    { 
-      "src": "apps/playground/next.config.js", 
-      "use": "@vercel/static",
-      "config": { 
-        "distDir": "apps/playground/out",
-        "buildCommand": "cd apps/playground && npm run build"
-      }
-    },
-    { 
-      "src": "apps/docs/docusaurus.config.js", 
-      "use": "@vercel/static",
-      "config": { 
-        "distDir": "apps/docs/build",
-        "buildCommand": "cd apps/docs && npm run build"
+        "distDir": "build",
+        "buildCommand": "npm run build"
       }
     }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 } 
