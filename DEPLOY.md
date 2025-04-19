@@ -1,6 +1,6 @@
 # Deploying HaskQ to Vercel
 
-This guide provides instructions for deploying the HaskQ monorepo to Vercel. The monorepo contains three main applications:
+This guide provides instructions for deploying the HaskQ applications to Vercel. The repository contains three main applications:
 
 1. **Landing Page** - The main website
 2. **Documentation** - The Docusaurus-based documentation site
@@ -13,7 +13,9 @@ This guide provides instructions for deploying the HaskQ monorepo to Vercel. The
 - Git
 - Node.js (version 18 or higher)
 
-## Deployment Steps
+## Deployment Strategy: Separate Projects
+
+For the most reliable deployment, we recommend deploying each application as a separate Vercel project.
 
 ### 1. Clone the Repository
 
@@ -28,105 +30,112 @@ cd haskq
 npm install
 ```
 
-### 3. Build the Project
+### 3. Deploy the Documentation Site
 
 ```bash
-npm run build
+cd apps/docs
+vercel --prod
 ```
 
-This builds all applications in the monorepo using Turborepo.
+During setup:
+- Framework: Docusaurus
+- Output directory: build
 
-### 4. Login to Vercel
+### 4. Deploy the Landing Page
 
 ```bash
-vercel login
+cd ../landing
+vercel --prod
 ```
 
-### 5. Deploy to Vercel
+During setup:
+- Framework: Next.js
+- Output directory: .next
 
-#### Option A: Using the Vercel CLI
+### 5. Deploy the Playground
 
 ```bash
-npm run deploy
+cd ../playground
+vercel --prod
 ```
 
-This will use the `vercel deploy --prod` command specified in the root package.json.
+During setup:
+- Framework: Next.js
+- Output directory: .next
 
-#### Option B: Using the Vercel Dashboard
+### 6. Configure Custom Domains
 
-1. Push your changes to GitHub
-2. Import your project in the Vercel dashboard
-3. Configure the following settings:
-   - Framework Preset: Other
-   - Root Directory: ./
-   - Build Command: `npm run build`
-   - Output Directory: .
+In the Vercel dashboard, you can configure custom domains for each project:
 
-### 6. Verify the Deployment
-
-After deployment, your applications should be available at:
-
-- Landing Page: `https://[your-vercel-domain]/`
-- Documentation: `https://[your-vercel-domain]/docs`
-- Playground: `https://[your-vercel-domain]/playground`
+1. For the landing page, use your root domain (e.g., `haskq.com`)
+2. For documentation, use a subdomain (e.g., `docs.haskq.com`)
+3. For the playground, use another subdomain (e.g., `playground.haskq.com`)
 
 ## Configuration Files
 
-The deployment uses several configuration files:
-
-### Root `vercel.json`
-
-This file specifies the configuration for the monorepo deployment, including build commands and routing rules.
-
-### Next.js Configuration Files
-
-The Next.js applications (landing page and playground) have specific configurations:
-
-- **Landing Page**: `apps/landing/next.config.js` - Configures the landing page with the root base path.
-- **Playground**: `apps/playground/next.config.js` - Configures the playground with the `/playground` base path.
+Each application has specific configuration files:
 
 ### Docusaurus Configuration
 
-The documentation site uses `apps/docs/docusaurus.config.js` with:
-- Base URL set to `/docs/`
-- Production URL set to your Vercel domain
+For the documentation site, adjust `apps/docs/docusaurus.config.js`:
 
-## Troubleshooting
-
-### Build Errors
-
-If you encounter build errors:
-
-1. Check the build logs in the Vercel dashboard
-2. Ensure all dependencies are correctly installed
-3. Verify that the build commands work locally
-
-### Routing Issues
-
-If you're experiencing routing problems:
-
-1. Check the `vercel.json` rewrites configuration
-2. Verify the base paths in the app configurations
-3. Clear your browser cache
-
-### Static Generation
-
-For Next.js apps, ensure they're configured for static export with:
-
-```javascript
-// next.config.js
+```js
 module.exports = {
-  output: 'export'
+  // ...
+  url: 'https://docs.yourdomain.com',
+  baseUrl: '/',
+  // ...
+}
+```
+
+### Next.js Configuration for Landing Page
+
+For the landing page, adjust `apps/landing/next.config.js`:
+
+```js
+module.exports = {
+  reactStrictMode: true,
+  // No basePath needed when deployed separately
+}
+```
+
+### Next.js Configuration for Playground
+
+For the playground, adjust `apps/playground/next.config.js`:
+
+```js
+module.exports = {
+  reactStrictMode: true,
+  // No basePath needed when deployed separately
 }
 ```
 
 ## Continuous Deployment
 
-To set up continuous deployment:
+To set up continuous deployment for each project:
 
-1. Connect your GitHub repository to Vercel
-2. Configure automatic deployments for your production branch
-3. Set up Preview Deployments for pull requests
+1. Connect your GitHub repository to each Vercel project
+2. Configure the project settings to deploy a specific directory:
+   - For docs: `apps/docs`
+   - For landing: `apps/landing`
+   - For playground: `apps/playground`
+3. Set up automatic deployments for your production branch
+
+## Troubleshooting
+
+### React 18 Context Errors
+
+If you encounter React context errors during build:
+
+1. Ensure your Next.js apps are using the correct version of React and React DOM
+2. For component libraries that use React Context, ensure they're compatible with the React version
+
+### Broken Links Between Applications
+
+When your apps are deployed to different domains, you'll need to update any cross-application links to use the full URL:
+
+1. In documentation, update links to the playground to use the full URL
+2. In the landing page, update links to docs and playground
 
 ## Need Help?
 
