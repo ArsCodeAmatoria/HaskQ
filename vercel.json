@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "github": {
+    "silent": true
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
+  "rewrites": [
+    { "source": "/docs", "destination": "/docs" },
+    { "source": "/docs/(.*)", "destination": "/docs/$1" },
+    { "source": "/playground", "destination": "/playground" },
+    { "source": "/playground/(.*)", "destination": "/playground/$1" },
+    { "source": "/(.*)", "destination": "/$1" }
+  ]
+} 

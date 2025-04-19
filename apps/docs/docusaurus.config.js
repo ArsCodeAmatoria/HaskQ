@@ -8,15 +8,15 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'HaskQ Documentation',
-  tagline: 'Quantum Circuits, Purely Functional',
-  favicon: 'img/favicon.ico',
+  title: 'HaskQ',
+  tagline: 'A linear quantum programming language',
+  favicon: 'img/favicon.svg',
 
   // Set the production url of your site here
-  url: 'https://docs.haskq.org',
+  url: 'https://haskq.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -34,6 +34,35 @@ const config = {
     locales: ['en'],
   },
 
+  scripts: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML',
+      async: true,
+    },
+  ],
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css',
+      type: 'text/css',
+      integrity: 'sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X',
+      crossorigin: 'anonymous',
+    },
+  ],
+
+  plugins: [
+    async function tailwindPlugin(context, options) {
+      return {
+        name: 'docusaurus-tailwindcss',
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS and AutoPrefixer.
+          postcssOptions.plugins.push(require('tailwindcss'));
+          postcssOptions.plugins.push(require('autoprefixer'));
+          return postcssOptions;
+        },
+      };
+    },
+  ],
+
   presets: [
     [
       'classic',
@@ -42,16 +71,12 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/haskq/haskq/tree/main/apps/docs/',
+          // Remove this to remove the "edit this page" links.
+          // ... rest of the docs configuration ...
           remarkPlugins: [math],
           rehypePlugins: [katex],
-          routeBasePath: '/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: 'https://github.com/haskq/haskq/tree/main/apps/docs/',
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -59,40 +84,28 @@ const config = {
     ],
   ],
 
-  stylesheets: [
-    {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-      type: 'text/css',
-      integrity: 'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-      crossorigin: 'anonymous',
-    },
-  ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/haskq-social-card.jpg',
+      image: 'img/social-card.png',
       navbar: {
         title: 'HaskQ',
-        hideOnScroll: false,
+        logo: {
+          alt: 'HaskQ Logo',
+          src: 'img/logo.svg',
+        },
         items: [
-          {
-            to: 'http://localhost:3002',
-            label: 'Home',
-            position: 'left',
-          },
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Docs',
+            label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
-            to: 'http://localhost:3003',
+            href: 'https://haskq.vercel.app/playground',
             label: 'Playground',
-            position: 'left',
+            position: 'right',
           },
           {
             href: 'https://github.com/haskq/haskq',
@@ -108,16 +121,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Introduction',
-                to: '/intro',
-              },
-              {
-                label: 'Core Concepts',
-                to: '/category/core-concepts',
-              },
-              {
-                label: 'Tutorials',
-                to: '/category/tutorials',
+                label: 'Documentation',
+                to: '/docs/intro',
               },
             ],
           },
@@ -125,29 +130,8 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'GitHub Discussions',
-                href: 'https://github.com/haskq/haskq/discussions',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/haskq',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
                 href: 'https://github.com/haskq/haskq',
-              },
-              {
-                label: 'Playground',
-                href: 'http://localhost:3003',
               },
             ],
           },
@@ -158,11 +142,6 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
         additionalLanguages: ['haskell', 'bash'],
-      },
-      colorMode: {
-        defaultMode: 'dark',
-        disableSwitch: false,
-        respectPrefersColorScheme: true,
       },
     }),
 };

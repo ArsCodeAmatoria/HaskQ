@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  basePath: '/playground',
+  basePath: '',
   output: 'export',
   distDir: 'dist'
 };
