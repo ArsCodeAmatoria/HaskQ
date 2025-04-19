@@ -4,66 +4,75 @@ sidebar_position: 1
 
 # Introduction to HaskQ
 
-Welcome to HaskQ, a functional quantum programming toolkit that brings together the elegance of Haskell and the power of quantum computing.
+Welcome to HaskQ, a quantum computing framework built in Haskell that combines the elegance of functional programming with the power of quantum computing.
 
 ## What is HaskQ?
 
-HaskQ is a Haskell library for designing and simulating quantum circuits in a purely functional way. It leverages Haskell's powerful type system, particularly linear types, to enforce quantum physics laws at compile time.
+HaskQ is a purely functional quantum circuit design and simulation toolkit that leverages Haskell's strong type system to build safe, composable quantum programs. Key features include:
 
-The core benefits of HaskQ include:
+- **Type-safe quantum programming** using linear types to enforce the no-cloning theorem
+- **Purely functional** approach to quantum circuit design
+- **Built-in simulator** for testing and visualizing quantum circuits
+- **Clean, composable API** for building complex quantum algorithms
 
-- **Type-Safe Quantum Programming**: Linear types ensure no-cloning principle at compile time.
-- **Purely Functional**: Quantum circuits are first-class values that can be composed using monadic combinators.
-- **Simulation Capabilities**: Built-in matrix-based simulator for circuits up to 5 qubits.
-- **Circuit Visualization**: Generate ASCII and JSON representations of quantum circuits.
+## Why Haskell for Quantum Computing?
 
-## Key Components
+Haskell provides several advantages for quantum programming:
 
-HaskQ consists of several core packages:
-
-### haskq-core
-
-The foundation library implementing the quantum DSL with:
-
-- Quantum types: `Qubit`, `Gate`, `Measurement`, etc.
-- The `Circ` monad for circuit composition
-- Basic quantum gates: Hadamard, Pauli-X/Y/Z, CNOT, etc.
-- Measurement operations
-
-### haskq-simulator
-
-A matrix-based quantum simulator that:
-
-- Simulates circuits with up to 5 qubits
-- Uses state vectors and unitary matrices
-- Visualizes circuits in ASCII or JSON format
-- Calculates measurement probabilities
+1. **Type Safety**: Haskell's advanced type system helps catch errors at compile time
+2. **Pure Functions**: Purely functional approach aligns with the mathematical nature of quantum computing
+3. **Linear Types**: GHC's LinearTypes extension provides a natural way to enforce quantum constraints
+4. **Composability**: Monadic composition enables clean, readable quantum circuit construction
 
 ## Getting Started
 
-To get started with HaskQ, check out the [Getting Started](getting-started) guide, which will walk you through installation and your first quantum circuit.
+To start using HaskQ, follow these steps:
 
-## A Simple Example
+1. [Install HaskQ](installation.md) on your system
+2. Explore the [project structure](project-structure.md) to understand the components
+3. Try the [getting started guide](getting-started.md) for your first quantum circuit
 
-Here's a quick example of how to create a Bell state (a maximally entangled pair of qubits) using HaskQ:
+## A Quick Example
+
+Here's a simple example of how to create a Bell state (an entangled pair of qubits) in HaskQ:
 
 ```haskell
-import HaskQ.Core.Types
-import HaskQ.Core.Gates
-import HaskQ.Core.Circuit
+import HaskQ.Prelude
+import HaskQ.Circuit
 
--- Create a Bell state |Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)
-bellState :: Circ (Qubit, Qubit)
-bellState = withQubits 2 $ \[q1, q2] -> do
-  q1' <- hadamard q1
-  (q1'', q2') <- cnot q1' q2
-  pure (q1'', q2')
+-- Create a Bell state
+bellState :: Circ (Q Qubit, Q Qubit)
+bellState = do
+  -- Initialize two qubits in the |0⟩ state
+  q1 <- qinit False
+  q2 <- qinit False
+  
+  -- Apply Hadamard to the first qubit
+  q1' <- gate H q1
+  
+  -- Apply CNOT with q1' as control and q2 as target
+  (q1'', q2') <- gate CNOT (q1', q2)
+  
+  -- Return the entangled pair
+  return (q1'', q2')
 ```
 
-In this example:
-1. We request two fresh qubits in the $|0\rangle$ state.
-2. Apply a Hadamard gate to the first qubit, creating a superposition.
-3. Apply a CNOT gate with the first qubit as control and second as target.
-4. Return the resulting entangled qubit pair.
+## Core Concepts
 
-When simulated, this produces the Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$. 
+To understand HaskQ, you'll want to explore these core concepts:
+
+- [Quantum Computing Basics](core-concepts/quantum-computing-basics.md)
+- [Linear Types](core-concepts/linear-types.md)
+- [Circuit Composition](core-concepts/circuit-composition.md)
+- [Quantum Gates](core-concepts/quantum-gates.md)
+- [Measurement](core-concepts/measurement.md)
+- [Simulation](core-concepts/simulation.md)
+
+## Next Steps
+
+Once you're familiar with the basics, you can dive deeper with:
+
+- [Tutorials](tutorials/bell-states.md) for implementing common quantum algorithms
+- [API Reference](category/api) for detailed documentation of HaskQ functions and types
+
+Happy quantum programming! 

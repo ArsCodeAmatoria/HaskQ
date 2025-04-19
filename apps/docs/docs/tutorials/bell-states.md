@@ -4,129 +4,77 @@ sidebar_position: 1
 
 # Creating Bell States
 
-In this tutorial, we'll learn how to create and work with Bell states, which are fundamental examples of quantum entanglement.
+This tutorial guides you through creating a Bell state, one of the fundamental entangled quantum states, using HaskQ.
 
-## What are Bell States?
+## What is a Bell State?
 
-Bell states (also called EPR pairs) are maximally entangled quantum states of two qubits. The most common Bell state is:
+A Bell state (also called an EPR pair) is a maximally entangled quantum state of two qubits. The most common Bell state is:
 
 $$|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$$
 
-This state has the interesting property that when we measure one qubit, the other qubit will always be found in the same state, even though individually, each qubit appears to be in a completely random state.
-
-## Prerequisites
-
-Before starting, make sure you have:
-
-- HaskQ installed (see [Installation](../installation))
-- Basic understanding of quantum computing concepts (see [Quantum Computing Basics](../core-concepts/quantum-computing-basics))
-- Familiarity with Haskell and the HaskQ API
+This state has the special property that when you measure one qubit, you instantly know the state of the other, regardless of the distance between them.
 
 ## Creating a Bell State in HaskQ
 
-Let's implement a circuit to create the Bell state $|\Phi^+\rangle$:
+Here's how to create a Bell state using HaskQ:
 
 ```haskell
-import HaskQ.Core.Types
-import HaskQ.Core.Gates
-import HaskQ.Core.Circuit
-import HaskQ.Core.Measurement
-import HaskQ.Simulator.Circuit (simulateCircuit)
+-- Import necessary modules
+import HaskQ.Prelude
+import HaskQ.Circuit
+import HaskQ.Simulator
 
--- Create a Bell state |Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)
-bellState :: Circ (Qubit, Qubit)
-bellState = withQubits 2 $ \[q1, q2] -> do
-  q1' <- hadamard q1
-  (q1'', q2') <- cnot q1' q2
-  pure (q1'', q2')
+-- Bell state circuit
+bellState :: Circ (Q Qubit, Q Qubit)
+bellState = do
+  -- Initialize two qubits in the |0⟩ state
+  q1 <- qinit False  -- |0⟩
+  q2 <- qinit False  -- |0⟩
+  
+  -- Apply Hadamard to the first qubit
+  q1' <- gate H q1
+  
+  -- Apply CNOT with q1' as control and q2 as target
+  (q1'', q2') <- gate CNOT (q1', q2)
+  
+  -- Return the entangled pair
+  return (q1'', q2')
 ```
+
+## Analyzing the Circuit
 
 Let's break down what's happening:
 
-1. `withQubits 2 $ \[q1, q2] -> ...` - Create two qubits, initially in the $|0\rangle$ state.
-2. `q1' <- hadamard q1` - Apply the Hadamard gate to the first qubit, creating a superposition state $\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$.
-3. `(q1'', q2') <- cnot q1' q2` - Apply the CNOT gate with q1' as the control and q2 as the target. This entangles the two qubits.
-4. `pure (q1'', q2')` - Return the two entangled qubits.
+1. We start with two qubits in the state |00⟩
+2. After applying Hadamard to the first qubit, we get:
+   $$\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) \otimes |0\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |10\rangle)$$
+3. After applying CNOT, we get:
+   $$\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$$
+   
+Which is the Bell state we wanted!
 
-## Simulating and Measuring the Bell State
+## Simulating and Measuring
 
-To verify that we've created a Bell state, we can simulate the circuit and measure both qubits:
-
-```haskell
--- Create and measure a Bell state
-measureBell :: Circ [Measurement]
-measureBell = do
-  (q1, q2) <- bellState
-  (m1, _) <- measure q1
-  (m2, _) <- measure q2
-  pure [m1, m2]
-
--- Run the simulation
-main :: IO ()
-main = do
-  let result = simulateCircuit 2 measureBell
-  putStrLn $ "Measurement results: " ++ show (measurements result)
-```
-
-When you run this simulation multiple times, you should observe that:
-
-1. Each individual measurement gives random results (approximately 50% Zero, 50% One).
-2. The two measurements always match—either both Zero or both One.
-
-## Visualizing the Bell State Circuit
-
-We can use HaskQ's visualization tools to see a representation of our circuit:
+You can simulate and measure this state:
 
 ```haskell
-import HaskQ.Simulator.Visualizer
-
-main :: IO ()
-main = do
-  let bellCircuit = bellState
-  let visualization = visualizeCircuit bellCircuit
-  putStrLn $ circuitToAscii visualization
+-- Function to simulate and measure Bell state
+simulateBell :: IO (Bit, Bit)
+simulateBell = do
+  let circuit = do
+        (q1, q2) <- bellState
+        b1 <- measureAndRelease q1
+        b2 <- measureAndRelease q2
+        return (b1, b2)
+  runCircuit circuit
 ```
 
-This will output an ASCII representation of our Bell state circuit.
+When you measure this state, you'll always get either (0,0) or (1,1), each with 50% probability, demonstrating the perfect correlation between the qubits.
 
-## Bell State Variations
+## Next Steps
 
-There are actually four Bell states, forming a complete basis for two-qubit states:
+Now that you understand how to create Bell states, you can:
 
-1. $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$ - The one we created above
-2. $|\Phi^-\rangle = \frac{1}{\sqrt{2}}(|00\rangle - |11\rangle)$
-3. $|\Psi^+\rangle = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)$
-4. $|\Psi^-\rangle = \frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)$
-
-Let's modify our circuit to create $|\Phi^-\rangle$:
-
-```haskell
-phiMinus :: Circ (Qubit, Qubit)
-phiMinus = do
-  (q1, q2) <- bellState
-  q2' <- pauliZ q2  -- Apply phase flip to second qubit
-  pure (q1, q2')
-```
-
-Similarly, we can create the other Bell states:
-
-```haskell
-psiPlus :: Circ (Qubit, Qubit)
-psiPlus = do
-  (q1, q2) <- bellState
-  q1' <- pauliX q1  -- Apply bit flip to first qubit
-  pure (q1', q2)
-
-psiMinus :: Circ (Qubit, Qubit)
-psiMinus = do
-  (q1, q2) <- bellState
-  q1' <- pauliX q1  -- Apply bit flip to first qubit
-  q2' <- pauliZ q2  -- Apply phase flip to second qubit
-  pure (q1', q2')
-```
-
-## Conclusion
-
-You've learned how to create Bell states in HaskQ, which are fundamental building blocks for many quantum algorithms and protocols, including quantum teleportation and dense coding.
-
-In the next tutorial, we'll build on this knowledge to implement quantum teleportation, which uses Bell states to transmit quantum information. 
+1. Try creating other Bell states by adding X gates
+2. Use Bell states as a foundation for quantum teleportation
+3. Experiment with measuring just one qubit and observing the effects 

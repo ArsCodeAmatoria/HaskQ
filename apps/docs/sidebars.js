@@ -31,9 +31,10 @@ const sidebars = {
       items: [
         'core-concepts/quantum-computing-basics',
         'core-concepts/linear-types',
-        'core-concepts/circ-monad',
-        'core-concepts/gates',
-        'core-concepts/measurements',
+        'core-concepts/circuit-composition',
+        'core-concepts/quantum-gates',
+        'core-concepts/measurement',
+        'core-concepts/simulation',
       ],
     },
     {
@@ -41,29 +42,6 @@ const sidebars = {
       label: 'Tutorials',
       items: [
         'tutorials/bell-states',
-        'tutorials/quantum-teleportation',
-        'tutorials/deutsch-algorithm',
-        'tutorials/grover-search',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'API',
-      items: [
-        'api/core-types',
-        'api/gates',
-        'api/circuit',
-        'api/measurement',
-        'api/simulator',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Advanced Topics',
-      items: [
-        'advanced/circuit-optimization',
-        'advanced/qasm-export',
-        'advanced/custom-gates',
       ],
     },
   ],
