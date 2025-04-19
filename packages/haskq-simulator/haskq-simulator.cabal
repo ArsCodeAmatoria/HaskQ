@@ -1,0 +1,69 @@
+cabal-version:      3.0
+name:               haskq-simulator
+version:            0.1.0.0
+synopsis:           Matrix-based quantum simulator
+description:        A matrix-based quantum simulator for HaskQ circuits
+license:            MIT
+license-file:       LICENSE
+author:             HaskQ Team
+maintainer:         example@example.com
+category:           Quantum
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+    exposed-modules:  
+        HaskQ.Simulator.StateVector
+        HaskQ.Simulator.Gates
+        HaskQ.Simulator.Circuit
+        HaskQ.Simulator.Visualizer
+    build-depends:    
+        base ^>=4.16.0.0,
+        haskq-core,
+        linear-base >=0.1.0,
+        vector >=0.12,
+        matrix >=0.3,
+        mtl >=2.2,
+        aeson >=2.0,
+        text >=1.2
+    hs-source-dirs:   src
+    default-language: Haskell2010
+    default-extensions:
+        LinearTypes
+        QualifiedDo
+        GADTs
+        DataKinds
+        TypeFamilies
+        ScopedTypeVariables
+        MultiParamTypeClasses
+        FlexibleInstances
+        FlexibleContexts
+        DeriveFunctor
+
+executable haskq-sim
+    import:           warnings
+    main-is:          Main.hs
+    build-depends:
+        base ^>=4.16.0.0,
+        haskq-simulator,
+        haskq-core,
+        optparse-applicative ^>=0.17
+    hs-source-dirs:   app
+    default-language: Haskell2010
+
+test-suite haskq-simulator-test
+    import:           warnings
+    default-language: Haskell2010
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:    
+        base ^>=4.16.0.0,
+        haskq-simulator,
+        haskq-core,
+        tasty ^>=1.4,
+        tasty-hunit ^>=0.10 
