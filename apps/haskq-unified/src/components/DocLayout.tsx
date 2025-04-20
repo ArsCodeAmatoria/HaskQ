@@ -16,7 +16,7 @@ export function DocLayout({ children, title, description }: DocLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Main content */}
-      <main className="flex-grow pt-16 pb-16">
+      <main className="flex-grow pb-16">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-5xl">
           <article className="prose dark:prose-invert max-w-full">
             <h1 className="text-3xl font-bold mb-4">{title}</h1>
