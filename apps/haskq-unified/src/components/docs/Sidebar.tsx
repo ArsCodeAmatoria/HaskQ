@@ -1,0 +1,119 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { ChevronDown, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+
+// Define the sidebar structure based on the old Docusaurus site
+const sidebarItems = [
+  {
+    type: 'category',
+    label: 'Introduction',
+    items: [
+      { id: 'intro', label: 'Introduction', href: '/docs/intro' },
+      { id: 'getting-started', label: 'Getting Started', href: '/docs/getting-started' },
+      { id: 'installation', label: 'Installation', href: '/docs/installation' },
+      { id: 'project-structure', label: 'Project Structure', href: '/docs/project-structure' },
+    ],
+  },
+  {
+    type: 'category',
+    label: 'Core Concepts',
+    items: [
+      { id: 'quantum-computing-basics', label: 'Quantum Computing Basics', href: '/docs/core-concepts/quantum-computing-basics' },
+      { id: 'linear-types', label: 'Linear Types', href: '/docs/core-concepts/linear-types' },
+      { id: 'circuit-composition', label: 'Circuit Composition', href: '/docs/core-concepts/circuit-composition' },
+      { id: 'quantum-gates', label: 'Quantum Gates', href: '/docs/core-concepts/quantum-gates' },
+      { id: 'measurement', label: 'Measurement', href: '/docs/core-concepts/measurement' },
+      { id: 'simulation', label: 'Simulation', href: '/docs/core-concepts/simulation' },
+      { id: 'error-correction', label: 'Error Correction', href: '/docs/core-concepts/error-correction' },
+    ],
+  },
+  {
+    type: 'category',
+    label: 'Tutorials',
+    items: [
+      { id: 'bell-states', label: 'Bell States', href: '/docs/tutorials/bell-states' },
+      { id: 'algorithms', label: 'Algorithms Overview', href: '/docs/tutorials/algorithms' },
+      { id: 'grover', label: 'Grover\'s Algorithm', href: '/docs/tutorials/grover' },
+      { id: 'qft', label: 'Quantum Fourier Transform', href: '/docs/tutorials/qft' },
+      { id: 'advanced-algorithms', label: 'Advanced Algorithms', href: '/docs/tutorials/advanced-algorithms' },
+      { id: 'error-correction', label: 'Error Correction', href: '/docs/tutorials/error-correction' },
+      { id: 'fault-tolerance', label: 'Fault Tolerance', href: '/docs/tutorials/fault-tolerance' },
+      { id: 'surface-codes', label: 'Surface Codes', href: '/docs/tutorials/surface-codes' },
+      { id: 'noise-models', label: 'Noise Models', href: '/docs/tutorials/noise-models' },
+      { id: 'hybrid-algorithms', label: 'Hybrid Algorithms', href: '/docs/tutorials/hybrid-algorithms' },
+      { id: 'optimization', label: 'Optimization', href: '/docs/tutorials/optimization' },
+    ],
+  },
+];
+
+type CategoryProps = {
+  category: {
+    type: string;
+    label: string;
+    items: Array<{
+      id: string;
+      label: string;
+      href: string;
+    }>;
+  };
+};
+
+function CategoryItem({ category }: CategoryProps) {
+  const pathname = usePathname();
+  const isActive = category.items.some(item => pathname === item.href);
+  const [isOpen, setIsOpen] = useState(isActive);
+
+  return (
+    <div className="mb-4">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center w-full text-left font-medium text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
+      >
+        {isOpen ? (
+          <ChevronDown className="h-4 w-4 mr-2" />
+        ) : (
+          <ChevronRight className="h-4 w-4 mr-2" />
+        )}
+        {category.label}
+      </button>
+      {isOpen && (
+        <ul className="mt-2 ml-4 space-y-2">
+          {category.items.map((item) => (
+            <li key={item.id}>
+              <Link
+                href={item.href}
+                className={`text-sm ${
+                  pathname === item.href
+                    ? 'text-indigo-600 dark:text-indigo-400 font-medium'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400'
+                }`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default function DocsSidebar() {
+  return (
+    <aside className="w-64 pr-8 pt-16 hidden md:block">
+      <nav className="sticky top-24">
+        <div className="mb-8">
+          <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Documentation</h3>
+        </div>
+        <div className="space-y-4">
+          {sidebarItems.map((category, index) => (
+            <CategoryItem key={index} category={category} />
+          ))}
+        </div>
+      </nav>
+    </aside>
+  );
+} 
