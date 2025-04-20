@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
-// Define the sidebar structure based on the old Docusaurus site
+// Define the sidebar structure
 const sidebarItems = [
   {
     type: 'category',

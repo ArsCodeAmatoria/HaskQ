@@ -87,25 +87,18 @@ export default function ProjectStructurePage() {
       <CodeBlock 
         language="bash" 
         code={`apps/
-├── landing/              # Landing page
-│   ├── app/              # Next.js app directory
-│   ├── public/           # Static assets
-│   ├── package.json
-│   └── tailwind.config.js
-├── docs/                 # Documentation site
-│   ├── docs/             # Markdown documentation
-│   │   ├── intro.md
-│   │   ├── getting-started.md
-│   │   ├── core-concepts/
-│   │   └── tutorials/
+├── haskq-unified/         # Unified web application
 │   ├── src/
-│   ├── docusaurus.config.js
-│   └── package.json
-└── playground/           # Interactive playground
-    ├── app/              # Next.js app directory
-    ├── public/           # Static assets
-    ├── package.json
-    └── tailwind.config.js`}
+│   │   ├── app/           # Next.js app directory
+│   │   │   ├── api/       # API routes
+│   │   │   ├── docs/      # Documentation pages
+│   │   │   └── playground/ # Interactive playground
+│   │   ├── components/    # Shared React components
+│   │   ├── lib/           # Utility functions
+│   │   └── content/       # Documentation content in MDX
+│   ├── public/            # Static assets
+│   ├── package.json
+│   └── tailwind.config.js`}
         className="my-6"
       />
 
@@ -115,7 +108,7 @@ export default function ProjectStructurePage() {
       <ol className="list-decimal ml-6 mb-6 space-y-2">
         <li><strong>npm workspaces</strong>: Manages dependencies across the monorepo</li>
         <li><strong>Cabal/Stack</strong>: Builds the Haskell packages</li>
-        <li><strong>Next.js/Docusaurus</strong>: Builds the web applications</li>
+        <li><strong>Next.js</strong>: Builds the web application</li>
       </ol>
       
       <p className="mb-4">
@@ -129,16 +122,14 @@ export default function ProjectStructurePage() {
         <li>Make changes to the Haskell packages in <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">packages/</code></li>
         <li>Build the packages using Cabal or Stack</li>
         <li>Run the simulator to test your changes</li>
-        <li>Update documentation in <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">apps/docs/docs/</code></li>
-        <li>Run the web applications to test the UI</li>
+        <li>Update documentation in <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">apps/haskq-unified/src/app/docs/</code></li>
+        <li>Run the web application to test the UI</li>
       </ol>
 
       <InfoBox type="tip" title="Development Tip">
         <p>
-          You can use <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:all</code> to start all web applications 
-          simultaneously during development, or run them individually with <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:landing</code>, 
-          <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:docs</code>, and 
-          <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:playground</code>.
+          You can start the web application with <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev</code> from the project root,
+          which will serve both the documentation and the playground in one application.
         </p>
       </InfoBox>
 
@@ -148,8 +139,8 @@ export default function ProjectStructurePage() {
       <ul className="list-disc ml-6 mb-6 space-y-2">
         <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">package.json</code>: Root package configuration with workspace setup</li>
         <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">*.cabal</code>: Haskell package configuration</li>
-        <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">docusaurus.config.js</code>: Documentation site configuration</li>
-        <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">tailwind.config.js</code>: UI styling configuration for web apps</li>
+        <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">next.config.ts</code>: Next.js configuration</li>
+        <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">tailwind.config.js</code>: UI styling configuration</li>
       </ul>
 
       <h2 className="text-2xl font-bold mt-8 mb-4">Next Steps</h2>

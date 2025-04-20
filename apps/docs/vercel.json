@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "github": {
-    "silent": true
-  },
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "build",
-  "framework": "docusaurus-2"
-} 
