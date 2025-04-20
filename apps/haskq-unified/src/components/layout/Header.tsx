@@ -2,11 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -15,12 +25,14 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-transparent absolute top-0 left-0 right-0 z-50">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      scrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-white">HaskQ</span>
+              <span className={`text-2xl font-bold ${scrolled ? 'text-gray-900 dark:text-white' : 'text-white'}`}>HaskQ</span>
             </Link>
 
             <nav className="hidden md:ml-8 md:flex md:space-x-8">
@@ -28,8 +40,8 @@ export default function Header() {
                 href="/" 
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/') 
-                    ? 'border-indigo-300 text-white' 
-                    : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
+                    ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                    : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
                 }`}
               >
                 Home
@@ -38,8 +50,8 @@ export default function Header() {
                 href="/docs" 
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/docs') 
-                    ? 'border-indigo-300 text-white' 
-                    : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
+                    ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                    : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
                 }`}
               >
                 Documentation
@@ -48,8 +60,8 @@ export default function Header() {
                 href="/playground" 
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/playground') 
-                    ? 'border-indigo-300 text-white' 
-                    : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
+                    ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                    : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
                 }`}
               >
                 Playground
@@ -62,7 +74,7 @@ export default function Header() {
               href="https://github.com/ArsCodeAmatoria/HaskQ" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-indigo-100 hover:text-white transition-colors"
+              className={`transition-colors ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400' : 'text-indigo-100 hover:text-white'}`}
             >
               <span className="sr-only">GitHub</span>
               <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -74,7 +86,9 @@ export default function Header() {
           <div className="-mr-2 flex items-center md:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-indigo-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-300"
+              className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 ${
+                scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400' : 'text-indigo-100 hover:text-white'
+              }`}
               aria-expanded="false"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -104,14 +118,16 @@ export default function Header() {
         </div>
       </div>
 
-      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-indigo-900 bg-opacity-90 backdrop-blur-sm`}>
+      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden ${
+        scrolled ? 'bg-white/90 dark:bg-gray-900/90' : 'bg-indigo-900/90'
+      } backdrop-blur-md`}>
         <div className="pt-2 pb-3 space-y-1">
           <Link
             href="/"
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               isActive('/')
-                ? 'border-indigo-300 text-white'
-                : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
+                ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
             }`}
           >
             Home
@@ -120,8 +136,8 @@ export default function Header() {
             href="/docs"
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               isActive('/docs')
-                ? 'border-indigo-300 text-white'
-                : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
+                ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
             }`}
           >
             Documentation
@@ -130,8 +146,8 @@ export default function Header() {
             href="/playground"
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               isActive('/playground')
-                ? 'border-indigo-300 text-white'
-                : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
+                ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
             }`}
           >
             Playground
@@ -140,7 +156,9 @@ export default function Header() {
             href="https://github.com/ArsCodeAmatoria/HaskQ"
             target="_blank"
             rel="noopener noreferrer"
-            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-indigo-100 hover:text-white"
+            className={`block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium ${
+              scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'
+            }`}
           >
             GitHub
           </a>
