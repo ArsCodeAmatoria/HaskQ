@@ -4,6 +4,21 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Code, Box, Zap, Shield, Github, Twitter, Book } from 'lucide-react'
 
+// Dynamic URL construction based on environment
+const isDev = process.env.NODE_ENV === 'development'
+const baseUrl = isDev ? 'http://localhost:' : 'https://haskq.vercel.app'
+const docsPort = '3000'
+const playgroundPort = '3003'
+
+// Helper function to construct URLs
+const getDocsUrl = (path: string = '') => {
+  return isDev ? `${baseUrl}${docsPort}${path}` : `https://haskq.vercel.app${path}`
+}
+
+const getPlaygroundUrl = (path: string = '') => {
+  return isDev ? `${baseUrl}${playgroundPort}/playground${path}` : `https://haskq.vercel.app/playground${path}`
+}
+
 export default function LandingPage() {
   return (
     <main className="overflow-hidden">
@@ -36,10 +51,10 @@ export default function LandingPage() {
             <a href="#get-started" className="btn-primary px-6 py-3">
               Get Started <ArrowRight className="ml-2 h-4 w-4" />
             </a>
-            <a href="/getting-started" className="btn-secondary px-6 py-3">
+            <a href={getDocsUrl('/getting-started')} className="btn-secondary px-6 py-3">
               View Docs <Book className="ml-2 h-4 w-4" />
             </a>
-            <a href="/playground" className="btn-outline px-6 py-3">
+            <a href={getPlaygroundUrl()} className="btn-outline px-6 py-3">
               Try Playground <Code className="ml-2 h-4 w-4" />
             </a>
           </motion.div>
@@ -136,7 +151,7 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
             Start building quantum circuits with HaskQ today. Check out our documentation, examples, and join our community.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="/intro" className="bg-white text-quantum-blue-700 hover:bg-quantum-blue-50 btn px-6 py-3">
+            <a href={getDocsUrl('/intro')} className="bg-white text-quantum-blue-700 hover:bg-quantum-blue-50 btn px-6 py-3">
               Get Started Guide
             </a>
             <a href="https://github.com/ArsCodeAmatoria/HaskQ" className="bg-quantum-blue-700 hover:bg-quantum-blue-800 btn px-6 py-3">
@@ -170,10 +185,10 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2">
-                <li><a href="/" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Documentation</a></li>
-                <li><a href="/category/tutorials" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Tutorials</a></li>
-                <li><a href="/category/core-concepts" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Core Concepts</a></li>
-                <li><a href="/playground" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Playground</a></li>
+                <li><a href={getDocsUrl()} className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Documentation</a></li>
+                <li><a href={getDocsUrl('/category/tutorials')} className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Tutorials</a></li>
+                <li><a href={getDocsUrl('/category/core-concepts')} className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Core Concepts</a></li>
+                <li><a href={getPlaygroundUrl()} className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Playground</a></li>
               </ul>
             </div>
             

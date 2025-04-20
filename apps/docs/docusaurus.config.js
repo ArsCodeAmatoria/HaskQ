@@ -6,6 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
+// Determine if we are in development or production
+const isDev = process.env.NODE_ENV === 'development';
+
+// Base URL configuration
+const baseUrl = isDev ? 'http://localhost:' : 'https://haskq.vercel.app';
+const landingPort = '3000';
+const docsPort = '3000';
+const playgroundPort = '3003';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'HaskQ',
@@ -96,7 +105,7 @@ const config = {
         hideOnScroll: false,
         items: [
           {
-            href: 'https://haskq.vercel.app',
+            href: isDev ? `http://localhost:${landingPort}` : 'https://haskq.vercel.app',
             label: 'Home',
             position: 'left',
             target: '_self',
@@ -108,7 +117,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://haskq.vercel.app/playground',
+            href: isDev ? `http://localhost:${playgroundPort}/playground` : 'https://haskq.vercel.app/playground',
             label: 'Playground',
             position: 'left',
             target: '_self',

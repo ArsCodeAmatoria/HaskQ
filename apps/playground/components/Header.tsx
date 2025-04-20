@@ -5,6 +5,17 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { Play, Save, FileDown, Sun, Moon, Github } from 'lucide-react'
 
+// Dynamic URL construction based on environment
+const isDev = process.env.NODE_ENV === 'development'
+const baseUrl = isDev ? 'http://localhost:' : 'https://haskq.vercel.app'
+const docsPort = '3000'
+const landingPort = '3000'
+
+// Helper function to construct URLs
+const getUrl = (path: string = '', port: string = docsPort) => {
+  return isDev ? `${baseUrl}${port}${path}` : `https://haskq.vercel.app${path}`
+}
+
 interface HeaderProps {
   onRunSimulation: () => void
   onSaveCircuit: () => void
@@ -40,23 +51,23 @@ const Header: React.FC<HeaderProps> = ({
     <header className={`bg-black border-b-2 border-red-500 py-4 px-6 shadow-md ${className || ''}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-6">
-          <Link href="https://haskq.vercel.app" className="flex items-center">
+          <a href={getUrl('', landingPort)} className="flex items-center">
             <span className="text-xl font-bold text-red-500">
               HaskQ
             </span>
             <span className="ml-2 text-xs bg-red-900 px-2 py-0.5 rounded-md text-white">
               Playground
             </span>
-          </Link>
+          </a>
           
           <nav className="hidden md:flex space-x-6">
-            <a href="https://haskq.vercel.app" className="text-white hover:text-red-300 text-sm">
+            <a href={getUrl()} className="text-white hover:text-red-300 text-sm">
               Documentation
             </a>
-            <a href="https://haskq.vercel.app/category/tutorials" className="text-white hover:text-red-300 text-sm">
+            <a href={getUrl('/category/tutorials')} className="text-white hover:text-red-300 text-sm">
               Tutorials
             </a>
-            <a href="https://haskq.vercel.app/category/core-concepts" className="text-white hover:text-red-300 text-sm">
+            <a href={getUrl('/category/core-concepts')} className="text-white hover:text-red-300 text-sm">
               Core Concepts
             </a>
           </nav>
