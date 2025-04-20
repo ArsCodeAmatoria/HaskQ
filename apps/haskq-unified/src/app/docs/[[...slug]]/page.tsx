@@ -31,7 +31,6 @@ function DocsIndexPage() {
   
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">HaskQ Documentation</h1>
       <p className="mb-8 text-gray-600 dark:text-gray-300 max-w-3xl">
         Welcome to the HaskQ documentation. Here you'll find comprehensive guides and documentation to help you start working with HaskQ as quickly as possible.
       </p>
@@ -183,6 +182,7 @@ export default function DocsPage() {
     
     // If no slug is provided, show the docs index page
     if (!slug || (Array.isArray(slug) && slug.length === 0)) {
+      setTitle('HaskQ Documentation');
       return setContent(<DocsIndexPage />);
     }
 
@@ -219,7 +219,7 @@ export default function DocsPage() {
   }
 
   return (
-    <article className="prose dark:prose-invert max-w-4xl">
+    <article className="prose dark:prose-invert max-w-4xl pt-8">
       <h1 className="text-3xl font-bold mb-6">{title}</h1>
       {description && (
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
