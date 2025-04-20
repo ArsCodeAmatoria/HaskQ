@@ -1,88 +1,118 @@
 'use client';
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, Code, Box, Zap, Shield, Github, Twitter, Book } from "lucide-react";
 
 function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
   return (
-    <motion.div 
-      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
-      whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}
-      transition={{ duration: 0.2 }}
-    >
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
       <div className="mb-4">{icon}</div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300">{description}</p>
-    </motion.div>
+    </div>
   );
 }
+
+// Add custom CSS for orbit animation
+const orbitStyle = `
+@keyframes orbit {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--radius)) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--radius)) rotate(-360deg); }
+}
+.animate-orbit {
+  animation: orbit var(--duration) linear infinite;
+}
+`;
 
 export default function Home() {
   return (
     <main className="overflow-hidden">
+      {/* Add the orbit animation CSS */}
+      <style jsx global>{orbitStyle}</style>
+      
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-900 via-indigo-800 to-blue-900">
-        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-10 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:24px_24px]">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-indigo-950 to-gray-950">
+        {/* Animated particle background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#6366f133_1px,transparent_1px)] [background-size:20px_20px]"></div>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#a5b4fc33_2px,transparent_2px)] [background-size:30px_30px]"></div>
         </div>
+        
+        {/* Glowing accent elements */}
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-indigo-600/20 rounded-full filter blur-3xl opacity-30 animate-pulse"></div>
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-600/20 rounded-full filter blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
         <div className="container mx-auto relative z-10 flex flex-col items-center justify-center py-20 text-center px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-              <span className="block">Quantum Circuits,</span>
-              <span className="block text-indigo-300">Purely Functional.</span>
+          <div className="relative z-10 flex flex-col items-center w-full max-w-5xl px-5 mx-auto text-center">
+            <h1 
+              className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-7xl dark:text-white animate-fade-in"
+            >
+              <span className="block">HaskQ: Type-Safe</span>{" "}
+              <span className="block text-primary-500">Quantum Programming</span>
             </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-indigo-100">
-              HaskQ brings together the elegance of Haskell and the power of quantum computing,
-              providing a type-safe, purely functional approach to quantum circuit design and simulation.
+            <p 
+              className="max-w-md mx-auto mt-5 text-xl text-gray-500 dark:text-gray-400 animate-fade-in" 
+              style={{ animationDelay: '200ms' }}
+            >
+              A Haskell library for quantum computing with built-in simulation capabilities and a powerful visualization toolkit.
             </p>
-          </motion.div>
-          
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <Link 
-              href="/docs/getting-started" 
-              className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-full px-6 py-3 flex items-center transition-colors"
-            >
-              Get Started <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-            <Link 
-              href="/docs" 
-              className="bg-white hover:bg-indigo-50 text-indigo-600 rounded-full px-6 py-3 flex items-center transition-colors"
-            >
-              View Docs <Book className="ml-2 h-4 w-4" />
-            </Link>
-            <Link 
-              href="/playground" 
-              className="bg-transparent hover:bg-indigo-700/30 text-white border border-indigo-300 rounded-full px-6 py-3 flex items-center transition-colors"
-            >
-              Try Playground <Code className="ml-2 h-4 w-4" />
-            </Link>
-          </motion.div>
-          
-          <motion.div
-            className="mt-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            <div className="relative h-40 w-40 sm:h-60 sm:w-60 mx-auto">
-              {/* Quantum circuit animation/illustration */}
-              <div className="absolute inset-0 rounded-full bg-indigo-500/20 backdrop-blur-sm"></div>
-              <div className="absolute inset-4 rounded-full bg-indigo-500/30 animate-pulse"></div>
-              <div className="absolute inset-10 rounded-full bg-indigo-500/40">
-                <div className="absolute inset-0 rounded-full animate-spin duration-10000"></div>
-              </div>
-              <div className="absolute inset-16 rounded-full border-2 border-dashed border-indigo-500/60"></div>
+            <div className="flex flex-col items-center justify-center w-full mt-8 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+              <a
+                href="/docs/intro"
+                className="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-600 sm:w-auto animate-fade-in" 
+                style={{ animationDelay: '400ms' }}
+              >
+                Get Started
+              </a>
+              <a
+                href="https://github.com/haskell-monad/haskq"
+                className="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 hover:bg-gray-50 sm:w-auto animate-fade-in" 
+                style={{ animationDelay: '600ms' }}
+              >
+                View on GitHub
+              </a>
             </div>
-          </motion.div>
+          </div>
+          
+          <div className="mt-20 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+            <div className="relative h-64 w-64 sm:h-80 sm:w-80 mx-auto">
+              {/* Enhanced quantum circuit visualization */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-sm"></div>
+              <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 animate-pulse"></div>
+              
+              {/* Orbital rings */}
+              <div className="absolute inset-0 rounded-full border border-indigo-500/20 animate-spin-slow"></div>
+              <div className="absolute inset-8 rounded-full border border-indigo-400/30 animate-spin-reverse"></div>
+              <div className="absolute inset-16 rounded-full border border-indigo-300/40 animate-spin-slower"></div>
+              
+              {/* Central quantum core */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-full blur-sm animate-pulse"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full blur-sm"></div>
+              
+              {/* Quantum particles */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-indigo-400 rounded-full animate-orbit" style={{ '--radius': '60px', '--duration': '5s' } as React.CSSProperties}></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400 rounded-full animate-orbit" style={{ '--radius': '60px', '--duration': '5s', animationDelay: '2.5s' } as React.CSSProperties}></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-blue-400 rounded-full animate-orbit" style={{ '--radius': '100px', '--duration': '8s' } as React.CSSProperties}></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-indigo-200 rounded-full animate-orbit" style={{ '--radius': '100px', '--duration': '8s', animationDelay: '4s' } as React.CSSProperties}></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400 rounded-full animate-orbit" style={{ '--radius': '130px', '--duration': '12s' } as React.CSSProperties}></div>
+            </div>
+            
+            {/* Code snippet preview */}
+            <div className="mt-8 relative max-w-md mx-auto animate-fade-in" style={{ animationDelay: '1s' }}>
+              <div className="bg-gray-900/50 backdrop-blur-sm border border-indigo-500/20 rounded-lg p-4 text-left shadow-xl">
+                <pre className="text-xs sm:text-sm font-mono text-indigo-200">
+                  <code>{`-- Bell state circuit with HaskQ
+bellState :: Circ (Qubit, Qubit)
+bellState = do
+  q1 <- createQubit Zero  
+  q2 <- createQubit Zero
+  q1' <- hadamard q1
+  (q1'', q2') <- cnot q1' q2
+  pure (q1'', q2')`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
