@@ -4,6 +4,6 @@
     "silent": true
   },
   "buildCommand": "npm install --include=dev && npm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": ".next",
   "framework": "nextjs"
 } 
