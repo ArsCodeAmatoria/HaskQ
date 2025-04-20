@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import ThemeToggle from '../ThemeToggle';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,12 +15,12 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <header className="bg-transparent absolute top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">HaskQ</span>
+              <span className="text-2xl font-bold text-white">HaskQ</span>
             </Link>
 
             <nav className="hidden md:ml-8 md:flex md:space-x-8">
@@ -29,8 +28,8 @@ export default function Header() {
                 href="/" 
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/') 
-                    ? 'border-indigo-500 text-gray-900 dark:text-white' 
-                    : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-200'
+                    ? 'border-indigo-300 text-white' 
+                    : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
                 }`}
               >
                 Home
@@ -39,8 +38,8 @@ export default function Header() {
                 href="/docs" 
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/docs') 
-                    ? 'border-indigo-500 text-gray-900 dark:text-white' 
-                    : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-200'
+                    ? 'border-indigo-300 text-white' 
+                    : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
                 }`}
               >
                 Documentation
@@ -49,8 +48,8 @@ export default function Header() {
                 href="/playground" 
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/playground') 
-                    ? 'border-indigo-500 text-gray-900 dark:text-white' 
-                    : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-200'
+                    ? 'border-indigo-300 text-white' 
+                    : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
                 }`}
               >
                 Playground
@@ -59,12 +58,11 @@ export default function Header() {
           </div>
 
           <div className="flex items-center">
-            <ThemeToggle />
             <a 
               href="https://github.com/ArsCodeAmatoria/HaskQ" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-200 ml-4"
+              className="text-indigo-100 hover:text-white transition-colors"
             >
               <span className="sr-only">GitHub</span>
               <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -76,7 +74,7 @@ export default function Header() {
           <div className="-mr-2 flex items-center md:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-indigo-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-300"
               aria-expanded="false"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -106,14 +104,14 @@ export default function Header() {
         </div>
       </div>
 
-      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
+      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-indigo-900 bg-opacity-90 backdrop-blur-sm`}>
         <div className="pt-2 pb-3 space-y-1">
           <Link
             href="/"
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               isActive('/')
-                ? 'border-indigo-500 text-indigo-700 bg-indigo-50 dark:bg-indigo-900 dark:text-indigo-300'
-                : 'border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                ? 'border-indigo-300 text-white'
+                : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
             }`}
           >
             Home
@@ -122,8 +120,8 @@ export default function Header() {
             href="/docs"
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               isActive('/docs')
-                ? 'border-indigo-500 text-indigo-700 bg-indigo-50 dark:bg-indigo-900 dark:text-indigo-300'
-                : 'border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                ? 'border-indigo-300 text-white'
+                : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
             }`}
           >
             Documentation
@@ -132,8 +130,8 @@ export default function Header() {
             href="/playground"
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               isActive('/playground')
-                ? 'border-indigo-500 text-indigo-700 bg-indigo-50 dark:bg-indigo-900 dark:text-indigo-300'
-                : 'border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                ? 'border-indigo-300 text-white'
+                : 'border-transparent text-indigo-100 hover:text-white hover:border-indigo-200'
             }`}
           >
             Playground
@@ -142,7 +140,7 @@ export default function Header() {
             href="https://github.com/ArsCodeAmatoria/HaskQ"
             target="_blank"
             rel="noopener noreferrer"
-            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700"
+            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-indigo-100 hover:text-white"
           >
             GitHub
           </a>
