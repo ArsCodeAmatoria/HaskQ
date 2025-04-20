@@ -181,7 +181,7 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
               <h4 className="font-semibold mb-4">Community</h4>
               <ul className="space-y-2">
                 <li><a href="/community" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Join Us</a></li>
-                <li><a href="https://github.com/haskq/haskq" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">GitHub</a></li>
+                <li><a href="https://github.com/ArsCodeAmatoria/HaskQ" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">GitHub</a></li>
                 <li><a href="/blog" className="text-quantum-dark-600 dark:text-quantum-dark-400 hover:text-quantum-blue-500">Blog</a></li>
               </ul>
             </div>

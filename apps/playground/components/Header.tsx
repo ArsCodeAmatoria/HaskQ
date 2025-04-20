@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
     <header className={`bg-black border-b-2 border-red-500 py-4 px-6 shadow-md ${className || ''}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-6">
-          <Link href="/" className="flex items-center">
+          <Link href="https://haskq.vercel.app" className="flex items-center">
             <span className="text-xl font-bold text-red-500">
               HaskQ
             </span>
@@ -50,15 +50,15 @@ const Header: React.FC<HeaderProps> = ({
           </Link>
           
           <nav className="hidden md:flex space-x-6">
-            <Link href="/" className="text-white hover:text-red-300 text-sm">
+            <a href="https://haskq.vercel.app" className="text-white hover:text-red-300 text-sm">
               Documentation
-            </Link>
-            <Link href="/category/tutorials" className="text-white hover:text-red-300 text-sm">
+            </a>
+            <a href="https://haskq.vercel.app/category/tutorials" className="text-white hover:text-red-300 text-sm">
               Tutorials
-            </Link>
-            <Link href="/category/core-concepts" className="text-white hover:text-red-300 text-sm">
+            </a>
+            <a href="https://haskq.vercel.app/category/core-concepts" className="text-white hover:text-red-300 text-sm">
               Core Concepts
-            </Link>
+            </a>
           </nav>
         </div>
         

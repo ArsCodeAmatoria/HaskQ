@@ -96,7 +96,7 @@ const config = {
         hideOnScroll: false,
         items: [
           {
-            href: '/',
+            href: 'https://haskq.vercel.app',
             label: 'Home',
             position: 'left',
             target: '_self',
@@ -108,7 +108,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: '/playground',
+            href: 'https://haskq.vercel.app/playground',
             label: 'Playground',
             position: 'left',
             target: '_self',
