@@ -102,12 +102,12 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'http://localhost:3002',
+            href: '/',
             label: 'Home',
             position: 'right',
           },
           {
-            href: 'http://localhost:3003/playground',
+            href: '/playground',
             label: 'Playground',
             position: 'right',
           },
@@ -143,11 +143,11 @@ const config = {
             items: [
               {
                 label: 'Home',
-                href: 'http://localhost:3002',
+                href: '/',
               },
               {
                 label: 'Playground',
-                href: 'http://localhost:3003/playground',
+                href: '/playground',
               },
               {
                 label: 'GitHub',
