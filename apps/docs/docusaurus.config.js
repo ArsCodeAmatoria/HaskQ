@@ -10,10 +10,14 @@ const katex = require('rehype-katex');
 const isDev = process.env.NODE_ENV === 'development';
 
 // Base URL configuration
-const baseUrl = isDev ? 'http://localhost:' : 'https://haskq.vercel.app';
+const baseUrl = isDev ? 'http://localhost:' : 'https://haskq-docs.vercel.app';
 const landingPort = '3000';
 const docsPort = '3000';
 const playgroundPort = '3003';
+
+// URLs for the different apps (replace these with actual Vercel deployment URLs)
+const LANDING_URL = isDev ? `http://localhost:${landingPort}` : 'https://haskq-landing.vercel.app';
+const PLAYGROUND_URL = isDev ? `http://localhost:${playgroundPort}/playground` : 'https://haskq-playground.vercel.app';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -22,7 +26,7 @@ const config = {
   favicon: 'img/favicon.svg',
 
   // Set the production url of your site here
-  url: 'https://haskq.vercel.app',
+  url: 'https://haskq-docs.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -105,7 +109,7 @@ const config = {
         hideOnScroll: false,
         items: [
           {
-            href: '/',
+            href: LANDING_URL,
             label: 'Home',
             position: 'left',
             target: '_self',
@@ -117,7 +121,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: '/playground/',
+            href: PLAYGROUND_URL,
             label: 'Playground',
             position: 'left',
             target: '_self',

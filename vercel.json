@@ -1,16 +1,10 @@
 {
   "version": 2,
-  "github": {
-    "silent": true
-  },
-  "buildCommand": "npm run build",
+  "framework": null,
+  "buildCommand": "echo 'Please deploy individual apps from their directories'",
   "outputDirectory": ".",
-  "framework": "docusaurus-2",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./apps/",
-  "rewrites": [
-    { "source": "/playground", "destination": "/playground/" },
-    { "source": "/playground/(.*)", "destination": "/apps/playground/dist/$1" },
-    { "source": "/", "destination": "/apps/docs/build" },
-    { "source": "/(.*)", "destination": "/apps/docs/build/$1" }
-  ]
+  "github": {
+    "silent": true,
+    "enabled": false
+  }
 } 
