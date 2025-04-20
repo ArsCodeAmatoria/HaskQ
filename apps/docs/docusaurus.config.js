@@ -15,9 +15,9 @@ const landingPort = '3000';
 const docsPort = '3000';
 const playgroundPort = '3003';
 
-// URLs for the different apps (replace these with actual Vercel deployment URLs)
-const LANDING_URL = isDev ? `http://localhost:${landingPort}` : 'https://haskq-landing.vercel.app';
-const PLAYGROUND_URL = isDev ? `http://localhost:${playgroundPort}/playground` : 'https://haskq-playground.vercel.app';
+// URLs for the different apps
+const LANDING_URL = isDev ? `http://localhost:${landingPort}` : 'https://hask-1t3uabj2n-kojin-foxs-projects.vercel.app';
+const PLAYGROUND_URL = isDev ? `http://localhost:${playgroundPort}/playground` : 'https://hask-a3dlwueew-kojin-foxs-projects.vercel.app';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
