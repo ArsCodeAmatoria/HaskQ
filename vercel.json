@@ -4,15 +4,40 @@
     "silent": true
   },
   "buildCommand": "npm run build",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
   "outputDirectory": ".",
   "framework": "nextjs",
-  "rewrites": [
-    { "source": "/playground", "destination": "/apps/playground/dist/index.html" },
-    { "source": "/playground/(.*)", "destination": "/apps/playground/dist/$1" },
-    { "source": "/", "destination": "/apps/landing/dist/index.html" },
-    { "source": "/landing/(.*)", "destination": "/apps/landing/dist/$1" },
-    { "source": "/docs/(.*)", "destination": "/apps/docs/build/$1" },
-    { "source": "/((?!apps|packages).*)", "destination": "/apps/docs/build/$1" }
+  "builds": [
+    { 
+      "src": "apps/docs/package.json", 
+      "use": "@vercel/static-build",
+      "config": { 
+        "buildCommand": "cd apps/docs && npm install && npm run build",
+        "outputDirectory": "apps/docs/build" 
+      }
+    },
+    { 
+      "src": "apps/landing/package.json", 
+      "use": "@vercel/static",
+      "config": { 
+        "buildCommand": "cd apps/landing && npm install && npm run build",
+        "outputDirectory": "apps/landing/dist" 
+      }
+    },
+    { 
+      "src": "apps/playground/package.json", 
+      "use": "@vercel/static",
+      "config": { 
+        "buildCommand": "cd apps/playground && npm install && npm run build",
+        "outputDirectory": "apps/playground/dist" 
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/playground/(.*)", "dest": "/apps/playground/dist/$1" },
+    { "src": "/playground", "dest": "/apps/playground/dist/index.html" },
+    { "handle": "filesystem" },
+    { "src": "/$", "dest": "/apps/landing/dist/index.html" },
+    { "src": "/landing/(.*)", "dest": "/apps/landing/dist/$1" },
+    { "src": "/((?!apps|packages).*)", "dest": "/apps/docs/build/$1" }
   ]
 } 
