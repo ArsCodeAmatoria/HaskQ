@@ -213,7 +213,6 @@ const config = {
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} HaskQ. Built with Docusaurus.`,
-        bottomLinkText: 'text--left',
       },
       prism: {
         theme: lightCodeTheme,
