@@ -13,6 +13,7 @@ const landingPort = '3000'
 
 // Helper function to construct URLs
 const getUrl = (path: string = '', port: string = docsPort) => {
+  // In production, docs are served from the root URL
   return isDev ? `${baseUrl}${port}${path}` : `https://haskq.vercel.app${path}`
 }
 

@@ -105,7 +105,7 @@ const config = {
         hideOnScroll: false,
         items: [
           {
-            href: isDev ? `http://localhost:${landingPort}` : 'https://haskq.vercel.app',
+            href: isDev ? `http://localhost:${landingPort}` : 'https://haskq.vercel.app/',
             label: 'Home',
             position: 'left',
             target: '_self',
@@ -117,7 +117,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: isDev ? `http://localhost:${playgroundPort}/playground` : 'https://haskq.vercel.app/playground',
+            href: isDev ? `http://localhost:${playgroundPort}/playground` : 'https://haskq.vercel.app/playground/',
             label: 'Playground',
             position: 'left',
             target: '_self',

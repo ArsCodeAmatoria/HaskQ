@@ -3,13 +3,16 @@
   "github": {
     "silent": true
   },
-  "framework": "docusaurus-2",
-  "buildCommand": "cd apps/docs && npm run build",
-  "outputDirectory": "apps/docs/build",
+  "buildCommand": "npm run build",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
+  "outputDirectory": ".",
+  "framework": "turborepo",
   "rewrites": [
-    { "source": "/playground", "destination": "/playground/" },
-    { "source": "/playground/(.*)", "destination": "/playground/$1" },
-    { "source": "/", "destination": "/landing/" },
-    { "source": "/landing/(.*)", "destination": "/landing/$1" }
+    { "source": "/playground", "destination": "/apps/playground/dist/index.html" },
+    { "source": "/playground/(.*)", "destination": "/apps/playground/dist/$1" },
+    { "source": "/", "destination": "/apps/landing/dist/index.html" },
+    { "source": "/landing/(.*)", "destination": "/apps/landing/dist/$1" },
+    { "source": "/docs/(.*)", "destination": "/apps/docs/build/$1" },
+    { "source": "/((?!apps|packages).*)", "destination": "/apps/docs/build/$1" }
   ]
 } 

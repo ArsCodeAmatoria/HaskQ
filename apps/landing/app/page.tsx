@@ -12,6 +12,7 @@ const playgroundPort = '3003'
 
 // Helper function to construct URLs
 const getDocsUrl = (path: string = '') => {
+  // In production, docs are served from the root URL
   return isDev ? `${baseUrl}${docsPort}${path}` : `https://haskq.vercel.app${path}`
 }
 
