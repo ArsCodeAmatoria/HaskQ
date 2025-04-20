@@ -102,12 +102,12 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: '/',
+            href: 'https://haskq.vercel.app',
             label: 'Home',
             position: 'right',
           },
           {
-            href: '/playground',
+            href: 'https://haskq-playground.vercel.app',
             label: 'Playground',
             position: 'right',
           },
@@ -143,11 +143,11 @@ const config = {
             items: [
               {
                 label: 'Home',
-                href: '/',
+                href: 'https://haskq.vercel.app',
               },
               {
                 label: 'Playground',
-                href: '/playground',
+                href: 'https://haskq-playground.vercel.app',
               },
               {
                 label: 'GitHub',
