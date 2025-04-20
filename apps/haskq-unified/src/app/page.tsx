@@ -47,8 +47,8 @@ export default function Home() {
             <h1 
               className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl dark:text-white animate-fade-in"
             >
-              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-indigo-400">HaskQ: Type-Safe</span>{" "}
-              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-300">Quantum Programming</span>
+              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-indigo-400 pb-1">HaskQ: Type-Safe</span>{" "}
+              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-300 pb-3">Quantum Programming</span>
             </h1>
             <p 
               className="max-w-md mx-auto mt-5 text-xl text-gray-500 dark:text-gray-400 animate-fade-in" 
