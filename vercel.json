@@ -6,7 +6,7 @@
   "buildCommand": "npm run build",
   "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
   "outputDirectory": ".",
-  "framework": "turborepo",
+  "framework": "nextjs",
   "rewrites": [
     { "source": "/playground", "destination": "/apps/playground/dist/index.html" },
     { "source": "/playground/(.*)", "destination": "/apps/playground/dist/$1" },
