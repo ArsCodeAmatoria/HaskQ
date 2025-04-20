@@ -104,7 +104,7 @@ function CategoryItem({ category }: CategoryProps) {
 export default function DocsSidebar() {
   return (
     <aside className="w-64 pr-8 hidden md:block">
-      <nav className="sticky top-24">
+      <nav className="sticky top-24 mt-4">
         <div className="mb-8">
           <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Documentation</h3>
         </div>

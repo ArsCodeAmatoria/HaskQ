@@ -18,7 +18,7 @@ export function DocLayout({ children, title, description }: DocLayoutProps) {
       {/* Main content */}
       <main className="flex-grow pb-16">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-5xl">
-          <article className="prose dark:prose-invert max-w-full">
+          <article className="prose dark:prose-invert max-w-full mt-4">
             <h1 className="text-3xl font-bold mb-4">{title}</h1>
             {description && (
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 font-normal">
