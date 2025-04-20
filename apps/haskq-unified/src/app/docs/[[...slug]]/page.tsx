@@ -337,6 +337,426 @@ main = do
       </>
     )
   },
+  'installation': {
+    title: 'Installation',
+    description: 'How to install and set up HaskQ on your system',
+    content: () => (
+      <>
+        <p className="mb-6">
+          This guide covers how to install and set up HaskQ on your system.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Prerequisites</h2>
+        <p className="mb-4">Before installing HaskQ, ensure you have the following tools installed:</p>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">For All Components</h3>
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li>Git</li>
+          <li>Node.js (v18 or later)</li>
+          <li>npm (v9 or later)</li>
+        </ul>
+
+        <h3 className="text-xl font-bold mt-6 mb-3">For Haskell Packages</h3>
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li>GHC (Glasgow Haskell Compiler) version 9.2 or later with LinearTypes extension</li>
+          <li>Cabal 3.6 or later</li>
+          <li>Stack (optional)</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Installation Methods</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Method 1: From Source (Recommended for Development)</h3>
+        <p className="mb-4">Clone the repository and build from source:</p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`# Clone the repository
+git clone https://github.com/ArsCodeAmatoria/HaskQ.git
+cd HaskQ
+
+# Install dependencies
+npm install
+
+# Build all packages
+npm run build`}
+          className="my-6"
+        />
+
+        <h3 className="text-xl font-bold mt-6 mb-3">Method 2: Using Cabal (For Haskell Packages Only)</h3>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`# Install core package
+cabal install haskq-core
+
+# Install simulator package
+cabal install haskq-simulator`}
+          className="my-6"
+        />
+
+        <h3 className="text-xl font-bold mt-6 mb-3">Method 3: Using Stack (For Haskell Packages Only)</h3>
+        <p className="mb-4">Create a <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">stack.yaml</code> file with the following content:</p>
+        
+        <CodeBlock 
+          language="yaml" 
+          code={`resolver: lts-20.11  # or a more recent resolver
+packages:
+- packages/haskq-core
+- packages/haskq-simulator
+extra-deps:
+- linear-base-0.3.0`}
+          className="my-6"
+        />
+        
+        <p className="mb-4">Then run:</p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`stack build`}
+          className="my-6"
+        />
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Verifying Installation</h2>
+        <p className="mb-4">After installation, verify that everything is working correctly:</p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`# Run the simulator CLI
+cabal run haskq-sim -- --circuit bell --output ascii
+
+# Start the development servers
+npm run dev`}
+          className="my-6"
+        />
+        
+        <p className="mb-4">You should see:</p>
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li>The simulator outputs a Bell state circuit representation</li>
+          <li>The web applications start on their respective ports</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Directory Structure</h2>
+        <p className="mb-4">After installation, your project structure should look like this:</p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`HaskQ/
+├── apps/
+│   ├── landing/     # Landing page (Next.js)
+│   ├── docs/        # Documentation (Docusaurus)
+│   └── playground/  # Interactive playground (Next.js)
+├── packages/
+│   ├── haskq-core/      # Core quantum DSL
+│   └── haskq-simulator/ # Quantum simulator
+└── ... (root configuration files)`}
+          className="my-6"
+        />
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Common Issues</h2>
+        
+        <InfoBox type="warning" title="Missing LinearTypes Extension">
+          <p className="mb-3">If you encounter an error about the <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">LinearTypes</code> extension, ensure you're using GHC 9.2 or later:</p>
+          <CodeBlock 
+            language="bash" 
+            code={`ghc --version`}
+            className="my-3"
+          />
+          <p>If you have an older version, update your GHC installation.</p>
+        </InfoBox>
+        
+        <InfoBox type="note" title="Dependency Issues">
+          <p className="mb-3">If you have dependency issues, you might need to update your package index:</p>
+          <CodeBlock 
+            language="bash" 
+            code={`cabal update`}
+            className="my-3"
+          />
+        </InfoBox>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Next Steps</h2>
+        <p className="mb-4">
+          Now that you have HaskQ installed, proceed to the <Link href="/docs/getting-started" className="text-indigo-600 dark:text-indigo-400 hover:underline">Getting Started</Link> guide to create your first quantum circuit.
+        </p>
+      </>
+    )
+  },
+  'core-concepts/quantum-computing-basics': {
+    title: 'Quantum Computing Basics',
+    description: 'A brief introduction to the fundamental concepts of quantum computing',
+    content: () => (
+      <>
+        <p className="mb-6">
+          This document provides a brief introduction to the fundamental concepts of quantum computing.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Qubits</h2>
+        <p className="mb-4">
+          Unlike classical bits, which can be either 0 or 1, quantum bits (qubits) can exist in a superposition of both states:
+        </p>
+        
+        <div className="flex justify-center my-6">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+            <p className="text-center font-mono">|ψ⟩ = α|0⟩ + β|1⟩</p>
+          </div>
+        </div>
+        
+        <p className="mb-4">
+          where α and β are complex numbers satisfying |α|² + |β|² = 1.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Quantum Gates</h2>
+        <p className="mb-4">
+          In quantum computing, operations are performed using quantum gates, which are unitary operations that act on qubits. 
+          Some fundamental gates include:
+        </p>
+        
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li><strong>Hadamard (H)</strong>: Creates a superposition</li>
+          <li><strong>Pauli-X</strong>: Quantum equivalent of the NOT gate</li>
+          <li><strong>Pauli-Z</strong>: Phase flip gate</li>
+          <li><strong>CNOT</strong>: Two-qubit controlled-NOT gate</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Measurement</h2>
+        <p className="mb-4">
+          When a qubit is measured, it collapses to either 0 or 1 with probabilities determined by |α|² and |β|². 
+          This collapse is irreversible.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Entanglement</h2>
+        <p className="mb-4">
+          Entanglement is a quantum phenomenon where the states of multiple qubits become correlated in such a way 
+          that the state of one qubit cannot be described independently of the others.
+        </p>
+
+        <InfoBox type="note" title="A Key Quantum Resource">
+          <p>
+            Entanglement is a central resource in quantum computing, enabling many quantum algorithms to achieve 
+            speedups over classical algorithms.
+          </p>
+        </InfoBox>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Quantum Algorithms</h2>
+        <p className="mb-4">
+          Quantum algorithms leverage superposition, entanglement, and interference to solve certain problems more 
+          efficiently than classical algorithms:
+        </p>
+        
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li><strong>Deutsch-Jozsa</strong>: Determines if a function is constant or balanced</li>
+          <li><strong>Grover's Search</strong>: Searches an unsorted database in O(√N) time</li>
+          <li><strong>Shor's Algorithm</strong>: Factors integers in polynomial time</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">No-Cloning Theorem</h2>
+        <p className="mb-4">
+          The no-cloning theorem states that it is impossible to create an identical copy of an unknown quantum state. 
+          This theorem has profound implications for quantum computing and is enforced in HaskQ through linear types.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Quantum Circuits</h2>
+        <p className="mb-4">
+          Quantum algorithms are typically expressed as quantum circuits, which are sequences of quantum gates applied to qubits. 
+          In HaskQ, circuits are expressed through the <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">Circ</code> monad, 
+          which provides a clean and type-safe way to compose quantum operations.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Further Reading</h2>
+        <p className="mb-4">To deepen your understanding of quantum computing, consider exploring:</p>
+        
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li>
+            <a 
+              href="https://www.cambridge.org/core/books/quantum-computation-and-quantum-information/01E10196D0A682A6AEFFEA52D53BE9AE" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              Nielsen and Chuang's "Quantum Computation and Quantum Information"
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://quantum.country/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              Quantum Country
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://qiskit.org/textbook" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              Qiskit Textbook
+            </a>
+          </li>
+        </ul>
+      </>
+    )
+  },
+  'project-structure': {
+    title: 'Project Structure',
+    description: 'Understanding the organization of the HaskQ codebase',
+    content: () => (
+      <>
+        <p className="mb-6">
+          Understanding the structure of the HaskQ project will help you navigate the codebase and contribute effectively.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Overview</h2>
+        <p className="mb-4">
+          HaskQ is organized as a monorepo using Turborepo, containing both Haskell packages and JavaScript applications. 
+          Here's a high-level view of the project structure:
+        </p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`HaskQ/
+├── apps/                  # Web applications
+├── packages/              # Haskell libraries
+├── package.json           # Root package.json for JS dependencies
+├── turbo.json             # Turborepo configuration
+└── README.md              # Project documentation`}
+          className="my-6"
+        />
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Haskell Packages</h2>
+        <p className="mb-4">
+          The <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">packages/</code> directory contains 
+          the Haskell libraries that form the core of HaskQ:
+        </p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`packages/
+├── haskq-core/            # Core quantum DSL
+│   ├── src/
+│   │   └── HaskQ/
+│   │       └── Core/
+│   │           ├── Types.hs        # Fundamental types (Qubit, Gate, etc.)
+│   │           ├── Gates.hs        # Quantum gate implementations
+│   │           ├── Circuit.hs      # Circuit composition utilities
+│   │           ├── Measurement.hs  # Measurement operations
+│   │           └── Examples.hs     # Example circuits
+│   ├── haskq-core.cabal   # Cabal package configuration
+│   └── LICENSE            # License file
+└── haskq-simulator/       # Quantum simulator
+    ├── src/
+    │   └── HaskQ/
+    │       └── Simulator/
+    │           ├── StateVector.hs  # State vector representation
+    │           ├── Gates.hs        # Matrix implementations of gates
+    │           ├── Circuit.hs      # Circuit simulation engine
+    │           └── Visualizer.hs   # Circuit visualization tools
+    ├── app/
+    │   └── Main.hs        # Command-line simulator application
+    ├── haskq-simulator.cabal
+    └── LICENSE`}
+          className="my-6"
+        />
+
+        <h3 className="text-xl font-bold mt-6 mb-3">Core Design Principles</h3>
+        <p className="mb-4">The Haskell packages follow these design principles:</p>
+        
+        <ol className="list-decimal ml-6 mb-6 space-y-2">
+          <li><strong>Type Safety</strong>: Linear types enforce quantum mechanics principles at compile time</li>
+          <li><strong>Composition</strong>: Monadic design allows for clean circuit composition</li>
+          <li><strong>Separation of Concerns</strong>: Clear separation between the DSL and simulation implementation</li>
+          <li><strong>Extensibility</strong>: Designed to be extended with new gates and algorithms</li>
+        </ol>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Web Applications</h2>
+        <p className="mb-4">
+          The <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">apps/</code> directory contains 
+          the web applications that provide user interfaces to HaskQ:
+        </p>
+        
+        <CodeBlock 
+          language="bash" 
+          code={`apps/
+├── landing/              # Landing page
+│   ├── app/              # Next.js app directory
+│   ├── public/           # Static assets
+│   ├── package.json
+│   └── tailwind.config.js
+├── docs/                 # Documentation site
+│   ├── docs/             # Markdown documentation
+│   │   ├── intro.md
+│   │   ├── getting-started.md
+│   │   ├── core-concepts/
+│   │   └── tutorials/
+│   ├── src/
+│   ├── docusaurus.config.js
+│   └── package.json
+└── playground/           # Interactive playground
+    ├── app/              # Next.js app directory
+    ├── public/           # Static assets
+    ├── package.json
+    └── tailwind.config.js`}
+          className="my-6"
+        />
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Build System</h2>
+        <p className="mb-4">HaskQ uses a combination of build systems:</p>
+        
+        <ol className="list-decimal ml-6 mb-6 space-y-2">
+          <li><strong>Turborepo</strong>: Orchestrates the build process for the entire monorepo</li>
+          <li><strong>Cabal/Stack</strong>: Builds the Haskell packages</li>
+          <li><strong>Next.js/Docusaurus</strong>: Builds the web applications</li>
+        </ol>
+        
+        <p className="mb-4">
+          The build process is defined in the root <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">turbo.json</code> file 
+          and the scripts in the root <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">package.json</code>.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Development Workflow</h2>
+        <p className="mb-4">When developing HaskQ, you'll typically:</p>
+        
+        <ol className="list-decimal ml-6 mb-6 space-y-2">
+          <li>Make changes to the Haskell packages in <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">packages/</code></li>
+          <li>Build the packages using Cabal or Stack</li>
+          <li>Run the simulator to test your changes</li>
+          <li>Update documentation in <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">apps/docs/docs/</code></li>
+          <li>Run the web applications to test the UI</li>
+        </ol>
+
+        <InfoBox type="tip" title="Development Tip">
+          <p>
+            You can use <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:all</code> to start all web applications 
+            simultaneously during development, or run them individually with <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:landing</code>, 
+            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:docs</code>, and 
+            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">npm run dev:playground</code>.
+          </p>
+        </InfoBox>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Configuration Files</h2>
+        <p className="mb-4">Key configuration files in the project:</p>
+        
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">turbo.json</code>: Defines the build pipeline for the monorepo</li>
+          <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">package.json</code>: Root package configuration with workspace setup</li>
+          <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">*.cabal</code>: Haskell package configuration</li>
+          <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">docusaurus.config.js</code>: Documentation site configuration</li>
+          <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">tailwind.config.js</code>: UI styling configuration for web apps</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Next Steps</h2>
+        <p className="mb-4">Now that you understand the project structure, you can:</p>
+        
+        <ol className="list-decimal ml-6 mb-6 space-y-2">
+          <li>Explore the API Reference to learn about specific modules</li>
+          <li>Check out the <Link href="/docs/tutorials/bell-states" className="text-indigo-600 dark:text-indigo-400 hover:underline">Tutorials</Link> to see how to use HaskQ</li>
+          <li>Start Contributing to the project</li>
+        </ol>
+      </>
+    )
+  },
   // Add more pages as needed following the same pattern
 };
 
