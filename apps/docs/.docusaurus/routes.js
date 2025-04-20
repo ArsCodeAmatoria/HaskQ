@@ -39,7 +39,7 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', '647'),
+    component: ComponentCreator('/', 'b35'),
     routes: [
       {
         path: '/',
@@ -50,6 +50,12 @@ export default [
       {
         path: '/core-concepts/circuit-composition',
         component: ComponentCreator('/core-concepts/circuit-composition', '8f5'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/core-concepts/error-correction',
+        component: ComponentCreator('/core-concepts/error-correction', '24a'),
         exact: true,
         sidebar: "tutorialSidebar"
       },
@@ -107,9 +113,16 @@ export default [
         sidebar: "tutorialSidebar"
       },
       {
+        path: '/tutorials/advanced-algorithms',
+        component: ComponentCreator('/tutorials/advanced-algorithms', '9f9'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
         path: '/tutorials/algorithms',
-        component: ComponentCreator('/tutorials/algorithms', '675'),
-        exact: true
+        component: ComponentCreator('/tutorials/algorithms', '0fa'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       },
       {
         path: '/tutorials/bell-states',
@@ -119,33 +132,51 @@ export default [
       },
       {
         path: '/tutorials/error-correction',
-        component: ComponentCreator('/tutorials/error-correction', 'a09'),
-        exact: true
+        component: ComponentCreator('/tutorials/error-correction', '5de'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       },
       {
         path: '/tutorials/fault-tolerance',
-        component: ComponentCreator('/tutorials/fault-tolerance', 'd2b'),
-        exact: true
+        component: ComponentCreator('/tutorials/fault-tolerance', '4f4'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/tutorials/grover',
+        component: ComponentCreator('/tutorials/grover', 'c6d'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       },
       {
         path: '/tutorials/hybrid-algorithms',
-        component: ComponentCreator('/tutorials/hybrid-algorithms', 'c86'),
-        exact: true
+        component: ComponentCreator('/tutorials/hybrid-algorithms', '433'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       },
       {
         path: '/tutorials/noise-models',
-        component: ComponentCreator('/tutorials/noise-models', 'fe3'),
-        exact: true
+        component: ComponentCreator('/tutorials/noise-models', '604'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       },
       {
         path: '/tutorials/optimization',
-        component: ComponentCreator('/tutorials/optimization', 'efe'),
-        exact: true
+        component: ComponentCreator('/tutorials/optimization', 'adc'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/tutorials/qft',
+        component: ComponentCreator('/tutorials/qft', '2fd'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       },
       {
         path: '/tutorials/surface-codes',
-        component: ComponentCreator('/tutorials/surface-codes', '79d'),
-        exact: true
+        component: ComponentCreator('/tutorials/surface-codes', '7f8'),
+        exact: true,
+        sidebar: "tutorialSidebar"
       }
     ]
   },

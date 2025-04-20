@@ -80,6 +80,12 @@
             "label": "Quantum Simulation",
             "href": "/core-concepts/simulation",
             "docId": "core-concepts/simulation"
+          },
+          {
+            "type": "link",
+            "label": "Error Correction in Quantum Computing",
+            "href": "/core-concepts/error-correction",
+            "docId": "core-concepts/error-correction"
           }
         ],
         "collapsed": true,
@@ -94,6 +100,66 @@
             "label": "Creating Bell States",
             "href": "/tutorials/bell-states",
             "docId": "tutorials/bell-states"
+          },
+          {
+            "type": "link",
+            "label": "Quantum Algorithms in HaskQ",
+            "href": "/tutorials/algorithms",
+            "docId": "tutorials/algorithms"
+          },
+          {
+            "type": "link",
+            "label": "Grover's Search Algorithm",
+            "href": "/tutorials/grover",
+            "docId": "tutorials/grover"
+          },
+          {
+            "type": "link",
+            "label": "Quantum Fourier Transform",
+            "href": "/tutorials/qft",
+            "docId": "tutorials/qft"
+          },
+          {
+            "type": "link",
+            "label": "Advanced Quantum Algorithms",
+            "href": "/tutorials/advanced-algorithms",
+            "docId": "tutorials/advanced-algorithms"
+          },
+          {
+            "type": "link",
+            "label": "Error Correction in HaskQ",
+            "href": "/tutorials/error-correction",
+            "docId": "tutorials/error-correction"
+          },
+          {
+            "type": "link",
+            "label": "Fault-Tolerant Quantum Computing",
+            "href": "/tutorials/fault-tolerance",
+            "docId": "tutorials/fault-tolerance"
+          },
+          {
+            "type": "link",
+            "label": "Surface Codes",
+            "href": "/tutorials/surface-codes",
+            "docId": "tutorials/surface-codes"
+          },
+          {
+            "type": "link",
+            "label": "Quantum Noise Models",
+            "href": "/tutorials/noise-models",
+            "docId": "tutorials/noise-models"
+          },
+          {
+            "type": "link",
+            "label": "Hybrid Quantum-Classical Algorithms",
+            "href": "/tutorials/hybrid-algorithms",
+            "docId": "tutorials/hybrid-algorithms"
+          },
+          {
+            "type": "link",
+            "label": "Circuit Optimization",
+            "href": "/tutorials/optimization",
+            "docId": "tutorials/optimization"
           }
         ],
         "collapsed": true,
@@ -106,6 +172,12 @@
       "id": "core-concepts/circuit-composition",
       "title": "Circuit Composition",
       "description": "Circuit composition is a fundamental concept in quantum computing that enables building complex quantum algorithms from simpler components. HaskQ provides elegant ways to compose quantum circuits using Haskell's functional programming paradigm.",
+      "sidebar": "tutorialSidebar"
+    },
+    "core-concepts/error-correction": {
+      "id": "core-concepts/error-correction",
+      "title": "Error Correction in Quantum Computing",
+      "description": "Quantum error correction is essential for building reliable quantum computers. Due to the fragile nature of quantum bits (qubits) and their susceptibility to environmental noise, implementing error correction techniques is crucial for practical quantum computation.",
       "sidebar": "tutorialSidebar"
     },
     "core-concepts/linear-types": {
@@ -167,10 +239,17 @@
       "description": "Understanding the structure of the HaskQ project will help you navigate the codebase and contribute effectively.",
       "sidebar": "tutorialSidebar"
     },
+    "tutorials/advanced-algorithms": {
+      "id": "tutorials/advanced-algorithms",
+      "title": "Advanced Quantum Algorithms",
+      "description": "This page introduces advanced quantum algorithms and their implementation in HaskQ. These algorithms build upon the fundamental blocks like the Quantum Fourier Transform (QFT) and Grover's search algorithm.",
+      "sidebar": "tutorialSidebar"
+    },
     "tutorials/algorithms": {
       "id": "tutorials/algorithms",
       "title": "Quantum Algorithms in HaskQ",
-      "description": "This page contains examples of quantum algorithms implemented in HaskQ."
+      "description": "This page provides an overview of quantum algorithms available in HaskQ and links to more detailed tutorials for each algorithm.",
+      "sidebar": "tutorialSidebar"
     },
     "tutorials/bell-states": {
       "id": "tutorials/bell-states",
@@ -181,32 +260,50 @@
     "tutorials/error-correction": {
       "id": "tutorials/error-correction",
       "title": "Error Correction in HaskQ",
-      "description": "This page explains how to implement error correction codes in HaskQ."
+      "description": "Quantum error correction is essential for building reliable quantum computers. Qubits are highly sensitive to environmental noise, and without error correction, quantum computations quickly become unreliable.",
+      "sidebar": "tutorialSidebar"
     },
     "tutorials/fault-tolerance": {
       "id": "tutorials/fault-tolerance",
-      "title": "Fault Tolerance",
-      "description": "This page explains how to implement fault-tolerant quantum computing in HaskQ."
+      "title": "Fault-Tolerant Quantum Computing",
+      "description": "Fault tolerance is the key to scalable quantum computing. While error correction protects quantum information, fault tolerance ensures that errors don't propagate uncontrollably throughout a quantum computation.",
+      "sidebar": "tutorialSidebar"
+    },
+    "tutorials/grover": {
+      "id": "tutorials/grover",
+      "title": "Grover's Search Algorithm",
+      "description": "Grover's algorithm provides a quadratic speedup for searching unstructured databases. It can find an element in an unsorted list of N items with approximately O(√N) operations, compared to the classical O(N) approach.",
+      "sidebar": "tutorialSidebar"
     },
     "tutorials/hybrid-algorithms": {
       "id": "tutorials/hybrid-algorithms",
       "title": "Hybrid Quantum-Classical Algorithms",
-      "description": "This page explains how to implement hybrid quantum-classical algorithms in HaskQ."
+      "description": "Hybrid quantum-classical algorithms combine the strengths of quantum computing with classical computing to solve complex problems more efficiently than either approach alone. These algorithms are particularly important for near-term quantum devices with limited qubit counts and coherence times.",
+      "sidebar": "tutorialSidebar"
     },
     "tutorials/noise-models": {
       "id": "tutorials/noise-models",
       "title": "Quantum Noise Models",
-      "description": "This page explains how to simulate quantum noise in HaskQ."
+      "description": "This page explains how to simulate quantum noise in HaskQ.",
+      "sidebar": "tutorialSidebar"
     },
     "tutorials/optimization": {
       "id": "tutorials/optimization",
       "title": "Circuit Optimization",
-      "description": "This page explains how to optimize quantum circuits in HaskQ."
+      "description": "This page explains how to optimize quantum circuits in HaskQ.",
+      "sidebar": "tutorialSidebar"
+    },
+    "tutorials/qft": {
+      "id": "tutorials/qft",
+      "title": "Quantum Fourier Transform",
+      "description": "The Quantum Fourier Transform (QFT) is one of the most important quantum algorithms and serves as a building block for many other quantum algorithms, including Shor's factoring algorithm and quantum phase estimation.",
+      "sidebar": "tutorialSidebar"
     },
     "tutorials/surface-codes": {
       "id": "tutorials/surface-codes",
       "title": "Surface Codes",
-      "description": "This page explains how to implement surface code error correction in HaskQ."
+      "description": "Surface codes are the most promising quantum error correction codes for building large-scale fault-tolerant quantum computers. They combine relatively high error thresholds with a practical 2D nearest-neighbor architecture.",
+      "sidebar": "tutorialSidebar"
     }
   }
 }

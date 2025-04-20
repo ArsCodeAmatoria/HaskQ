@@ -1,1 +1,48 @@
- 
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1E293B" />
+  
+  <!-- Grid pattern -->
+  <path d="M0 0L1200 0L1200 630L0 630L0 0Z" fill="url(#grid)" fill-opacity="0.1" />
+  
+  <!-- Logo -->
+  <g transform="translate(300, 190)">
+    <circle cx="100" cy="100" r="90" fill="#3B82F6" />
+    
+    <!-- Quantum Circuit Symbol -->
+    <path d="M60 70H140" stroke="white" stroke-width="8" stroke-linecap="round" />
+    <path d="M60 100H140" stroke="white" stroke-width="8" stroke-linecap="round" />
+    <path d="M60 130H140" stroke="white" stroke-width="8" stroke-linecap="round" />
+    
+    <!-- Quantum Gates -->
+    <rect x="85" y="60" width="30" height="20" rx="4" fill="white" />
+    <rect x="50" y="90" width="30" height="20" rx="4" fill="white" />
+    <rect x="120" y="90" width="30" height="20" rx="4" fill="white" />
+    <rect x="85" y="120" width="30" height="20" rx="4" fill="white" />
+    
+    <!-- Control Lines -->
+    <line x1="100" y1="80" x2="100" y2="90" stroke="white" stroke-width="4" stroke-linecap="round" />
+    <line x1="100" y1="110" x2="100" y2="120" stroke="white" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- Qubits (Dots) -->
+    <circle cx="100" cy="70" r="5" fill="#3B82F6" />
+    <circle cx="65" cy="100" r="5" fill="#3B82F6" />
+    <circle cx="135" cy="100" r="5" fill="#3B82F6" />
+    <circle cx="100" cy="130" r="5" fill="#3B82F6" />
+    
+    <!-- "Q" letter overlay -->
+    <path d="M160 145L140 125C145 120 148 113 148 105C148 88.4315 134.569 75 118 75C101.431 75 88 88.4315 88 105C88 121.569 101.431 135 118 135C126 135 133 132 138 127L158 147L160 145Z" fill="white"/>
+    <circle cx="118" cy="105" r="20" fill="#3B82F6"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="600" y="250" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">HaskQ</text>
+  <text x="600" y="330" font-family="Arial, sans-serif" font-size="40" fill="#9CA3AF" text-anchor="middle">Quantum Circuits, Purely Functional</text>
+  
+  <!-- Patterns -->
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#3B82F6" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+</svg> 

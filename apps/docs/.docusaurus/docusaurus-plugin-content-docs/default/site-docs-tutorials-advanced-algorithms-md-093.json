@@ -1,0 +1,26 @@
+{
+  "unversionedId": "tutorials/advanced-algorithms",
+  "id": "tutorials/advanced-algorithms",
+  "title": "Advanced Quantum Algorithms",
+  "description": "This page introduces advanced quantum algorithms and their implementation in HaskQ. These algorithms build upon the fundamental blocks like the Quantum Fourier Transform (QFT) and Grover's search algorithm.",
+  "source": "@site/docs/tutorials/advanced-algorithms.md",
+  "sourceDirName": "tutorials",
+  "slug": "/tutorials/advanced-algorithms",
+  "permalink": "/tutorials/advanced-algorithms",
+  "draft": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Quantum Fourier Transform",
+    "permalink": "/tutorials/qft"
+  },
+  "next": {
+    "title": "Error Correction in HaskQ",
+    "permalink": "/tutorials/error-correction"
+  }
+}

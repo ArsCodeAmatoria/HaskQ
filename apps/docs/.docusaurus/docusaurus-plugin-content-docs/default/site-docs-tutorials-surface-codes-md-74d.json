@@ -2,7 +2,7 @@
   "unversionedId": "tutorials/surface-codes",
   "id": "tutorials/surface-codes",
   "title": "Surface Codes",
-  "description": "This page explains how to implement surface code error correction in HaskQ.",
+  "description": "Surface codes are the most promising quantum error correction codes for building large-scale fault-tolerant quantum computers. They combine relatively high error thresholds with a practical 2D nearest-neighbor architecture.",
   "source": "@site/docs/tutorials/surface-codes.md",
   "sourceDirName": "tutorials",
   "slug": "/tutorials/surface-codes",
@@ -10,8 +10,17 @@
   "draft": false,
   "tags": [],
   "version": "current",
-  "sidebarPosition": 6,
+  "sidebarPosition": 9,
   "frontMatter": {
-    "sidebar_position": 6
+    "sidebar_position": 9
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Fault-Tolerant Quantum Computing",
+    "permalink": "/tutorials/fault-tolerance"
+  },
+  "next": {
+    "title": "Quantum Noise Models",
+    "permalink": "/tutorials/noise-models"
   }
 }

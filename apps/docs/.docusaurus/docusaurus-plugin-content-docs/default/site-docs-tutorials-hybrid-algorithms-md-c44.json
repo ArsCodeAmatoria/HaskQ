@@ -2,7 +2,7 @@
   "unversionedId": "tutorials/hybrid-algorithms",
   "id": "tutorials/hybrid-algorithms",
   "title": "Hybrid Quantum-Classical Algorithms",
-  "description": "This page explains how to implement hybrid quantum-classical algorithms in HaskQ.",
+  "description": "Hybrid quantum-classical algorithms combine the strengths of quantum computing with classical computing to solve complex problems more efficiently than either approach alone. These algorithms are particularly important for near-term quantum devices with limited qubit counts and coherence times.",
   "source": "@site/docs/tutorials/hybrid-algorithms.md",
   "sourceDirName": "tutorials",
   "slug": "/tutorials/hybrid-algorithms",
@@ -10,8 +10,17 @@
   "draft": false,
   "tags": [],
   "version": "current",
-  "sidebarPosition": 3,
+  "sidebarPosition": 6,
   "frontMatter": {
-    "sidebar_position": 3
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Quantum Noise Models",
+    "permalink": "/tutorials/noise-models"
+  },
+  "next": {
+    "title": "Circuit Optimization",
+    "permalink": "/tutorials/optimization"
   }
 }

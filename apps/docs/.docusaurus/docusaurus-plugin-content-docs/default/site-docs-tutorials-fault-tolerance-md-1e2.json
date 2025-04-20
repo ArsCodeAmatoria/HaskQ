@@ -1,8 +1,8 @@
 {
   "unversionedId": "tutorials/fault-tolerance",
   "id": "tutorials/fault-tolerance",
-  "title": "Fault Tolerance",
-  "description": "This page explains how to implement fault-tolerant quantum computing in HaskQ.",
+  "title": "Fault-Tolerant Quantum Computing",
+  "description": "Fault tolerance is the key to scalable quantum computing. While error correction protects quantum information, fault tolerance ensures that errors don't propagate uncontrollably throughout a quantum computation.",
   "source": "@site/docs/tutorials/fault-tolerance.md",
   "sourceDirName": "tutorials",
   "slug": "/tutorials/fault-tolerance",
@@ -10,8 +10,17 @@
   "draft": false,
   "tags": [],
   "version": "current",
-  "sidebarPosition": 5,
+  "sidebarPosition": 8,
   "frontMatter": {
-    "sidebar_position": 5
+    "sidebar_position": 8
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Error Correction in HaskQ",
+    "permalink": "/tutorials/error-correction"
+  },
+  "next": {
+    "title": "Surface Codes",
+    "permalink": "/tutorials/surface-codes"
   }
 }

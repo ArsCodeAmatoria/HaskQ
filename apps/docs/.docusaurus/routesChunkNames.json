@@ -42,7 +42,7 @@
       "plugin": "plugin---docusaurus-debug-7-ee-fd8"
     }
   },
-  "/-647": {
+  "/-b35": {
     "__comp": "__comp---theme-doc-page-1-be-9be",
     "__context": {
       "plugin": "plugin---20-a-3f4"
@@ -56,6 +56,10 @@
   "/core-concepts/circuit-composition-8f5": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---core-concepts-circuit-compositione-7-b-9c8"
+  },
+  "/core-concepts/error-correction-24a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---core-concepts-error-correction-3-a-0-2a1"
   },
   "/core-concepts/linear-types-20f": {
     "__comp": "__comp---theme-doc-item-178-a40",
@@ -93,7 +97,11 @@
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---project-structurea-5-f-e7a"
   },
-  "/tutorials/algorithms-675": {
+  "/tutorials/advanced-algorithms-9f9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---tutorials-advanced-algorithms-093-1c0"
+  },
+  "/tutorials/algorithms-0fa": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-algorithms-505-6d4"
   },
@@ -101,27 +109,35 @@
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-bell-statesfe-0-412"
   },
-  "/tutorials/error-correction-a09": {
+  "/tutorials/error-correction-5de": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-error-correction-1-de-77f"
   },
-  "/tutorials/fault-tolerance-d2b": {
+  "/tutorials/fault-tolerance-4f4": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-fault-tolerance-1-e-2-6f9"
   },
-  "/tutorials/hybrid-algorithms-c86": {
+  "/tutorials/grover-c6d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---tutorials-groverb-2-d-11c"
+  },
+  "/tutorials/hybrid-algorithms-433": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-hybrid-algorithmsc-44-45c"
   },
-  "/tutorials/noise-models-fe3": {
+  "/tutorials/noise-models-604": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-noise-models-5-f-9-e3d"
   },
-  "/tutorials/optimization-efe": {
+  "/tutorials/optimization-adc": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-optimizationfe-5-d66"
   },
-  "/tutorials/surface-codes-79d": {
+  "/tutorials/qft-2fd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---tutorials-qft-4-fb-903"
+  },
+  "/tutorials/surface-codes-7f8": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---tutorials-surface-codes-74-d-703"
   }

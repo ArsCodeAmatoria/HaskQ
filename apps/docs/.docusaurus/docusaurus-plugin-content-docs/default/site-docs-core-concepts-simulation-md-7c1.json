@@ -20,7 +20,7 @@
     "permalink": "/core-concepts/measurement"
   },
   "next": {
-    "title": "Creating Bell States",
-    "permalink": "/tutorials/bell-states"
+    "title": "Error Correction in Quantum Computing",
+    "permalink": "/core-concepts/error-correction"
   }
 }

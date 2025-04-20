@@ -44,6 +44,32 @@
               }
             },
             {
+              "unversionedId": "core-concepts/error-correction",
+              "id": "core-concepts/error-correction",
+              "title": "Error Correction in Quantum Computing",
+              "description": "Quantum error correction is essential for building reliable quantum computers. Due to the fragile nature of quantum bits (qubits) and their susceptibility to environmental noise, implementing error correction techniques is crucial for practical quantum computation.",
+              "source": "@site/docs/core-concepts/error-correction.md",
+              "sourceDirName": "core-concepts",
+              "slug": "/core-concepts/error-correction",
+              "permalink": "/core-concepts/error-correction",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 7,
+              "frontMatter": {
+                "sidebar_position": 7
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Simulation",
+                "permalink": "/core-concepts/simulation"
+              },
+              "next": {
+                "title": "Creating Bell States",
+                "permalink": "/tutorials/bell-states"
+              }
+            },
+            {
               "unversionedId": "core-concepts/linear-types",
               "id": "core-concepts/linear-types",
               "title": "Linear Types in Quantum Computing",
@@ -169,8 +195,8 @@
                 "permalink": "/core-concepts/measurement"
               },
               "next": {
-                "title": "Creating Bell States",
-                "permalink": "/tutorials/bell-states"
+                "title": "Error Correction in Quantum Computing",
+                "permalink": "/core-concepts/error-correction"
               }
             },
             {
@@ -292,10 +318,36 @@
               }
             },
             {
+              "unversionedId": "tutorials/advanced-algorithms",
+              "id": "tutorials/advanced-algorithms",
+              "title": "Advanced Quantum Algorithms",
+              "description": "This page introduces advanced quantum algorithms and their implementation in HaskQ. These algorithms build upon the fundamental blocks like the Quantum Fourier Transform (QFT) and Grover's search algorithm.",
+              "source": "@site/docs/tutorials/advanced-algorithms.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/advanced-algorithms",
+              "permalink": "/tutorials/advanced-algorithms",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Fourier Transform",
+                "permalink": "/tutorials/qft"
+              },
+              "next": {
+                "title": "Error Correction in HaskQ",
+                "permalink": "/tutorials/error-correction"
+              }
+            },
+            {
               "unversionedId": "tutorials/algorithms",
               "id": "tutorials/algorithms",
               "title": "Quantum Algorithms in HaskQ",
-              "description": "This page contains examples of quantum algorithms implemented in HaskQ.",
+              "description": "This page provides an overview of quantum algorithms available in HaskQ and links to more detailed tutorials for each algorithm.",
               "source": "@site/docs/tutorials/algorithms.md",
               "sourceDirName": "tutorials",
               "slug": "/tutorials/algorithms",
@@ -306,6 +358,15 @@
               "sidebarPosition": 2,
               "frontMatter": {
                 "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Creating Bell States",
+                "permalink": "/tutorials/bell-states"
+              },
+              "next": {
+                "title": "Grover's Search Algorithm",
+                "permalink": "/tutorials/grover"
               }
             },
             {
@@ -326,15 +387,19 @@
               },
               "sidebar": "tutorialSidebar",
               "previous": {
-                "title": "Quantum Simulation",
-                "permalink": "/core-concepts/simulation"
+                "title": "Error Correction in Quantum Computing",
+                "permalink": "/core-concepts/error-correction"
+              },
+              "next": {
+                "title": "Quantum Algorithms in HaskQ",
+                "permalink": "/tutorials/algorithms"
               }
             },
             {
               "unversionedId": "tutorials/error-correction",
               "id": "tutorials/error-correction",
               "title": "Error Correction in HaskQ",
-              "description": "This page explains how to implement error correction codes in HaskQ.",
+              "description": "Quantum error correction is essential for building reliable quantum computers. Qubits are highly sensitive to environmental noise, and without error correction, quantum computations quickly become unreliable.",
               "source": "@site/docs/tutorials/error-correction.md",
               "sourceDirName": "tutorials",
               "slug": "/tutorials/error-correction",
@@ -342,16 +407,25 @@
               "draft": false,
               "tags": [],
               "version": "current",
-              "sidebarPosition": 4,
+              "sidebarPosition": 7,
               "frontMatter": {
-                "sidebar_position": 4
+                "sidebar_position": 7
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Advanced Quantum Algorithms",
+                "permalink": "/tutorials/advanced-algorithms"
+              },
+              "next": {
+                "title": "Fault-Tolerant Quantum Computing",
+                "permalink": "/tutorials/fault-tolerance"
               }
             },
             {
               "unversionedId": "tutorials/fault-tolerance",
               "id": "tutorials/fault-tolerance",
-              "title": "Fault Tolerance",
-              "description": "This page explains how to implement fault-tolerant quantum computing in HaskQ.",
+              "title": "Fault-Tolerant Quantum Computing",
+              "description": "Fault tolerance is the key to scalable quantum computing. While error correction protects quantum information, fault tolerance ensures that errors don't propagate uncontrollably throughout a quantum computation.",
               "source": "@site/docs/tutorials/fault-tolerance.md",
               "sourceDirName": "tutorials",
               "slug": "/tutorials/fault-tolerance",
@@ -359,16 +433,51 @@
               "draft": false,
               "tags": [],
               "version": "current",
-              "sidebarPosition": 5,
+              "sidebarPosition": 8,
               "frontMatter": {
-                "sidebar_position": 5
+                "sidebar_position": 8
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Error Correction in HaskQ",
+                "permalink": "/tutorials/error-correction"
+              },
+              "next": {
+                "title": "Surface Codes",
+                "permalink": "/tutorials/surface-codes"
+              }
+            },
+            {
+              "unversionedId": "tutorials/grover",
+              "id": "tutorials/grover",
+              "title": "Grover's Search Algorithm",
+              "description": "Grover's algorithm provides a quadratic speedup for searching unstructured databases. It can find an element in an unsorted list of N items with approximately O(√N) operations, compared to the classical O(N) approach.",
+              "source": "@site/docs/tutorials/grover.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/grover",
+              "permalink": "/tutorials/grover",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Algorithms in HaskQ",
+                "permalink": "/tutorials/algorithms"
+              },
+              "next": {
+                "title": "Quantum Fourier Transform",
+                "permalink": "/tutorials/qft"
               }
             },
             {
               "unversionedId": "tutorials/hybrid-algorithms",
               "id": "tutorials/hybrid-algorithms",
               "title": "Hybrid Quantum-Classical Algorithms",
-              "description": "This page explains how to implement hybrid quantum-classical algorithms in HaskQ.",
+              "description": "Hybrid quantum-classical algorithms combine the strengths of quantum computing with classical computing to solve complex problems more efficiently than either approach alone. These algorithms are particularly important for near-term quantum devices with limited qubit counts and coherence times.",
               "source": "@site/docs/tutorials/hybrid-algorithms.md",
               "sourceDirName": "tutorials",
               "slug": "/tutorials/hybrid-algorithms",
@@ -376,9 +485,18 @@
               "draft": false,
               "tags": [],
               "version": "current",
-              "sidebarPosition": 3,
+              "sidebarPosition": 6,
               "frontMatter": {
-                "sidebar_position": 3
+                "sidebar_position": 6
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Quantum Noise Models",
+                "permalink": "/tutorials/noise-models"
+              },
+              "next": {
+                "title": "Circuit Optimization",
+                "permalink": "/tutorials/optimization"
               }
             },
             {
@@ -396,6 +514,15 @@
               "sidebarPosition": 7,
               "frontMatter": {
                 "sidebar_position": 7
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Surface Codes",
+                "permalink": "/tutorials/surface-codes"
+              },
+              "next": {
+                "title": "Hybrid Quantum-Classical Algorithms",
+                "permalink": "/tutorials/hybrid-algorithms"
               }
             },
             {
@@ -413,13 +540,44 @@
               "sidebarPosition": 8,
               "frontMatter": {
                 "sidebar_position": 8
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Hybrid Quantum-Classical Algorithms",
+                "permalink": "/tutorials/hybrid-algorithms"
+              }
+            },
+            {
+              "unversionedId": "tutorials/qft",
+              "id": "tutorials/qft",
+              "title": "Quantum Fourier Transform",
+              "description": "The Quantum Fourier Transform (QFT) is one of the most important quantum algorithms and serves as a building block for many other quantum algorithms, including Shor's factoring algorithm and quantum phase estimation.",
+              "source": "@site/docs/tutorials/qft.md",
+              "sourceDirName": "tutorials",
+              "slug": "/tutorials/qft",
+              "permalink": "/tutorials/qft",
+              "draft": false,
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Grover's Search Algorithm",
+                "permalink": "/tutorials/grover"
+              },
+              "next": {
+                "title": "Advanced Quantum Algorithms",
+                "permalink": "/tutorials/advanced-algorithms"
               }
             },
             {
               "unversionedId": "tutorials/surface-codes",
               "id": "tutorials/surface-codes",
               "title": "Surface Codes",
-              "description": "This page explains how to implement surface code error correction in HaskQ.",
+              "description": "Surface codes are the most promising quantum error correction codes for building large-scale fault-tolerant quantum computers. They combine relatively high error thresholds with a practical 2D nearest-neighbor architecture.",
               "source": "@site/docs/tutorials/surface-codes.md",
               "sourceDirName": "tutorials",
               "slug": "/tutorials/surface-codes",
@@ -427,9 +585,18 @@
               "draft": false,
               "tags": [],
               "version": "current",
-              "sidebarPosition": 6,
+              "sidebarPosition": 9,
               "frontMatter": {
-                "sidebar_position": 6
+                "sidebar_position": 9
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Fault-Tolerant Quantum Computing",
+                "permalink": "/tutorials/fault-tolerance"
+              },
+              "next": {
+                "title": "Quantum Noise Models",
+                "permalink": "/tutorials/noise-models"
               }
             }
           ],
@@ -487,6 +654,10 @@
                   {
                     "type": "doc",
                     "id": "core-concepts/simulation"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "core-concepts/error-correction"
                   }
                 ],
                 "collapsed": true,
@@ -499,6 +670,46 @@
                   {
                     "type": "doc",
                     "id": "tutorials/bell-states"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/algorithms"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/grover"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/qft"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/advanced-algorithms"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/error-correction"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/fault-tolerance"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/surface-codes"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/noise-models"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/hybrid-algorithms"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "tutorials/optimization"
                   }
                 ],
                 "collapsed": true,

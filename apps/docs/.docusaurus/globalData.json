@@ -16,6 +16,11 @@
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "core-concepts/error-correction",
+              "path": "/core-concepts/error-correction",
+              "sidebar": "tutorialSidebar"
+            },
+            {
               "id": "core-concepts/linear-types",
               "path": "/core-concepts/linear-types",
               "sidebar": "tutorialSidebar"
@@ -65,8 +70,14 @@
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "tutorials/advanced-algorithms",
+              "path": "/tutorials/advanced-algorithms",
+              "sidebar": "tutorialSidebar"
+            },
+            {
               "id": "tutorials/algorithms",
-              "path": "/tutorials/algorithms"
+              "path": "/tutorials/algorithms",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorials/bell-states",
@@ -75,27 +86,43 @@
             },
             {
               "id": "tutorials/error-correction",
-              "path": "/tutorials/error-correction"
+              "path": "/tutorials/error-correction",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorials/fault-tolerance",
-              "path": "/tutorials/fault-tolerance"
+              "path": "/tutorials/fault-tolerance",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "tutorials/grover",
+              "path": "/tutorials/grover",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorials/hybrid-algorithms",
-              "path": "/tutorials/hybrid-algorithms"
+              "path": "/tutorials/hybrid-algorithms",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorials/noise-models",
-              "path": "/tutorials/noise-models"
+              "path": "/tutorials/noise-models",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorials/optimization",
-              "path": "/tutorials/optimization"
+              "path": "/tutorials/optimization",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "tutorials/qft",
+              "path": "/tutorials/qft",
+              "sidebar": "tutorialSidebar"
             },
             {
               "id": "tutorials/surface-codes",
-              "path": "/tutorials/surface-codes"
+              "path": "/tutorials/surface-codes",
+              "sidebar": "tutorialSidebar"
             }
           ],
           "draftIds": [],

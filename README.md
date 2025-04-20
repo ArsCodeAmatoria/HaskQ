@@ -33,7 +33,7 @@ npm install
 # Build all packages and apps
 npm run build
 
-# Start the development server for all apps
+# Start the unified development server
 npm run dev
 ```
 

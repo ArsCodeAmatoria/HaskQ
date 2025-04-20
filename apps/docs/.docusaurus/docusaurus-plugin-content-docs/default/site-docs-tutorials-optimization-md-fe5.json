@@ -13,5 +13,10 @@
   "sidebarPosition": 8,
   "frontMatter": {
     "sidebar_position": 8
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Hybrid Quantum-Classical Algorithms",
+    "permalink": "/tutorials/hybrid-algorithms"
   }
 }

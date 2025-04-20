@@ -49,6 +49,17 @@ module HaskQ.Prelude
   , correctPhaseFlip
   , encodeShor
   , decodeShor
+  
+    -- * Quantum Algorithms
+    -- ** Quantum Fourier Transform
+  , qft
+  , inverseQft
+  , rotationGate
+    -- ** Grover's Search
+  , groverSearch
+  , diffusion
+  , oracle
+  , OracleFunction
   ) where
 
 import HaskQ.Core.Types
@@ -57,5 +68,7 @@ import HaskQ.Core.Circuit
 import HaskQ.Core.Measurement
 import HaskQ.Core.Examples
 import HaskQ.Core.ErrorCorrection
+import HaskQ.Core.Algorithms.QFT
+import HaskQ.Core.Algorithms.Grover
 
 -- | Re-export everything needed for quantum programming with HaskQ 

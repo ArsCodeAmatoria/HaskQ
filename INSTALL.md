@@ -57,17 +57,14 @@ stack build
 
 ### 4. Run the Development Server
 
-To start the development servers for the web applications:
+To start the unified development server:
 
 ```bash
 # From the root directory
 npm run dev
 ```
 
-This will start the following servers:
-- Landing page: http://localhost:3000
-- Documentation: http://localhost:3001
-- Playground: http://localhost:3002
+This will start the unified app server at http://localhost:3000
 
 ## Building for Production
 

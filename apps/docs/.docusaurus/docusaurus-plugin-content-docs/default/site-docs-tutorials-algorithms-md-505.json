@@ -2,7 +2,7 @@
   "unversionedId": "tutorials/algorithms",
   "id": "tutorials/algorithms",
   "title": "Quantum Algorithms in HaskQ",
-  "description": "This page contains examples of quantum algorithms implemented in HaskQ.",
+  "description": "This page provides an overview of quantum algorithms available in HaskQ and links to more detailed tutorials for each algorithm.",
   "source": "@site/docs/tutorials/algorithms.md",
   "sourceDirName": "tutorials",
   "slug": "/tutorials/algorithms",
@@ -13,5 +13,14 @@
   "sidebarPosition": 2,
   "frontMatter": {
     "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Creating Bell States",
+    "permalink": "/tutorials/bell-states"
+  },
+  "next": {
+    "title": "Grover's Search Algorithm",
+    "permalink": "/tutorials/grover"
   }
 }

@@ -13,5 +13,14 @@
   "sidebarPosition": 7,
   "frontMatter": {
     "sidebar_position": 7
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Surface Codes",
+    "permalink": "/tutorials/surface-codes"
+  },
+  "next": {
+    "title": "Hybrid Quantum-Classical Algorithms",
+    "permalink": "/tutorials/hybrid-algorithms"
   }
 }

@@ -17,7 +17,7 @@ export default function ProjectStructurePage() {
 
       <h2 className="text-2xl font-bold mt-8 mb-4">Overview</h2>
       <p className="mb-4">
-        HaskQ is organized as a monorepo using Turborepo, containing both Haskell packages and JavaScript applications. 
+        HaskQ is organized as a monorepo using npm workspaces, containing both Haskell packages and JavaScript applications. 
         Here's a high-level view of the project structure:
       </p>
       
@@ -26,8 +26,9 @@ export default function ProjectStructurePage() {
         code={`HaskQ/
 ├── apps/                  # Web applications
 ├── packages/              # Haskell libraries
-├── package.json           # Root package.json for JS dependencies
-├── turbo.json             # Turborepo configuration
+├── package.json           # Root package.json with workspace configuration
+├── .gitignore             # Git ignore file
+├── .prettierrc            # Prettier configuration
 └── README.md              # Project documentation`}
         className="my-6"
       />
@@ -112,14 +113,13 @@ export default function ProjectStructurePage() {
       <p className="mb-4">HaskQ uses a combination of build systems:</p>
       
       <ol className="list-decimal ml-6 mb-6 space-y-2">
-        <li><strong>Turborepo</strong>: Orchestrates the build process for the entire monorepo</li>
+        <li><strong>npm workspaces</strong>: Manages dependencies across the monorepo</li>
         <li><strong>Cabal/Stack</strong>: Builds the Haskell packages</li>
         <li><strong>Next.js/Docusaurus</strong>: Builds the web applications</li>
       </ol>
       
       <p className="mb-4">
-        The build process is defined in the root <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">turbo.json</code> file 
-        and the scripts in the root <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">package.json</code>.
+        The build process is defined in the scripts in the root <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">package.json</code>.
       </p>
 
       <h2 className="text-2xl font-bold mt-8 mb-4">Development Workflow</h2>
@@ -146,7 +146,6 @@ export default function ProjectStructurePage() {
       <p className="mb-4">Key configuration files in the project:</p>
       
       <ul className="list-disc ml-6 mb-6 space-y-2">
-        <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">turbo.json</code>: Defines the build pipeline for the monorepo</li>
         <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">package.json</code>: Root package configuration with workspace setup</li>
         <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">*.cabal</code>: Haskell package configuration</li>
         <li><code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">docusaurus.config.js</code>: Documentation site configuration</li>

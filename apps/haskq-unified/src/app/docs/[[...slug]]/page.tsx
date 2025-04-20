@@ -548,7 +548,7 @@ npm run dev`}
 
         <h2 className="text-2xl font-bold mt-8 mb-4">Overview</h2>
         <p className="mb-4">
-          HaskQ is organized as a monorepo using Turborepo, containing both Haskell packages and JavaScript applications. 
+          HaskQ is organized as a monorepo using npm workspaces, containing both Haskell packages and JavaScript applications. 
           Here's a high-level view of the project structure:
         </p>
         
@@ -557,8 +557,9 @@ npm run dev`}
           code={`HaskQ/
 ├── apps/                  # Web applications
 ├── packages/              # Haskell libraries
-├── package.json           # Root package.json for JS dependencies
-├── turbo.json             # Turborepo configuration
+├── package.json           # Root package.json with workspace configuration
+├── .gitignore             # Git ignore file
+├── .prettierrc            # Prettier configuration
 └── README.md              # Project documentation`}
           className="my-6"
         />
@@ -643,7 +644,7 @@ npm run dev`}
         <p className="mb-4">HaskQ uses a combination of build systems:</p>
         
         <ol className="list-decimal ml-6 mb-6 space-y-2">
-          <li><strong>Turborepo</strong>: Orchestrates the build process for the entire monorepo</li>
+          <li><strong>npm workspaces</strong>: Manages dependencies across the monorepo</li>
           <li><strong>Cabal/Stack</strong>: Builds the Haskell packages</li>
           <li><strong>Next.js/Docusaurus</strong>: Builds the web applications</li>
         </ol>
@@ -695,7 +696,54 @@ npm run dev`}
       </>
     )
   },
-  // Add more pages as needed following the same pattern
+  'tutorials': {
+    title: 'HaskQ Tutorials',
+    description: 'Step-by-step guides for implementing quantum algorithms and protocols in HaskQ',
+    content: () => {
+      const TutorialsIndexPage = dynamic(() => import('@/app/docs/tutorials/page'), { ssr: true });
+      return <TutorialsIndexPage />;
+    }
+  },
+  'tutorials/qft': {
+    title: 'Quantum Fourier Transform (QFT)',
+    description: 'Learn about the Quantum Fourier Transform and its implementation in HaskQ',
+    content: () => {
+      const QFTTutorialPage = dynamic(() => import('@/app/docs/tutorials/qft/page'), { ssr: true });
+      return <QFTTutorialPage />;
+    }
+  },
+  'tutorials/bell-states': {
+    title: 'Bell States',
+    description: 'Understanding quantum entanglement through Bell states',
+    content: () => {
+      const BellStatesTutorialPage = dynamic(() => import('@/app/docs/tutorials/bell-states/page'), { ssr: true });
+      return <BellStatesTutorialPage />;
+    }
+  },
+  'tutorials/grovers-algorithm': {
+    title: 'Grover\'s Algorithm',
+    description: 'Implementing the quantum search algorithm that provides quadratic speedup',
+    content: () => {
+      const GroversAlgorithmPage = dynamic(() => import('@/app/docs/tutorials/grovers-algorithm/page'), { ssr: true });
+      return <GroversAlgorithmPage />;
+    }
+  },
+  'tutorials/teleportation': {
+    title: 'Quantum Teleportation',
+    description: 'Learn how to transfer quantum states using entanglement and classical communication',
+    content: () => {
+      const TeleportationTutorialPage = dynamic(() => import('@/app/docs/tutorials/teleportation/page'), { ssr: true });
+      return <TeleportationTutorialPage />;
+    }
+  },
+  'tutorials/superdense-coding': {
+    title: 'Superdense Coding',
+    description: 'Learn how to transmit two classical bits using a single qubit with entanglement',
+    content: () => {
+      const SuperdenseCodingPage = dynamic(() => import('@/app/docs/tutorials/superdense-coding/page'), { ssr: true });
+      return <SuperdenseCodingPage />;
+    }
+  },
 };
 
 // Main page component

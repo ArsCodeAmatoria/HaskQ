@@ -16,7 +16,11 @@
   },
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Quantum Simulation",
-    "permalink": "/core-concepts/simulation"
+    "title": "Error Correction in Quantum Computing",
+    "permalink": "/core-concepts/error-correction"
+  },
+  "next": {
+    "title": "Quantum Algorithms in HaskQ",
+    "permalink": "/tutorials/algorithms"
   }
 }
