@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "github": {
-    "silent": true
-  },
-  "buildCommand": "npm install --include=dev && npm run build",
-  "outputDirectory": ".next",
-  "framework": "nextjs"
-} 
