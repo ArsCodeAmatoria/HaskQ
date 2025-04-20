@@ -1,16 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import ExamplesPanel from '@/components/playground/ExamplesPanel';
 import CircuitVisualizer from '@/components/playground/CircuitVisualizer';
 import PlaygroundHeader from '@/components/playground/PlaygroundHeader';
+import { loader } from '@monaco-editor/react';
 
 // Dynamically import the Monaco Editor with SSR disabled
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react'),
   { ssr: false }
 );
+
+// Define Haskell keywords and syntax highlighting rules
+const haskellSyntax = {
+  keywords: [
+    'module', 'where', 'import', 'qualified', 'as', 'hiding',
+    'type', 'data', 'newtype', 'class', 'instance', 'deriving',
+    'do', 'case', 'of', 'let', 'in', 'if', 'then', 'else',
+    'forall', 'family', 'default', 'foreign', 'export', 'dynamic'
+  ],
+  operators: [
+    '=', '->', '=>', '::', ':', '|', '\\', '<-', '@', '~', '=>', '$', '<$>', '<*>', '>>=', '>>'
+  ],
+  typeKeywords: [
+    'Int', 'Integer', 'Float', 'Double', 'Bool', 'Char', 'String',
+    'Maybe', 'Either', 'IO', 'Qubit', 'Circ', 'Measurement'
+  ],
+  builtins: [
+    'map', 'filter', 'foldr', 'foldl', 'zip', 'unzip', 'head', 'tail',
+    'fst', 'snd', 'null', 'length', 'reverse', 'concat', 'sum', 'product',
+    'hadamard', 'measure', 'cnot', 'qinit', 'gateX', 'gateY', 'gateZ'
+  ]
+};
 
 const DEFAULT_CODE = `-- Create a Bell state |Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)
 bellState :: Circ (Qubit, Qubit)
@@ -31,6 +54,99 @@ export default function PlaygroundPage() {
   const [code, setCode] = useState(DEFAULT_CODE);
   const [result, setResult] = useState<string | null>(null);
   const [isSimulating, setIsSimulating] = useState(false);
+  const [editorMounted, setEditorMounted] = useState(false);
+  
+  // Configure Monaco editor for Haskell syntax highlighting
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Make sure this runs only in browser
+      loader.init().then((monaco) => {
+        if (!monaco) return;
+        
+        // Register Haskell language if it doesn't exist
+        if (!monaco.languages.getLanguages().some(lang => lang.id === 'haskell')) {
+          monaco.languages.register({ id: 'haskell' });
+          
+          // Define Haskell syntax highlighting
+          monaco.languages.setMonarchTokensProvider('haskell', {
+            tokenizer: {
+              root: [
+                // Comments
+                [/--.*$/, 'comment'],
+                [/{-/, 'comment', '@comment'],
+                
+                // Strings
+                [/"([^"\\]|\\.)*$/, 'string.invalid'],
+                [/"/, 'string', '@string'],
+                
+                // Numbers
+                [/\d+(\.\d+)?([eE][+-]?\d+)?/, 'number'],
+                
+                // Keywords
+                [/\b(?:class|data|deriving|do|else|if|import|in|infix|infixl|infixr|instance|let|module|newtype|of|then|type|where|qualified|as|hiding)\b/, 'keyword'],
+                
+                // Type-related keywords
+                [/\b(?:Int|Integer|Bool|Char|String|IO|Maybe|Either|Qubit|Circ|Measurement)\b/, 'type'],
+                
+                // Functions and operators
+                [/\b(?:map|filter|foldr|foldl|zip|pure|return|hadamard|measure|cnot|qinit|gateX|gateY|gateZ)\b/, 'function'],
+                [/[=\->:<\|\.\\@~\$\+\*]+/, 'operator'],
+                
+                // Variable names
+                [/[a-z][a-zA-Z0-9_']*/, 'variable'],
+                
+                // Type names (start with uppercase)
+                [/[A-Z][a-zA-Z0-9_']*/, 'type.identifier']
+              ],
+              comment: [
+                [/[^{-]+/, 'comment'],
+                [/-}/, 'comment', '@pop'],
+                [/{-/, 'comment', '@push'],
+                [/[{-]/, 'comment']
+              ],
+              string: [
+                [/[^\\"]+/, 'string'],
+                [/\\./, 'string.escape'],
+                [/"/, 'string', '@pop']
+              ]
+            }
+          });
+          
+          // Define a custom theme for Haskell
+          monaco.editor.defineTheme('haskQDark', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [
+              { token: 'comment', foreground: '6A9955' },
+              { token: 'string', foreground: 'CE9178' },
+              { token: 'keyword', foreground: '569CD6', fontStyle: 'bold' },
+              { token: 'type', foreground: '4EC9B0' },
+              { token: 'type.identifier', foreground: '4EC9B0' },
+              { token: 'function', foreground: 'DCDCAA' },
+              { token: 'variable', foreground: '9CDCFE' },
+              { token: 'number', foreground: 'B5CEA8' },
+              { token: 'operator', foreground: 'D4D4D4' },
+              { token: 'string.escape', foreground: 'D7BA7D' }
+            ],
+            colors: {
+              'editor.background': '#1E1E1E',
+              'editor.foreground': '#D4D4D4',
+              'editorLineNumber.foreground': '#858585',
+              'editor.lineHighlightBackground': '#2D2D30',
+              'editorCursor.foreground': '#A6A6A6',
+              'editor.selectionBackground': '#264F78',
+              'editor.inactiveSelectionBackground': '#3A3D41'
+            }
+          });
+        }
+      });
+    }
+  }, []);
+  
+  // Function to handle editor mounting
+  const handleEditorDidMount = () => {
+    setEditorMounted(true);
+  };
   
   // Simulate function (mock implementation - would be connected to WebAssembly)
   const simulateCode = () => {
@@ -116,13 +232,32 @@ The measurement of one qubit determines the state of the other qubit, regardless
               <MonacoEditor
                 height="100%"
                 language="haskell"
-                theme="vs-dark"
+                theme="haskQDark"
                 value={code}
                 onChange={(value) => setCode(value || '')}
+                onMount={handleEditorDidMount}
                 options={{
                   minimap: { enabled: false },
                   scrollBeyondLastLine: false,
                   fontSize: 14,
+                  fontFamily: 'Menlo, Monaco, Consolas, "Courier New", monospace',
+                  fontLigatures: true,
+                  cursorBlinking: 'smooth',
+                  smoothScrolling: true,
+                  contextmenu: true,
+                  formatOnPaste: true,
+                  formatOnType: true,
+                  renderLineHighlight: 'all',
+                  wordWrap: 'on',
+                  automaticLayout: true,
+                  tabSize: 2,
+                  lineNumbersMinChars: 3,
+                  lineDecorationsWidth: 10,
+                  folding: true,
+                  glyphMargin: false,
+                  bracketPairColorization: {
+                    enabled: true,
+                  },
                 }}
               />
             </div>
