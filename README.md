@@ -9,9 +9,7 @@ HaskQ is a functional quantum programming toolkit that brings together the elega
   - **haskq-simulator** - A matrix-based quantum simulator written in Haskell
 
 - **apps/**
-  - **landing** - Project website built with Next.js
-  - **docs** - Documentation site built with Docusaurus
-  - **playground** - Interactive quantum circuit builder and simulator
+  - **haskq-unified** - Next.js application containing the project website, documentation, and interactive playground
 
 ## Core Features
 
@@ -19,23 +17,32 @@ HaskQ is a functional quantum programming toolkit that brings together the elega
 - **Functional Composition**: Monad-based circuit composition
 - **Simulation**: Matrix-based quantum state simulation
 - **Visualization**: Circuit diagrams and state visualization tools
+- **Interactive Playground**: Browser-based quantum circuit builder and simulator
 
 ## Getting Started
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/haskq.git
+git clone https://github.com/ArsCodeAmatoria/HaskQ.git
 cd haskq
 
 # Install dependencies
 npm install
 
-# Build all packages and apps
+# Build the project
 npm run build
 
-# Start the unified development server
+# Start the development server
 npm run dev
 ```
+
+## Documentation
+
+The documentation is available in the unified application. After starting the development server, you can access:
+
+- **Home Page**: http://localhost:3000/
+- **Documentation**: http://localhost:3000/docs
+- **Playground**: http://localhost:3000/playground
 
 ## Philosophy
 

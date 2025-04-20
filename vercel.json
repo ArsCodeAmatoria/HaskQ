@@ -1,8 +1,17 @@
 {
+  "name": "haskq",
   "version": 2,
-  "framework": null,
-  "buildCommand": "echo 'Please deploy individual apps from their directories'",
-  "outputDirectory": ".",
+  "framework": "nextjs",
+  "buildCommand": "cd apps/haskq-unified && npm run build",
+  "devCommand": "cd apps/haskq-unified && npm run dev",
+  "installCommand": "npm install",
+  "outputDirectory": "apps/haskq-unified/.next",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/apps/haskq-unified/$1"
+    }
+  ],
   "github": {
     "silent": true,
     "enabled": false
