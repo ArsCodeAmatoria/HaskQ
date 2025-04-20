@@ -21,6 +21,7 @@ library
         HaskQ.Simulator.Gates
         HaskQ.Simulator.Circuit
         HaskQ.Simulator.Visualizer
+        HaskQ.Simulator.Noise
     build-depends:    
         base ^>=4.16.0.0,
         haskq-core,
@@ -29,7 +30,8 @@ library
         matrix >=0.3,
         mtl >=2.2,
         aeson >=2.0,
-        text >=1.2
+        text >=1.2,
+        random >=1.1
     hs-source-dirs:   src
     default-language: Haskell2010
     default-extensions:
@@ -96,6 +98,18 @@ executable haskq-qft
         haskq-simulator,
         haskq-core,
         text >=1.2
+    hs-source-dirs:   app
+    default-language: Haskell2010
+
+executable haskq-noise-model
+    import:           warnings
+    main-is:          NoiseModelExample.hs
+    build-depends:
+        base ^>=4.16.0.0,
+        haskq-simulator,
+        haskq-core,
+        text >=1.2,
+        random >=1.1
     hs-source-dirs:   app
     default-language: Haskell2010
 

@@ -8,7 +8,9 @@ module HaskQ.Simulator.Circuit
   , initializeState
   , runSimulation
   , simulateCircuit
+  , simulateCircuitWithNoise
   , applyOperation
+  , applyOperationWithNoise
   , extractMeasurement
   , createQubit
   ) where
@@ -17,12 +19,14 @@ import qualified HaskQ.Core.Types as Core
 import HaskQ.Core.Types (Circ(..), Qubit, Measurement(..), CircuitOutput(..))
 import HaskQ.Simulator.StateVector
 import HaskQ.Simulator.Gates
+import HaskQ.Simulator.Noise
 import qualified Data.Vector as V
 import Data.Complex
 import qualified Prelude as P
 import Prelude.Linear
 import Control.Monad.Linear
 import Data.Bifunctor (first)
+import Control.Monad (foldM)
 
 -- | The simulation state containing the current state vector and qubit mappings
 data SimState = SimState
@@ -30,6 +34,7 @@ data SimState = SimState
   , qubits :: [Int]  -- Maps logical qubits to physical qubits in the state vector
   , nextQubit :: Int -- Next qubit index to allocate
   , measurements :: [Measurement]
+  , noiseModel :: Maybe NoiseModel  -- Optional noise model for the simulation
   } deriving (Show)
 
 -- | Initialize a simulation state for n qubits
@@ -39,6 +44,17 @@ initializeState n = SimState
   , qubits = []  -- No qubits allocated initially
   , nextQubit = 0
   , measurements = []
+  , noiseModel = Nothing
+  }
+
+-- | Initialize a simulation state with a noise model
+initializeStateWithNoise :: Int -> NoiseModel -> SimState
+initializeStateWithNoise n model = SimState
+  { stateVector = createStateVector n
+  , qubits = []
+  , nextQubit = 0
+  , measurements = []
+  , noiseModel = Just model
   }
 
 -- | Create a new qubit in the |0⟩ state
@@ -117,11 +133,81 @@ runSimulation numQubits (Circ circuit) =
   in
     interpret (Circ circuit)
 
+-- | Run a quantum circuit simulation with a noise model
+runSimulationWithNoise :: Int -> NoiseModel -> Circ a %1-> IO (SimState, a)
+runSimulationWithNoise numQubits model (Circ circuit) = do
+  let initialState = initializeStateWithNoise numQubits model
+  
+  -- Interpreter for Circ operations
+  let interpret :: Circ a %1-> IO (SimState, a)
+      interpret (Circ c) = 
+        case c of
+          -- Handle the qubit creation operation
+          Core.qubit -> do
+            let (newState, qubit) = createQubit initialState
+            -- Apply idle noise to the new qubit if specified
+            case noiseModel newState >>= idleNoise of
+              Just noiseChannel -> do
+                let qubitIdx = nextQubit initialState - 1
+                newSv <- applyNoiseChannel noiseChannel qubitIdx (stateVector newState)
+                return (newState { stateVector = newSv }, qubit)
+              Nothing -> 
+                return (newState, qubit)
+            
+          -- Handle gate application
+          Core.applyGate gate qubit -> do
+            -- Find the qubit index (simplified)
+            let qubitIdx = 0  -- In a real implementation, we would look up the qubit index
+            
+            -- Apply the gate to the state vector with noise
+            newState <- applyOperationWithNoise gate qubitIdx initialState
+            return (newState, qubit)
+            
+          -- Handle measurement
+          Core.measure qubit -> do
+            -- Find the qubit index
+            let qubitIdx = 0  -- In a real implementation, we would look up the qubit index
+            
+            -- Apply potential measurement error
+            let measError = case noiseModel initialState of
+                              Just model -> measurementError model
+                              Nothing -> 0.0
+            
+            -- Simulate measurement error by potentially flipping the result
+            r <- P.randomIO :: IO Double
+            let (result, newSv) = extractMeasurement qubitIdx (stateVector initialState)
+                finalResult = if r < measError
+                              then case result of
+                                     Zero -> One
+                                     One -> Zero
+                                     Superposition p -> Superposition (1.0 - p)
+                              else result
+            
+            -- Update the state
+            let newState = initialState { stateVector = newSv, measurements = measurements initialState ++ [finalResult] }
+            return (newState, (finalResult, qubit))
+            
+          -- For all other operations, we pass through
+          _ -> 
+            let simulatedC simState = c undefined  -- Dummy call
+            in return (initialState, simulatedC initialState)
+  
+  interpret (Circ circuit)
+
 -- | Simulate a circuit and get the output
 simulateCircuit :: Int -> Circ a %1-> CircuitOutput a
 simulateCircuit numQubits circ =
   let (simState, result) = runSimulation numQubits circ
   in CircuitOutput
+    { Core.measurements = measurements simState
+    , Core.result = result
+    }
+
+-- | Simulate a circuit with a noise model and get the output
+simulateCircuitWithNoise :: Int -> NoiseModel -> Circ a %1-> IO (CircuitOutput a)
+simulateCircuitWithNoise numQubits model circ = do
+  (simState, result) <- runSimulationWithNoise numQubits model circ
+  return CircuitOutput
     { Core.measurements = measurements simState
     , Core.result = result
     }
@@ -133,6 +219,30 @@ applyOperation gate targetQubit state =
       qubitIdx = if not (null (qubits state)) then qubits state !! targetQubit else targetQubit
       newSv = applyGate gate sv
   in state { stateVector = newSv }
+
+-- | Apply a quantum operation with noise to the simulation state
+applyOperationWithNoise :: Core.Gate -> Int -> SimState -> IO SimState
+applyOperationWithNoise gate targetQubit state = do
+  -- Apply the gate first
+  let sv = stateVector state
+      qubitIdx = if not (null (qubits state)) then qubits state !! targetQubit else targetQubit
+      newSv = applyGate gate sv
+      
+  -- Then apply noise if a model is specified
+  case noiseModel state of
+    Just model -> do
+      -- For multi-qubit gates, determine additional qubits
+      let involvedQubits = case gate of
+                             Core.CNOT -> [qubitIdx, qubitIdx + 1]  -- Simplified, assuming consecutive qubits
+                             Core.Swap -> [qubitIdx, qubitIdx + 1]  -- Simplified
+                             _ -> [qubitIdx]  -- Single qubit gate
+      
+      -- Apply the noise model to the state vector
+      noisySv <- applyNoiseModel model involvedQubits newSv
+      return state { stateVector = noisySv }
+    
+    Nothing ->
+      return state { stateVector = newSv }
 
 -- | Extract measurement result from a qubit in a state vector
 extractMeasurement :: Int -> StateVector -> (Measurement, StateVector)
