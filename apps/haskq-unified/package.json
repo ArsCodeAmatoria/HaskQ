@@ -1,0 +1,35 @@
+{
+  "name": "haskq-unified",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "framer-motion": "^10.16.4",
+    "gray-matter": "^4.0.3",
+    "next": "15.3.1",
+    "next-mdx-remote": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-prism-plus": "^2.0.1",
+    "remark-math": "^6.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
