@@ -96,10 +96,22 @@ const config = {
         hideOnScroll: false,
         items: [
           {
+            href: '/',
+            label: 'Home',
+            position: 'left',
+            target: '_self',
+          },
+          {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Documentation',
+          },
+          {
+            href: '/playground',
+            label: 'Playground',
+            position: 'left',
+            target: '_self',
           },
           {
             href: 'https://github.com/ArsCodeAmatoria/HaskQ',

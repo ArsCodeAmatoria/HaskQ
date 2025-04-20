@@ -50,14 +50,14 @@ const Header: React.FC<HeaderProps> = ({
           </Link>
           
           <nav className="hidden md:flex space-x-6">
-            <Link href="/docs" className="text-white hover:text-red-300 text-sm">
+            <Link href="/" className="text-white hover:text-red-300 text-sm">
               Documentation
             </Link>
-            <Link href="/examples" className="text-white hover:text-red-300 text-sm">
-              Examples
-            </Link>
-            <Link href="/tutorials" className="text-white hover:text-red-300 text-sm">
+            <Link href="/category/tutorials" className="text-white hover:text-red-300 text-sm">
               Tutorials
+            </Link>
+            <Link href="/category/core-concepts" className="text-white hover:text-red-300 text-sm">
+              Core Concepts
             </Link>
           </nav>
         </div>
