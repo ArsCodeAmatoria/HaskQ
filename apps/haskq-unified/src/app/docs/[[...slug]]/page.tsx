@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { notFound, usePathname } from 'next/navigation';
+import { notFound, usePathname, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Book, Code, ArrowRight } from 'lucide-react';
+import React from 'react';
 
 // Simplified docs index function component
 function DocsIndexPage() {
@@ -169,37 +170,45 @@ main = do
 };
 
 // Main page component
-export default function DocsPage({ params }: { params: { slug?: string[] } }) {
+export default function DocsPage() {
   const pathname = usePathname();
+  const paramsObj = useParams();
   const [content, setContent] = useState<React.ReactNode | null>(null);
   const [title, setTitle] = useState('Documentation');
   const [description, setDescription] = useState('');
   
-  const loadPage = useCallback(async () => {
+  const loadPage = useCallback(() => {
+    // Safely unwrap the params object
+    const slug = paramsObj.slug;
+    
     // If no slug is provided, show the docs index page
-    if (!params.slug || params.slug.length === 0) {
+    if (!slug || (Array.isArray(slug) && slug.length === 0)) {
       return setContent(<DocsIndexPage />);
     }
 
-    const slug = params.slug.join('/');
+    const slugPath = Array.isArray(slug) ? slug.join('/') : slug;
     
-    if (slug in pageMapping) {
-      const page = pageMapping[slug as keyof typeof pageMapping];
+    if (slugPath in pageMapping) {
+      const page = pageMapping[slugPath as keyof typeof pageMapping];
       setTitle(page.title);
       setDescription(page.description);
       setContent(page.content());
     } else {
       // Return a placeholder for other pages
-      setTitle(slug.split('/').pop()?.replace(/-/g, ' ') || 'Documentation');
-      setDescription(`Documentation for ${slug}`);
+      const pageName = Array.isArray(slug) 
+        ? slug[slug.length - 1]?.replace(/-/g, ' ') 
+        : slug.replace(/-/g, ' ');
+      
+      setTitle(pageName || 'Documentation');
+      setDescription(`Documentation for ${slugPath}`);
       setContent(
         <div>
           <p>This documentation page is under construction.</p>
-          <p>Check back soon for content about {slug.split('/').pop()?.replace(/-/g, ' ')}.</p>
+          <p>Check back soon for content about {pageName}.</p>
         </div>
       );
     }
-  }, [params.slug]);
+  }, [paramsObj]);
 
   useEffect(() => {
     loadPage();
