@@ -33,4 +33,9 @@
 .navbar__title {
   font-size: 2rem;
   font-weight: 700;
+}
+
+/* Add CSS to left-align the footer copyright text */
+.footer__bottom {
+  text-align: left;
 } 
