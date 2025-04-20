@@ -5,5 +5,11 @@
   },
   "framework": "docusaurus-2",
   "buildCommand": "cd apps/docs && npm run build",
-  "outputDirectory": "apps/docs/build"
+  "outputDirectory": "apps/docs/build",
+  "rewrites": [
+    { "source": "/playground", "destination": "/playground/" },
+    { "source": "/playground/(.*)", "destination": "/playground/$1" },
+    { "source": "/", "destination": "/landing/" },
+    { "source": "/landing/(.*)", "destination": "/landing/$1" }
+  ]
 } 
