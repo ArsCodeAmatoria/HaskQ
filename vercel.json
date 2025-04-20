@@ -3,9 +3,6 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "npm run build",
-  "outputDirectory": ".",
-  "framework": "nextjs",
   "builds": [
     { 
       "src": "apps/docs/package.json", 

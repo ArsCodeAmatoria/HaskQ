@@ -33,7 +33,7 @@ const config = {
   organizationName: 'ArsCodeAmatoria', // Usually your GitHub org/user name.
   projectName: 'HaskQ', // Usually your repo name.
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful

@@ -35,6 +35,7 @@ const sidebars = {
         'core-concepts/quantum-gates',
         'core-concepts/measurement',
         'core-concepts/simulation',
+        'core-concepts/error-correction',
       ],
     },
     {
