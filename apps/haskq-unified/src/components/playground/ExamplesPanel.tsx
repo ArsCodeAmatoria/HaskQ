@@ -244,13 +244,13 @@ export default function ExamplesPanel({ onSelectExample }: ExamplesPanelProps) {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner':
-        return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
+        return 'bg-green-500 text-white dark:bg-green-600';
       case 'intermediate':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
+        return 'bg-yellow-500 text-white dark:bg-yellow-600';
       case 'advanced':
-        return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
+        return 'bg-red-500 text-white dark:bg-red-600';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-400';
+        return 'bg-gray-500 text-white dark:bg-gray-600';
     }
   };
 
@@ -281,7 +281,7 @@ export default function ExamplesPanel({ onSelectExample }: ExamplesPanelProps) {
                 <div>
                   <div className="flex items-center space-x-2">
                     <span className="font-medium">{example.name}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${getDifficultyColor(example.difficulty)}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium shadow-sm ${getDifficultyColor(example.difficulty)}`}>
                       {example.difficulty}
                     </span>
                   </div>
@@ -305,7 +305,7 @@ export default function ExamplesPanel({ onSelectExample }: ExamplesPanelProps) {
                   </p>
                   <div className="flex justify-end">
                     <button
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded flex items-center transition-colors"
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-md text-sm font-medium flex items-center transition-colors"
                       onClick={() => onSelectExample(example.code)}
                     >
                       Load Example

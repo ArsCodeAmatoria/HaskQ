@@ -24,7 +24,7 @@ export default function PlaygroundHeader({
       <div className="flex items-center space-x-2">
         <button
           onClick={onResetCode}
-          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 px-3 py-2 rounded-md flex items-center text-sm transition-colors"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center text-sm font-medium transition-colors"
           title="Reset Code"
         >
           <RefreshCw className="h-4 w-4 mr-2" />
@@ -33,7 +33,7 @@ export default function PlaygroundHeader({
         
         <button
           onClick={onSaveCircuit}
-          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 px-3 py-2 rounded-md flex items-center text-sm transition-colors"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center text-sm font-medium transition-colors"
           title="Save Circuit"
         >
           <Save className="h-4 w-4 mr-2" />
@@ -42,7 +42,7 @@ export default function PlaygroundHeader({
         
         <button
           onClick={onExportCircuit}
-          className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 px-3 py-2 rounded-md flex items-center text-sm transition-colors"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center text-sm font-medium transition-colors"
           title="Export as File"
         >
           <Download className="h-4 w-4 mr-2" />
@@ -52,7 +52,7 @@ export default function PlaygroundHeader({
         <button
           onClick={onRunSimulation}
           disabled={isSimulating}
-          className={`bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center text-sm transition-colors ${
+          className={`bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center text-sm font-medium transition-colors ${
             isSimulating ? 'opacity-70 cursor-not-allowed' : ''
           }`}
           title="Run Simulation"
