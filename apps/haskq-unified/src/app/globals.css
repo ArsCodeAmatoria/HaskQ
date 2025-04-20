@@ -141,3 +141,111 @@ code {
 .prose ol {
   @apply list-decimal;
 }
+
+/* Add additional styles for documentation at the end of the file */
+
+/* Documentation-specific styles */
+.markdown-content h2 {
+  @apply text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-bold mt-6 mb-3 text-gray-900 dark:text-white;
+}
+
+.markdown-content p {
+  @apply mb-4 text-gray-700 dark:text-gray-300;
+}
+
+.markdown-content ul, .markdown-content ol {
+  @apply list-disc ml-6 mb-6 space-y-2 text-gray-700 dark:text-gray-300;
+}
+
+.markdown-content code:not(pre code) {
+  @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-indigo-600 dark:text-indigo-400;
+}
+
+.markdown-content pre {
+  @apply rounded-lg overflow-hidden shadow-md my-6;
+}
+
+.markdown-content a {
+  @apply text-indigo-600 dark:text-indigo-400 hover:underline;
+}
+
+.markdown-content blockquote {
+  @apply pl-4 border-l-4 border-indigo-500 dark:border-indigo-400 italic my-6;
+}
+
+.markdown-content table {
+  @apply w-full border-collapse my-6;
+}
+
+.markdown-content table th {
+  @apply bg-gray-100 dark:bg-gray-800 text-left p-3 font-bold;
+}
+
+.markdown-content table td {
+  @apply border-t border-gray-200 dark:border-gray-700 p-3;
+}
+
+/* Info boxes for documentation */
+.info-box {
+  @apply p-6 rounded-lg border my-8;
+}
+
+.info-box.note {
+  @apply bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800;
+}
+
+.info-box.warning {
+  @apply bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-800;
+}
+
+.info-box.tip {
+  @apply bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800;
+}
+
+/* Improved code highlighting */
+.token.comment {
+  @apply text-gray-500 dark:text-gray-400 italic;
+}
+
+.token.keyword {
+  @apply text-indigo-600 dark:text-indigo-400 font-medium;
+}
+
+.token.string {
+  @apply text-emerald-600 dark:text-emerald-400;
+}
+
+.token.function {
+  @apply text-pink-600 dark:text-pink-400;
+}
+
+.token.number {
+  @apply text-amber-600 dark:text-amber-400;
+}
+
+.token.operator {
+  @apply text-teal-600 dark:text-teal-400;
+}
+
+.token.class-name {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+/* Improved spacing for mobile devices */
+@media (max-width: 640px) {
+  .markdown-content h2 {
+    @apply text-xl mt-6 mb-3;
+  }
+  
+  .markdown-content h3 {
+    @apply text-lg;
+  }
+  
+  .markdown-content pre {
+    @apply text-sm;
+  }
+}
