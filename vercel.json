@@ -1,11 +1,5 @@
 {
-  "name": "haskq",
   "version": 2,
-  "framework": "nextjs",
-  "outputDirectory": "apps/haskq-unified/.next",
-  "buildCommand": "cd apps/haskq-unified && npm run build",
-  "devCommand": "cd apps/haskq-unified && npm run dev",
-  "installCommand": "cd apps/haskq-unified && npm install",
   "github": {
     "silent": true,
     "enabled": false
