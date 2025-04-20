@@ -45,10 +45,10 @@ export default function Home() {
         <div className="container mx-auto relative z-10 flex flex-col items-center justify-center py-20 text-center px-4">
           <div className="relative z-10 flex flex-col items-center w-full max-w-5xl px-5 mx-auto text-center">
             <h1 
-              className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-7xl dark:text-white animate-fade-in"
+              className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl dark:text-white animate-fade-in"
             >
-              <span className="block">HaskQ: Type-Safe</span>{" "}
-              <span className="block text-primary-500">Quantum Programming</span>
+              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-indigo-400">HaskQ: Type-Safe</span>{" "}
+              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-300">Quantum Programming</span>
             </h1>
             <p 
               className="max-w-md mx-auto mt-5 text-xl text-gray-500 dark:text-gray-400 animate-fade-in" 
@@ -184,7 +184,7 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-indigo-600 dark:bg-indigo-700 text-white" id="get-started">
+      <section className="py-20 bg-gradient-to-r from-indigo-600 to-indigo-800 dark:from-indigo-800 dark:to-purple-900 text-white" id="get-started">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Dive Into Quantum?</h2>
           <p className="mx-auto mb-10 max-w-2xl text-lg opacity-90">
@@ -193,13 +193,13 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/docs/intro" 
-              className="bg-white text-indigo-700 hover:bg-indigo-50 rounded-full px-6 py-3 transition-colors"
+              className="bg-white text-indigo-700 hover:bg-indigo-50 rounded-md px-6 py-3 transition-colors font-medium"
             >
               Get Started Guide
             </Link>
             <a 
               href="https://github.com/ArsCodeAmatoria/HaskQ" 
-              className="bg-indigo-700 hover:bg-indigo-800 text-white rounded-full px-6 py-3 flex items-center justify-center transition-colors"
+              className="bg-indigo-700 hover:bg-indigo-800 text-white rounded-md px-6 py-3 flex items-center justify-center transition-colors font-medium border border-indigo-500"
               target="_blank"
               rel="noopener noreferrer"
             >
