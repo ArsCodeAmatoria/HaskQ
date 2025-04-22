@@ -2,12 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const pathname = usePathname();
+
+  // Determine if we're on landing page, docs, or playground
+  const isAlwaysDarkPage = pathname === '/' || 
+                            pathname.startsWith('/docs') ||
+                            pathname.startsWith('/playground');
 
   useEffect(() => {
-    // Check system preference or stored value on component mount
+    // For always dark pages, enforce dark mode
+    if (isAlwaysDarkPage) {
+      setIsDarkMode(true);
+      applyTheme(true);
+      return;
+    }
+
+    // For other pages, check system preference or stored value on component mount
     const savedMode = localStorage.getItem('darkMode');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -16,9 +30,12 @@ export default function ThemeToggle() {
     
     // Apply initial theme
     applyTheme(initialMode);
-  }, []);
+  }, [isAlwaysDarkPage, pathname]);
 
   const toggleTheme = () => {
+    // Prevent toggling for pages that should always be dark
+    if (isAlwaysDarkPage) return;
+
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     applyTheme(newMode);
@@ -36,8 +53,9 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+      className={`p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 ${isAlwaysDarkPage ? 'opacity-50 cursor-not-allowed' : ''}`}
       aria-label={isDarkMode ? 'Switch to light theme' : 'Switch to dark theme'}
+      disabled={isAlwaysDarkPage}
     >
       {isDarkMode ? (
         <Sun className="h-5 w-5" />

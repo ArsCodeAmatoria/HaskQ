@@ -138,6 +138,9 @@ export default function PlaygroundPage() {
               'editor.inactiveSelectionBackground': '#3A3D41'
             }
           });
+          
+          // Always set the theme to dark
+          monaco.editor.setTheme('haskQDark');
         }
       });
     }
