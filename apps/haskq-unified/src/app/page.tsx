@@ -193,7 +193,8 @@ bellState = withQubits 2 $ \\[q1, q2] -> do
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
               href="/docs/intro" 
-              className="bg-white text-indigo-700 hover:bg-indigo-50 rounded-md px-6 py-3 transition-colors font-medium"
+              className="bg-white text-indigo-700 hover:bg-indigo-50 rounded-md px-6 py-3 transition-colors font-medium border border-white shadow-lg"
+              style={{ backgroundColor: '#ffffff !important', color: '#3730a3 !important' }}
             >
               Get Started Guide
             </Link>

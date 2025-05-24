@@ -93,9 +93,29 @@ body {
 }
 
 /* Override any potential light mode styling */
-.bg-white { @apply bg-gray-900 !important; }
-.text-black { @apply text-gray-100 !important; }
-.text-gray-900 { @apply text-gray-100 !important; }
+.bg-white { 
+  background-color: #111827 !important; 
+}
+
+.text-black { 
+  color: #f3f4f6 !important; 
+}
+
+.text-gray-900 { 
+  color: #f3f4f6 !important; 
+}
+
+/* Specific override for Get Started Guide button */
+a[href="/docs/intro"] {
+  background-color: #ffffff !important;
+  color: #3730a3 !important;
+  border-color: #ffffff !important;
+}
+
+a[href="/docs/intro"]:hover {
+  background-color: #f3f4f6 !important;
+  color: #312e81 !important;
+}
 
 /* Animation keyframes for quantum visualization */
 @keyframes pulse {
