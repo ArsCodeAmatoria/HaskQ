@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
+/* Force dark mode globally */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #111827 !important;
+  --foreground: #f3f4f6 !important;
+  color-scheme: dark !important;
+}
+
+/* Override all light mode preferences */
+:root,
+html,
+html[data-theme="light"],
+html.light {
+  --background: #111827 !important;
+  --foreground: #f3f4f6 !important;
+  color-scheme: dark !important;
+  background-color: #111827 !important;
+  color: #f3f4f6 !important;
 }
 
 @theme inline {
@@ -12,28 +26,76 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Override any system dark mode preferences */
+/* Force dark mode regardless of media queries */
 @media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #111827 !important;
+    --foreground: #f3f4f6 !important;
+    color-scheme: dark !important;
   }
   
-  /* Force dark mode classes */
   html {
-    color-scheme: dark;
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
   }
   
-  html:not(.dark) {
-    filter: invert(1) hue-rotate(180deg);
+  body {
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111827 !important;
+    --foreground: #f3f4f6 !important;
+    color-scheme: dark !important;
+  }
+  
+  html {
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
+  }
+  
+  body {
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
+  }
+}
+
+@media (prefers-color-scheme: no-preference) {
+  :root {
+    --background: #111827 !important;
+    --foreground: #f3f4f6 !important;
+    color-scheme: dark !important;
+  }
+  
+  html {
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
+  }
+  
+  body {
+    background-color: #111827 !important;
+    color: #f3f4f6 !important;
+  }
+}
+
+/* Ensure all elements inherit dark styling */
+* {
+  color-scheme: dark !important;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #111827 !important;
+  color: #f3f4f6 !important;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Override any potential light mode styling */
+.bg-white { @apply bg-gray-900 !important; }
+.text-black { @apply text-gray-100 !important; }
+.text-gray-900 { @apply text-gray-100 !important; }
 
 /* Animation keyframes for quantum visualization */
 @keyframes pulse {
@@ -61,7 +123,7 @@ body {
 
 /* Styling for code blocks */
 pre {
-  @apply overflow-x-auto rounded-md bg-gray-100 dark:bg-gray-800 p-4 text-sm;
+  @apply overflow-x-auto rounded-md bg-gray-800 p-4 text-sm;
 }
 
 code {
@@ -73,11 +135,11 @@ code {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  @apply text-gray-500 dark:text-gray-400;
+  @apply text-gray-400;
 }
 
 .token.punctuation {
-  @apply text-gray-700 dark:text-gray-300;
+  @apply text-gray-300;
 }
 
 .token.property,
@@ -85,12 +147,12 @@ code {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  @apply text-red-500;
+  @apply text-red-400;
 }
 
 .token.boolean,
 .token.number {
-  @apply text-orange-500;
+  @apply text-orange-400;
 }
 
 .token.selector,
@@ -99,7 +161,7 @@ code {
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply text-green-500;
+  @apply text-green-400;
 }
 
 .token.operator,
@@ -107,37 +169,37 @@ code {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  @apply text-yellow-500;
+  @apply text-yellow-400;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  @apply text-blue-500;
+  @apply text-blue-400;
 }
 
 .token.function,
 .token.class-name {
-  @apply text-purple-500;
+  @apply text-purple-400;
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  @apply text-pink-500;
+  @apply text-pink-400;
 }
 
 /* Basic prose styling for content */
 .prose {
-  @apply text-gray-800 dark:text-gray-200;
+  @apply text-gray-200;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-  @apply text-gray-900 dark:text-white font-bold;
+  @apply text-white font-bold;
 }
 
 .prose a {
-  @apply text-indigo-600 dark:text-indigo-400 hover:underline;
+  @apply text-indigo-400 hover:underline;
 }
 
 .prose ul, .prose ol {
@@ -156,23 +218,23 @@ code {
 
 /* Documentation-specific styles */
 .markdown-content h2 {
-  @apply text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white;
+  @apply text-2xl font-bold mt-8 mb-4 text-white;
 }
 
 .markdown-content h3 {
-  @apply text-xl font-bold mt-6 mb-3 text-gray-900 dark:text-white;
+  @apply text-xl font-bold mt-6 mb-3 text-white;
 }
 
 .markdown-content p {
-  @apply mb-4 text-gray-700 dark:text-gray-300;
+  @apply mb-4 text-gray-300;
 }
 
 .markdown-content ul, .markdown-content ol {
-  @apply list-disc ml-6 mb-6 space-y-2 text-gray-700 dark:text-gray-300;
+  @apply list-disc ml-6 mb-6 space-y-2 text-gray-300;
 }
 
 .markdown-content code:not(pre code) {
-  @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-indigo-600 dark:text-indigo-400;
+  @apply bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-indigo-400;
 }
 
 .markdown-content pre {
@@ -180,11 +242,11 @@ code {
 }
 
 .markdown-content a {
-  @apply text-indigo-600 dark:text-indigo-400 hover:underline;
+  @apply text-indigo-400 hover:underline;
 }
 
 .markdown-content blockquote {
-  @apply pl-4 border-l-4 border-indigo-500 dark:border-indigo-400 italic my-6;
+  @apply pl-4 border-l-4 border-indigo-400 italic my-6;
 }
 
 .markdown-content table {
@@ -192,11 +254,11 @@ code {
 }
 
 .markdown-content table th {
-  @apply bg-gray-100 dark:bg-gray-800 text-left p-3 font-bold;
+  @apply bg-gray-800 text-left p-3 font-bold;
 }
 
 .markdown-content table td {
-  @apply border-t border-gray-200 dark:border-gray-700 p-3;
+  @apply border-t border-gray-700 p-3;
 }
 
 /* Info boxes for documentation */
@@ -205,44 +267,44 @@ code {
 }
 
 .info-box.note {
-  @apply bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800;
+  @apply bg-blue-900/20 border-blue-800;
 }
 
 .info-box.warning {
-  @apply bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-800;
+  @apply bg-amber-900/20 border-amber-800;
 }
 
 .info-box.tip {
-  @apply bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800;
+  @apply bg-green-900/20 border-green-800;
 }
 
 /* Improved code highlighting */
 .token.comment {
-  @apply text-gray-500 dark:text-gray-400 italic;
+  @apply text-gray-400 italic;
 }
 
 .token.keyword {
-  @apply text-indigo-600 dark:text-indigo-400 font-medium;
+  @apply text-indigo-400 font-medium;
 }
 
 .token.string {
-  @apply text-emerald-600 dark:text-emerald-400;
+  @apply text-emerald-400;
 }
 
 .token.function {
-  @apply text-pink-600 dark:text-pink-400;
+  @apply text-pink-400;
 }
 
 .token.number {
-  @apply text-amber-600 dark:text-amber-400;
+  @apply text-amber-400;
 }
 
 .token.operator {
-  @apply text-teal-600 dark:text-teal-400;
+  @apply text-teal-400;
 }
 
 .token.class-name {
-  @apply text-yellow-600 dark:text-yellow-400;
+  @apply text-yellow-400;
 }
 
 /* Improved spacing for mobile devices */
