@@ -157,14 +157,16 @@ bellState = do
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-              <pre className="overflow-x-auto font-mono text-sm leading-relaxed">
-                <code className="language-haskell">{`-- Bell state circuit
-bellState :: Circ (Qubit, Qubit)
-bellState = withQubits 2 $ \\[q1, q2] -> do
-  q1' <- hadamard q1
-  (q1'', q2') <- cnot q1' q2
-  pure (q1'', q2')`}</code>
+            <div className="relative">
+              <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto font-mono text-sm leading-relaxed shadow-lg">
+                <code>
+                  <span className="text-gray-500">-- Bell state circuit</span>{'\n'}
+                  <span className="text-blue-400">bellState</span> <span className="text-gray-400">::</span> <span className="text-green-400">Circ</span> <span className="text-gray-400">(</span><span className="text-green-400">Qubit</span><span className="text-gray-400">,</span> <span className="text-green-400">Qubit</span><span className="text-gray-400">)</span>{'\n'}
+                  <span className="text-blue-400">bellState</span> <span className="text-gray-400">=</span> <span className="text-purple-400">withQubits</span> <span className="text-orange-400">2</span> <span className="text-gray-400">$</span> <span className="text-gray-400">\</span><span className="text-gray-400">[</span><span className="text-blue-300">q1</span><span className="text-gray-400">,</span> <span className="text-blue-300">q2</span><span className="text-gray-400">]</span> <span className="text-gray-400">-&gt;</span> <span className="text-purple-400">do</span>{'\n'}
+                  <span className="text-blue-300">  q1'</span> <span className="text-gray-400">&lt;-</span> <span className="text-yellow-400">hadamard</span> <span className="text-blue-300">q1</span>{'\n'}
+                  <span className="text-gray-400">  (</span><span className="text-blue-300">q1''</span><span className="text-gray-400">,</span> <span className="text-blue-300">q2'</span><span className="text-gray-400">)</span> <span className="text-gray-400">&lt;-</span> <span className="text-yellow-400">cnot</span> <span className="text-blue-300">q1'</span> <span className="text-blue-300">q2</span>{'\n'}
+                  <span className="text-purple-400">  pure</span> <span className="text-gray-400">(</span><span className="text-blue-300">q1''</span><span className="text-gray-400">,</span> <span className="text-blue-300">q2'</span><span className="text-gray-400">)</span>
+                </code>
               </pre>
             </div>
             
