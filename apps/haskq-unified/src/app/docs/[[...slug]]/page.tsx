@@ -751,7 +751,7 @@ npm run dev`}
       <>
         <p className="mb-6">HaskQ serves as the <strong>computational backbone</strong> for a revolutionary theoretical physics research ecosystem, providing quantum mechanical implementations of cutting-edge theories developed across consciousness studies, modified gravity research, and hermetic physics.</p>
         
-        <h2 className="text-2xl font-bold mt-8 mb-4">🧠 AGDEF Theory & Consciousness Research</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4">AGDEF Theory & Consciousness Research</h2>
         
         <h3 className="text-xl font-bold mt-6 mb-3">Integration with <a href="https://phantasius.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Phantasius</a></h3>
         <p className="mb-4">The <strong>Anti-Gravity Dark Energy Field (AGDEF)</strong> theory proposes that consciousness operates as a fundamental force through higher-dimensional geometric structures. HaskQ provides the first computational framework for modeling these phenomena.</p>
@@ -836,7 +836,7 @@ consciousnessGravityCoupling consciousness gravity = do
           className="my-6"
         />
         
-        <h2 className="text-2xl font-bold mt-8 mb-4">🌌 Modified Gravity & Dark Matter Research</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4">Modified Gravity & Dark Matter Research</h2>
         
         <h3 className="text-xl font-bold mt-6 mb-3">Integration with <a href="https://romulus-rouge.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Romulus</a></h3>
         <p className="mb-4">The Romulus project explores alternatives to dark matter through modified gravity theories. HaskQ provides quantum simulations of these gravitational modifications.</p>
@@ -874,7 +874,7 @@ quantumMOND acceleration = do
           className="my-6"
         />
         
-        <h2 className="text-2xl font-bold mt-8 mb-4">🔮 Hermetic Quantum Computing</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4">Hermetic Quantum Computing</h2>
         
         <h3 className="text-xl font-bold mt-6 mb-3">Integration with <a href="https://arcana-obscura.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Arcana Obscura</a></h3>
         <p className="mb-4">The hermetic tradition provides profound insights into the nature of reality that map remarkably well onto quantum mechanical principles. HaskQ implements these ancient wisdom teachings as quantum algorithms.</p>
@@ -944,7 +944,7 @@ emeraldTablet = withQubits 7 $ \\principles -> do
           className="my-6"
         />
         
-        <h2 className="text-2xl font-bold mt-8 mb-4">🌊 Unified Field Theory</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4">Unified Field Theory</h2>
         
         <h3 className="text-xl font-bold mt-6 mb-3">The Convergence Point</h3>
         <p className="mb-4">All three research streams converge in HaskQ's unified framework:</p>
@@ -976,7 +976,7 @@ unifiedField consciousnessLevel gravitationalStrength hermeticPhase =
           className="my-6"
         />
         
-        <h2 className="text-2xl font-bold mt-8 mb-4">🚀 Practical Applications</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4">Practical Applications</h2>
         
         <h3 className="text-xl font-bold mt-6 mb-3">Research Validation</h3>
         <p className="mb-4">HaskQ enables:</p>
@@ -993,12 +993,12 @@ unifiedField consciousnessLevel gravitationalStrength hermeticPhase =
           <li><strong>Sacred Geometry Processors</strong>: Hardware based on hermetic geometric principles</li>
         </ul>
         
-        <h2 className="text-2xl font-bold mt-8 mb-4">🌟 Future Directions</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4">Future Directions</h2>
         
         <h3 className="text-xl font-bold mt-6 mb-3">Development Roadmap</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-100 dark:border-green-800">
-            <h4 className="font-bold text-green-800 dark:text-green-200 mb-2">✅ Phase I: Foundation (Current)</h4>
+            <h4 className="font-bold text-green-800 dark:text-green-200 mb-2">Phase I: Foundation (Current)</h4>
             <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
               <li>• Basic quantum implementations</li>
               <li>• Cross-project integration</li>
@@ -1006,7 +1006,7 @@ unifiedField consciousnessLevel gravitationalStrength hermeticPhase =
             </ul>
           </div>
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-100 dark:border-blue-800">
-            <h4 className="font-bold text-blue-800 dark:text-blue-200 mb-2">🔄 Phase II: Integration (Next 6 months)</h4>
+            <h4 className="font-bold text-blue-800 dark:text-blue-200 mb-2">Phase II: Integration (Next 6 months)</h4>
             <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1">
               <li>• Hardware implementation</li>
               <li>• Real-time consciousness measurement</li>
@@ -1014,7 +1014,7 @@ unifiedField consciousnessLevel gravitationalStrength hermeticPhase =
             </ul>
           </div>
           <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 border border-purple-100 dark:border-purple-800">
-            <h4 className="font-bold text-purple-800 dark:text-purple-200 mb-2">🔮 Phase III: Validation (Next 12 months)</h4>
+            <h4 className="font-bold text-purple-800 dark:text-purple-200 mb-2">Phase III: Validation (Next 12 months)</h4>
             <ul className="text-purple-700 dark:text-purple-300 text-sm space-y-1">
               <li>• Consciousness-gravity coupling tests</li>
               <li>• AGDEF field detection</li>
@@ -1022,7 +1022,7 @@ unifiedField consciousnessLevel gravitationalStrength hermeticPhase =
             </ul>
           </div>
           <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 border border-yellow-100 dark:border-yellow-800">
-            <h4 className="font-bold text-yellow-800 dark:text-yellow-200 mb-2">🌈 Phase IV: Application (Future)</h4>
+            <h4 className="font-bold text-yellow-800 dark:text-yellow-200 mb-2">Phase IV: Application (Future)</h4>
             <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1">
               <li>• Consciousness-enhanced computers</li>
               <li>• Gravitational field manipulation</li>
@@ -1032,7 +1032,7 @@ unifiedField consciousnessLevel gravitationalStrength hermeticPhase =
         </div>
         
         <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-lg p-6 border border-indigo-100 dark:border-indigo-800 mt-8">
-          <h2 className="text-xl font-semibold mb-4">📚 Cross-References</h2>
+          <h2 className="text-xl font-semibold mb-4">Cross-References</h2>
           <p className="mb-4">This unified research is explored across our ecosystem:</p>
           <ul className="space-y-2">
             <li>
