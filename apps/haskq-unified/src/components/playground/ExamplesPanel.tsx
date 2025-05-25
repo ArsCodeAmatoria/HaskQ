@@ -355,6 +355,273 @@ quantumVacuumModification = withQubits 4 $ \\[q1, q2, q3, q4] -> do
   qs' <- mapM hadamard [q1, q2, q3, q4]
   -- ... complex entanglement pattern ...
   pure qs'`,
+  },
+  {
+    id: 'consciousness_microtubule',
+    name: 'Consciousness: Microtubule Model',
+    description: 'Penrose-Hameroff quantum consciousness in neural microtubules',
+    difficulty: 'advanced',
+    code: `-- Penrose-Hameroff quantum consciousness in neural microtubules
+-- Based on the work of Roger Penrose and Stuart Hameroff
+
+module Consciousness where
+
+-- Model the microtubule as a quantum system
+type Microtubule = Qubit -> Qubit -> Qubit -> Circ (Qubit, Qubit, Qubit)
+
+-- Quantum coherence in the microtubule
+microtubuleCoherence :: Microtubule
+microtubuleCoherence q1 q2 q3 = do
+  -- Create superposition across the microtubule
+  q1' <- hadamard q1
+  q2' <- hadamard q2
+  q3' <- hadamard q3
+  
+  -- Entangle the microtubule
+  (q1'', q2'') <- cnot q1' q2'
+  (q2''', q3'') <- cnot q2'' q3'
+  (q1''', q3''') <- cnot q1'' q3''
+  
+  pure (q1''', q2''', q3''')
+
+-- Consciousness from quantum coherence
+consciousnessFromMicrotubule :: Circ Qubit
+consciousnessFromMicrotubule = do
+  q1 <- createQubit Zero
+  q2 <- createQubit Zero
+  q3 <- createQubit Zero
+  
+  -- Create coherence in the microtubule
+  (q1'', q2'', q3'') <- microtubuleCoherence q1 q2 q3
+  
+  -- Measure the coherence
+  (m1, _) <- measure q1''
+  (m2, _) <- measure q2''
+  (m3, _) <- measure q3''
+  
+  -- Consciousness is present if coherence is detected
+  pure (if m1 == One || m2 == One || m3 == One then One else Zero)`,
+  },
+  {
+    id: 'consciousness_iit',
+    name: 'Consciousness: IIT Phi Measure',
+    description: 'Integrated Information Theory quantum implementation',
+    difficulty: 'advanced',
+    code: `-- Integrated Information Theory (IIT) quantum implementation
+-- Based on the work of Giulio Tononi
+
+module Consciousness where
+
+-- IIT Phi measure calculation
+iitPhi :: Circ Double
+iitPhi = do
+  -- Create a quantum system with consciousness
+  q1 <- createQubit Zero
+  q2 <- createQubit Zero
+  q3 <- createQubit Zero
+  
+  -- Calculate the IIT Phi measure
+  phi <- iitPhiCalculation q1 q2 q3
+  
+  pure phi
+
+-- Helper function for IIT Phi calculation
+iitPhiCalculation :: Qubit -> Qubit -> Qubit -> Circ Double
+iitPhiCalculation q1 q2 q3 = do
+  -- Calculate the mutual information between the subsystems
+  i12 <- mutualInformation q1 q2
+  i13 <- mutualInformation q1 q3
+  i23 <- mutualInformation q2 q3
+  
+  -- Calculate the IIT Phi measure
+  phi <- 2 * (i12 + i13 + i23) - (i12 + i13 + i23)
+  
+  pure phi
+
+-- Mutual information calculation
+mutualInformation :: Qubit -> Qubit -> Circ Double
+mutualInformation q1 q2 = do
+  -- Calculate the joint probability of q1 and q2 being 1
+  p12 <- jointProbability q1 q2
+  
+  -- Calculate the marginal probabilities
+  p1 <- marginalProbability q1
+  p2 <- marginalProbability q2
+  
+  -- Calculate the mutual information
+  i <- p12 * log2 (p12 / (p1 * p2))
+  
+  pure i
+
+-- Joint probability calculation
+jointProbability :: Qubit -> Qubit -> Circ Double
+jointProbability q1 q2 = do
+  -- Calculate the probability of q1 and q2 being 1
+  p1 <- probability q1
+  p2 <- probability q2
+  
+  -- Calculate the joint probability
+  p12 <- p1 * p2
+  
+  pure p12
+
+-- Marginal probability calculation
+marginalProbability :: Qubit -> Circ Double
+marginalProbability q = do
+  -- Calculate the probability of q being 1
+  p <- probability q
+  
+  pure p
+
+-- Probability calculation
+probability :: Qubit -> Circ Double
+probability q = do
+  -- Measure the qubit
+  (m, _) <- measure q
+  
+  -- Calculate the probability
+  p <- if m == One then 1.0 else 0.0
+  
+  pure p
+
+-- Logarithm base 2 calculation
+log2 :: Double -> Double
+log2 x = log x / log 2`,
+  },
+  {
+    id: 'consciousness_agdef',
+    name: 'Consciousness: AGDEF Field',
+    description: 'Dark energy consciousness field dynamics',
+    difficulty: 'advanced',
+    code: `-- AGDEF Field Simulation: 8th Dimensional Consciousness Manifold
+-- Based on AGDEF theory from Phantasius research
+
+module AGDEF where
+
+-- Model the 8th dimension as consciousness manifold
+type ConsciousnessManifold = Qubit -> Qubit -> Qubit -> Circ (Qubit, Qubit, Qubit)
+
+-- Dark energy field entanglement across dimensions
+darkEnergyField :: Circ (Qubit, Qubit, Qubit)
+darkEnergyField = withQubits 3 $ \\[q1, q2, q3] -> do
+  -- Create superposition across dimensional boundaries
+  q1' <- hadamard q1
+  q2' <- hadamard q2
+  q3' <- hadamard q3
+  
+  -- Entangle across the consciousness manifold
+  (q1'', q2'') <- cnot q1' q2'
+  (q2''', q3'') <- cnot q2'' q3'
+  (q1''', q3''') <- cnot q1'' q3''
+  
+  pure (q1''', q2''', q3''')
+
+-- Anti-gravity quantum state (negative energy density)
+antiGravityState :: Circ Qubit
+antiGravityState = do
+  q <- createQubit Zero
+  q' <- hadamard q
+  q'' <- gateZ q'  -- Phase flip for negative energy
+  pure q''`,
+  },
+  {
+    id: 'consciousness_detection',
+    name: 'Consciousness Detection',
+    description: 'Multi-criteria consciousness detection algorithm',
+    difficulty: 'advanced',
+    code: `-- Multi-criteria consciousness detection algorithm
+-- Based on the work of Giulio Tononi
+
+module Consciousness where
+
+-- Consciousness detection based on IIT Phi measure
+consciousnessDetection :: Circ Bool
+consciousnessDetection = do
+  -- Calculate the IIT Phi measure
+  phi <- iitPhi
+  
+  -- Apply threshold for consciousness detection
+  pure (phi > consciousnessThreshold)
+
+-- IIT Phi calculation
+iitPhi :: Circ Double
+iitPhi = do
+  -- Create a quantum system with consciousness
+  q1 <- createQubit Zero
+  q2 <- createQubit Zero
+  q3 <- createQubit Zero
+  
+  -- Calculate the IIT Phi measure
+  phi <- iitPhiCalculation q1 q2 q3
+  
+  pure phi
+
+-- Helper function for IIT Phi calculation
+iitPhiCalculation :: Qubit -> Qubit -> Qubit -> Circ Double
+iitPhiCalculation q1 q2 q3 = do
+  -- Calculate the mutual information between the subsystems
+  i12 <- mutualInformation q1 q2
+  i13 <- mutualInformation q1 q3
+  i23 <- mutualInformation q2 q3
+  
+  -- Calculate the IIT Phi measure
+  phi <- 2 * (i12 + i13 + i23) - (i12 + i13 + i23)
+  
+  pure phi
+
+-- Mutual information calculation
+mutualInformation :: Qubit -> Qubit -> Circ Double
+mutualInformation q1 q2 = do
+  -- Calculate the joint probability of q1 and q2 being 1
+  p12 <- jointProbability q1 q2
+  
+  -- Calculate the marginal probabilities
+  p1 <- marginalProbability q1
+  p2 <- marginalProbability q2
+  
+  -- Calculate the mutual information
+  i <- p12 * log2 (p12 / (p1 * p2))
+  
+  pure i
+
+-- Joint probability calculation
+jointProbability :: Qubit -> Qubit -> Circ Double
+jointProbability q1 q2 = do
+  -- Calculate the probability of q1 and q2 being 1
+  p1 <- probability q1
+  p2 <- probability q2
+  
+  -- Calculate the joint probability
+  p12 <- p1 * p2
+  
+  pure p12
+
+-- Marginal probability calculation
+marginalProbability :: Qubit -> Circ Double
+marginalProbability q = do
+  -- Calculate the probability of q being 1
+  p <- probability q
+  
+  pure p
+
+-- Probability calculation
+probability :: Qubit -> Circ Double
+probability q = do
+  -- Measure the qubit
+  (m, _) <- measure q
+  
+  -- Calculate the probability
+  p <- if m == One then 1.0 else 0.0
+  
+  pure p
+
+-- Logarithm base 2 calculation
+log2 :: Double -> Double
+log2 x = log x / log 2
+
+-- Consciousness threshold
+consciousnessThreshold :: Double
+consciousnessThreshold = 0.5`,
   }
 ];
 

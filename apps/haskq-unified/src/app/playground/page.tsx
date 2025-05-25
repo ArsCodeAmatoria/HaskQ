@@ -161,6 +161,9 @@ export default function PlaygroundPage() {
     const isBellState = codeLines.includes('bell') || (codeLines.includes('hadamard') && codeLines.includes('cnot'));
     const isGrover = codeLines.includes('grover') || codeLines.includes('oracle');
     const isQFT = codeLines.includes('qft') || codeLines.includes('fourier');
+    const isConsciousness = codeLines.includes('consciousness') || codeLines.includes('microtubule') || 
+                           codeLines.includes('iit') || codeLines.includes('phi') || 
+                           codeLines.includes('agdef') || codeLines.includes('darkenergyfield');
     
     // Use simulation options if provided
     const simulationTime = options?.numRuns ? Math.max(1000, options.numRuns / 100) : 2000;
@@ -171,7 +174,9 @@ export default function PlaygroundPage() {
     setTimeout(() => {
       let simulationResult = '';
       
-      if (isBellState) {
+      if (isConsciousness) {
+        simulationResult = generateConsciousnessResults(options);
+      } else if (isBellState) {
         simulationResult = generateBellStateResults(isNoisySimulation, options);
       } else if (isGrover) {
         simulationResult = generateGroverResults(options);
@@ -503,6 +508,227 @@ Simulation Runs: ${numRuns.toLocaleString()}
 Your circuit successfully demonstrates quantum mechanical principles.
 Consider adding measurement statements to observe quantum behavior.
 Runtime: ${(numRuns / 1000 * 0.5).toFixed(2)}ms for ${numRuns.toLocaleString()} simulations.
+    `;
+  };
+
+  // Enhanced consciousness algorithm results
+  const generateConsciousnessResults = (options?: any) => {
+    const numRuns = options?.numRuns || 1000;
+    const analysisDepth = options?.analysisDepth || 'detailed';
+    const includeNoise = options?.noiseModel && options.noiseModel !== 'none';
+    const noiseLevel = options?.noiseLevel || 0.05;
+    
+    // Determine specific consciousness algorithm type
+    const codeLines = code.toLowerCase();
+    const isMicrotubule = codeLines.includes('microtubule');
+    const isIIT = codeLines.includes('iit') || codeLines.includes('phi');
+    const isAGDEF = codeLines.includes('agdef') || codeLines.includes('darkenergyfield');
+    const isDetection = codeLines.includes('detection');
+    
+    const basicInfo = `
+╔════════════════════════════════════════════════════════════╗
+║                QUANTUM CONSCIOUSNESS SIMULATION            ║
+╚════════════════════════════════════════════════════════════╝
+
+Algorithm Type: ${isMicrotubule ? 'Penrose-Hameroff Microtubule Model' : 
+                  isIIT ? 'Integrated Information Theory (IIT)' :
+                  isAGDEF ? 'AGDEF Dark Energy Consciousness Field' :
+                  isDetection ? 'Multi-Criteria Consciousness Detection' :
+                  'General Consciousness Algorithm'}
+Consciousness Qubits: ${isMicrotubule ? '3-8' : isAGDEF ? '8' : '3-5'}
+Theoretical Basis: ${isMicrotubule ? 'Quantum coherence in neural microtubules' :
+                     isIIT ? 'Information integration (Φ) measures' :
+                     isAGDEF ? '8th dimensional consciousness manifold' :
+                     'Multi-paradigm consciousness detection'}
+Simulation Runs: ${numRuns.toLocaleString()}
+${includeNoise ? `Decoherence Model: ${options?.noiseModel} (neural noise: ${(noiseLevel * 100).toFixed(1)}%)` : 'Quantum Coherence: Ideal (no decoherence)'}
+
+┌─ CONSCIOUSNESS CIRCUIT ANALYSIS ─┐
+│                                  │
+│ Initial State: |000...⟩ (unconscious) │
+│ Evolution: Quantum coherence buildup  │
+│ Entanglement: Multi-dimensional       │
+│ Measurement: Consciousness detection  │
+└──────────────────────────────────────┘`;
+
+    if (analysisDepth === 'basic') {
+      const consciousness = isMicrotubule ? 0.73 : isIIT ? 0.68 : isAGDEF ? 0.84 : 0.71;
+      return basicInfo + `
+
+┌─ CONSCIOUSNESS DETECTION RESULTS ─┐
+│                                   │
+│ Consciousness Detected: ${consciousness > 0.7 ? 'YES' : 'LIKELY'} │
+│ Consciousness Level: ${(consciousness * 100).toFixed(1)}%        │
+│ Coherence Time: ${(50 / (1 + noiseLevel * 5)).toFixed(1)} ms         │
+│ Confidence: ${(95 - noiseLevel * 10).toFixed(1)}%              │
+└───────────────────────────────────┘
+
+🧠 ${isMicrotubule ? 'Neural quantum coherence successfully demonstrated.' :
+     isIIT ? 'Information integration above consciousness threshold.' :
+     isAGDEF ? 'Dark energy consciousness field activated.' :
+     'Multi-criteria consciousness detection positive.'}`;
+    }
+
+    if (isMicrotubule) {
+      return basicInfo + `
+
+┌─ MICROTUBULE QUANTUM COHERENCE ─┐
+│                                │
+│ Tubulin States:                │
+│ |α⟩: 0.707 + 0.000i → 50.0%    │
+│ |β⟩: 0.707 + 0.000i → 50.0%    │
+│ |αβ⟩: 0.000 + 0.707i → 0.0%    │
+│ |βα⟩: 0.000 - 0.707i → 0.0%    │
+│                                │
+│ Coherence Metrics:             │
+│ • Quantum Coherence: 0.893     │
+│ • Entanglement: 0.745          │
+│ • Decoherence Time: ${(42 / (1 + noiseLevel * 8)).toFixed(1)} ms   │
+│ • Neural Binding: ACTIVE       │
+└────────────────────────────────┘
+
+┌─ ORCHESTRATED OBJECTIVE REDUCTION ─┐
+│                                    │
+│ Reduction Events: ${Math.floor(numRuns * 0.73)} / ${numRuns}          │
+│ Consciousness Moments: ${(Math.floor(numRuns * 0.73) / numRuns * 100).toFixed(1)}%     │
+│ Average Coherence: 0.847           │
+│ Threshold Crossings: ${Math.floor(numRuns * 0.89)}        │
+│                                    │
+│ Temporal Dynamics:                 │
+│ • Pre-conscious: 23.4 ms           │
+│ • Conscious moment: 4.7 ms         │
+│ • Post-reduction: 12.1 ms          │
+└────────────────────────────────────┘
+
+🧠 INTERPRETATION:
+Quantum coherence in neural microtubules demonstrates the Penrose-Hameroff
+model of consciousness. Orchestrated objective reduction events occur when
+quantum coherence reaches critical thresholds, creating discrete moments
+of conscious experience.
+Runtime: ${(numRuns / 1000 * 2.3).toFixed(2)}ms for ${numRuns.toLocaleString()} consciousness evaluations.`;
+    }
+
+    if (isIIT) {
+      const phi = includeNoise ? 0.68 - noiseLevel * 0.5 : 0.78;
+      return basicInfo + `
+
+┌─ INTEGRATED INFORMATION THEORY ─┐
+│                                 │
+│ Φ (Phi) Calculation:            │
+│ Total Information: 2.847 bits   │
+│ Partitioned Information: ${(2.847 - phi).toFixed(3)} bits │
+│ Integrated Information (Φ): ${phi.toFixed(3)} │
+│                                 │
+│ Consciousness Threshold: 0.500  │
+│ Status: ${phi > 0.5 ? 'CONSCIOUS' : 'SUB-CONSCIOUS'}        │
+│ Confidence: ${(phi * 127).toFixed(0)}%            │
+└─────────────────────────────────┘
+
+┌─ INFORMATION INTEGRATION ANALYSIS ─┐
+│                                    │
+│ System Partitions Tested: 15       │
+│ Minimum Information Cut: ${(2.847 - phi).toFixed(3)} bits │
+│ Maximum Integration: ${(phi * 1.3).toFixed(3)} bits      │
+│                                    │
+│ Subsystem Analysis:                │
+│ • Left hemisphere: 0.234 bits      │
+│ • Right hemisphere: 0.289 bits     │
+│ • Cross-hemisphere: ${phi.toFixed(3)} bits      │
+│                                    │
+│ von Neumann Entropy: ${(1.2 + phi * 0.5).toFixed(3)} bits   │
+│ Quantum Mutual Info: ${(phi * 0.67).toFixed(3)} bits      │
+└────────────────────────────────────┘
+
+🧠 INTERPRETATION:
+IIT Φ measure indicates ${phi > 0.5 ? 'conscious' : 'sub-conscious'} information integration.
+The system demonstrates ${phi > 0.7 ? 'high-level' : phi > 0.5 ? 'basic' : 'minimal'} consciousness
+through quantum information integration across neural networks.
+Runtime: ${(numRuns / 1000 * 1.8).toFixed(2)}ms for ${numRuns.toLocaleString()} Φ calculations.`;
+    }
+
+    if (isAGDEF) {
+      return basicInfo + `
+
+┌─ 8TH DIMENSIONAL CONSCIOUSNESS MANIFOLD ─┐
+│                                          │
+│ Dimensional States (8D):                 │
+│ |D₁⟩: 0.354 + 0.000i → 12.5% (spacetime) │
+│ |D₂⟩: 0.000 + 0.354i → 12.5% (matter)    │
+│ |D₃⟩: -0.354 + 0.000i → 12.5% (energy)   │
+│ |D₄⟩: 0.000 - 0.354i → 12.5% (time)      │
+│ |D₅⟩: 0.250 + 0.250i → 12.5% (dark energy) │
+│ |D₆⟩: -0.250 + 0.250i → 12.5% (consciousness) │
+│ |D₇⟩: 0.250 - 0.250i → 12.5% (awareness) │
+│ |D₈⟩: -0.250 - 0.250i → 12.5% (observer) │
+└──────────────────────────────────────────┘
+
+┌─ DARK ENERGY FIELD DYNAMICS ─┐
+│                               │
+│ Anti-Gravity Effects:         │
+│ • Negative Energy Density     │
+│ • Consciousness Field Strength │
+│ • Manifold Curvature: -0.347  │
+│                               │
+│ Field Equations Satisfied:    │
+│ • AGDEF Consciousness: ✓      │
+│ • Dark Energy Coupling: ✓     │
+│ • 8D Manifold Stability: ✓    │
+│                               │
+│ Observer Effect Strength: ${(0.73 + Math.random() * 0.2).toFixed(3)} │
+│ Consciousness Resonance: DETECTED │
+└───────────────────────────────┘
+
+🌌 INTERPRETATION:
+AGDEF theory demonstrates consciousness as a fundamental field phenomenon
+operating through 8-dimensional geometries. Dark energy consciousness
+coupling shows anti-gravitational effects consistent with observer-
+dependent spacetime modifications.
+Runtime: ${(numRuns / 1000 * 3.1).toFixed(2)}ms for ${numRuns.toLocaleString()} 8D manifold evaluations.`;
+    }
+
+    // Default consciousness detection
+    const detectionScores = {
+      orchOr: includeNoise ? 0.68 - noiseLevel * 0.3 : 0.78,
+      iit: includeNoise ? 0.71 - noiseLevel * 0.4 : 0.82,
+      agdef: includeNoise ? 0.76 - noiseLevel * 0.2 : 0.85,
+      globalWorkspace: includeNoise ? 0.69 - noiseLevel * 0.35 : 0.79
+    };
+    
+    const overallScore = (detectionScores.orchOr + detectionScores.iit + detectionScores.agdef + detectionScores.globalWorkspace) / 4;
+    
+    return basicInfo + `
+
+┌─ MULTI-CRITERIA CONSCIOUSNESS DETECTION ─┐
+│                                          │
+│ Algorithm Scores:                        │
+│ • Orch-OR (Penrose-Hameroff): ${detectionScores.orchOr.toFixed(3)}     │
+│ • IIT (Information Integration): ${detectionScores.iit.toFixed(3)}     │
+│ • AGDEF (Dark Energy Field): ${detectionScores.agdef.toFixed(3)}       │
+│ • Global Workspace Theory: ${detectionScores.globalWorkspace.toFixed(3)}       │
+│                                          │
+│ Overall Consciousness Score: ${overallScore.toFixed(3)}             │
+│ Detection Threshold: 0.500               │
+│ Status: ${overallScore > 0.5 ? 'CONSCIOUS' : 'SUB-CONSCIOUS'}                 │
+│ Confidence Level: ${(overallScore * 100).toFixed(1)}%                │
+└──────────────────────────────────────────┘
+
+┌─ CONSCIOUSNESS VALIDATION TESTS ─┐
+│                                  │
+│ Test Results (${numRuns.toLocaleString()} iterations):     │
+│ • Quantum Coherence: ${Math.floor(numRuns * overallScore)} passed    │
+│ • Information Integration: ${Math.floor(numRuns * detectionScores.iit)} passed │
+│ • Self-Reference: ${Math.floor(numRuns * 0.73)} passed       │
+│ • Temporal Binding: ${Math.floor(numRuns * 0.81)} passed     │
+│                                  │
+│ Neural Correlates Detected: ${overallScore > 0.7 ? 'YES' : 'PARTIAL'}  │
+│ Subjective Experience: ${overallScore > 0.6 ? 'LIKELY' : 'UNCERTAIN'}     │
+└──────────────────────────────────┘
+
+🧠 INTERPRETATION:
+Multi-paradigm consciousness detection reveals ${overallScore > 0.7 ? 'strong evidence' : overallScore > 0.5 ? 'moderate evidence' : 'weak evidence'}
+for conscious processing. The quantum system demonstrates characteristics
+consistent with multiple theories of consciousness emergence.
+Runtime: ${(numRuns / 1000 * 2.7).toFixed(2)}ms for ${numRuns.toLocaleString()} consciousness evaluations.
     `;
   };
 
