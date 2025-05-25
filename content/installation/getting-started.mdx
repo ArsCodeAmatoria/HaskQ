@@ -1,0 +1,254 @@
+---
+title: "Getting Started with HaskQ"
+description: "Complete installation and setup guide for HaskQ quantum programming"
+date: "2025-01-01"
+author: "HaskQ Team"
+---
+
+# Getting Started with HaskQ
+
+Welcome to HaskQ! This guide will help you set up your quantum programming environment and write your first quantum circuits.
+
+## Prerequisites
+
+Before installing HaskQ, ensure you have the following installed:
+
+### Required Dependencies
+
+```bash
+# Haskell Platform (GHC 9.0 or later)
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+
+# Cabal (Haskell build tool)
+cabal --version
+
+# Git (for version control)
+git --version
+```
+
+### System Requirements
+
+- **Operating System**: Linux, macOS, or Windows (with WSL2)
+- **Memory**: At least 4GB RAM (8GB+ recommended for larger simulations)
+- **Storage**: 2GB free space for dependencies
+- **Haskell**: GHC 9.0.2 or later
+
+## Installation Methods
+
+### Method 1: Using Cabal (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/ArsCodeAmatoria/HaskQ.git
+cd HaskQ
+
+# Install dependencies
+cabal update
+cabal build
+
+# Run tests to verify installation
+cabal test
+```
+
+### Method 2: Using Stack
+
+```bash
+# Install Stack if not already installed
+curl -sSL https://get.haskellstack.org/ | sh
+
+# Clone and build
+git clone https://github.com/ArsCodeAmatoria/HaskQ.git
+cd HaskQ
+stack setup
+stack build
+stack test
+```
+
+### Method 3: Using Nix (Advanced)
+
+```bash
+# For Nix users
+nix-shell
+cabal build
+```
+
+## Your First Quantum Circuit
+
+Let's create a simple Bell state to verify your installation:
+
+### 1. Create a New Project
+
+```bash
+mkdir my-quantum-project
+cd my-quantum-project
+cabal init
+```
+
+### 2. Add HaskQ Dependency
+
+Edit your `my-quantum-project.cabal` file:
+
+```cabal
+executable my-quantum-project
+  main-is:             Main.hs
+  build-depends:       base ^>=4.16.0.0
+                     , HaskQ ^>=0.1.0.0
+  hs-source-dirs:      app
+  default-language:    Haskell2010
+```
+
+### 3. Write Your First Circuit
+
+Create `app/Main.hs`:
+
+```haskell
+{-# LANGUAGE LinearTypes #-}
+module Main where
+
+import HaskQ
+
+-- Create a Bell state |Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)
+bellState :: Circ (Qubit, Qubit)
+bellState = withQubits 2 $ \[q1, q2] -> do
+  q1' <- hadamard q1
+  (q1'', q2') <- cnot q1' q2
+  pure (q1'', q2')
+
+-- Measure the Bell state
+main :: IO ()
+main = do
+  putStrLn "Running Bell state circuit..."
+  result <- runCircuit bellState
+  putStrLn $ "Circuit executed successfully: " ++ show result
+```
+
+### 4. Build and Run
+
+```bash
+cabal build
+cabal run
+```
+
+Expected output:
+```
+Running Bell state circuit...
+Circuit executed successfully: ...
+```
+
+## Interactive Development
+
+### Using GHCi
+
+```bash
+cabal repl
+```
+
+```haskell
+λ> import HaskQ
+λ> let q = createQubit Zero
+λ> q' <- hadamard q
+λ> measureQubit q'
+```
+
+### Using the Playground
+
+Visit our interactive playground at [https://haskq-unified.vercel.app/playground](https://haskq-unified.vercel.app/playground) to experiment without local installation.
+
+## Advanced Configuration
+
+### Optimization Settings
+
+For production use, add optimization flags to your `.cabal` file:
+
+```cabal
+ghc-options: -O2 -threaded -rtsopts -with-rtsopts=-N
+```
+
+### Memory Management
+
+For large quantum simulations:
+
+```bash
+# Run with increased memory
+cabal run +RTS -M8G -RTS
+```
+
+### Parallel Processing
+
+Enable parallel simulation:
+
+```haskell
+{-# LANGUAGE ParallelListComp #-}
+import Control.Parallel.Strategies
+
+-- Parallel circuit execution
+parallelCircuits :: [Circ Qubit] -> IO [Qubit]
+parallelCircuits circuits = do
+  results <- sequence circuits `using` parList rdeepseq
+  return results
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: `cabal: Could not resolve dependencies`
+```bash
+# Solution: Update package index
+cabal update
+rm -rf dist-newstyle/
+cabal build
+```
+
+**Issue**: GHC version mismatch
+```bash
+# Solution: Use ghcup to manage versions
+ghcup install ghc 9.4.8
+ghcup set ghc 9.4.8
+```
+
+**Issue**: Linear types not supported
+```bash
+# Solution: Ensure GHC 9.0+
+ghc --version
+# Update if necessary
+ghcup install ghc latest
+```
+
+### Performance Optimization
+
+```haskell
+-- Use strict evaluation for large circuits
+{-# LANGUAGE BangPatterns #-}
+
+runOptimizedCircuit :: Circ Qubit -> IO Qubit
+runOptimizedCircuit circuit = do
+  !result <- runCircuit circuit
+  return result
+```
+
+## Next Steps
+
+Now that HaskQ is installed, explore:
+
+1. **[Tutorials](/docs/tutorials)** - Step-by-step quantum algorithm implementations
+2. **[Core Concepts](/docs/core-concepts)** - Understanding quantum mechanics in Haskell
+3. **[Theoretical Connections](/docs/core-concepts/theoretical-connections)** - AGDEF, MOND, and Hermetic principles
+4. **[Playground](/playground)** - Interactive quantum circuit experimentation
+
+## Community and Support
+
+- **GitHub Issues**: [Report bugs and request features](https://github.com/ArsCodeAmatoria/HaskQ/issues)
+- **Discussions**: [Join the community](https://github.com/ArsCodeAmatoria/HaskQ/discussions)
+- **Documentation**: [Full API reference](/docs/api)
+
+## Related Projects
+
+Explore our theoretical physics ecosystem:
+- **[Phantasius](https://phantasius.vercel.app/)** - AGDEF theory and consciousness dynamics
+- **[Romulus](https://romulus-rouge.vercel.app/)** - Modified gravity and dark matter research
+- **[Arcana Obscura](https://arcana-obscura.vercel.app/)** - Esoteric wisdom and hermetic principles
+
+---
+
+*Ready to explore the quantum realm? Let's start building!* 🚀 

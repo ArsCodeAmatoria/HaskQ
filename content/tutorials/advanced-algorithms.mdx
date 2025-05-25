@@ -1,0 +1,358 @@
+---
+title: "Advanced Quantum Algorithms"
+description: "Implement sophisticated quantum algorithms with HaskQ"
+date: "2025-01-01"
+author: "HaskQ Research Team"
+difficulty: "advanced"
+---
+
+# Advanced Quantum Algorithms
+
+Explore sophisticated quantum algorithms that showcase the power of HaskQ's type-safe quantum programming.
+
+## Quantum Approximate Optimization Algorithm (QAOA)
+
+QAOA is a hybrid quantum-classical algorithm for solving combinatorial optimization problems.
+
+### Mathematical Foundation
+
+QAOA approximates the solution to optimization problems by parameterizing quantum circuits:
+
+```
+|ψ(β,γ)⟩ = ∏ᵢ e^{-iβᵢHB} e^{-iγᵢHC} |+⟩⊗n
+```
+
+Where:
+- `HC` is the cost Hamiltonian
+- `HB` is the mixing Hamiltonian  
+- `β,γ` are variational parameters
+
+### Implementation
+
+```haskell
+{-# LANGUAGE LinearTypes #-}
+module QAOA where
+
+import HaskQ
+import Data.List (foldl')
+
+-- Define the cost Hamiltonian for Max-Cut problem
+costHamiltonian :: [Qubit] -> [(Int, Int)] -> Circ [Qubit]
+costHamiltonian qubits edges = foldl' applyEdge (pure qubits) edges
+  where
+    applyEdge :: Circ [Qubit] -> (Int, Int) -> Circ [Qubit]
+    applyEdge qsCirc (i, j) = do
+      qs <- qsCirc
+      let qi = qs !! i
+          qj = qs !! j
+      -- Apply ZZ interaction
+      (qi', qj') <- controlledZ qi qj
+      return $ updateList i qi' $ updateList j qj' qs
+
+-- Mixing Hamiltonian (X rotations)
+mixingHamiltonian :: Double -> [Qubit] -> Circ [Qubit]
+mixingHamiltonian beta qubits = 
+  mapM (rotateX beta) qubits
+
+-- QAOA circuit for one layer
+qaoaLayer :: Double -> Double -> [Qubit] -> [(Int, Int)] -> Circ [Qubit]
+qaoaLayer gamma beta qubits edges = do
+  -- Apply cost Hamiltonian
+  qs1 <- costHamiltonian qubits edges
+  -- Apply mixing Hamiltonian  
+  qs2 <- mixingHamiltonian beta qs1
+  return qs2
+
+-- Full QAOA circuit
+qaoa :: [(Double, Double)] -> [Qubit] -> [(Int, Int)] -> Circ [Qubit]
+qaoa params qubits edges = 
+  foldl' (\qsCirc (gamma, beta) -> 
+    qsCirc >>= \qs -> qaoaLayer gamma beta qs edges
+  ) (pure qubits) params
+
+-- Max-Cut example
+maxCutQAOA :: Circ [Measurement]
+maxCutQAOA = do
+  -- Initialize qubits in superposition
+  q1 <- createQubit Zero >>= hadamard
+  q2 <- createQubit Zero >>= hadamard  
+  q3 <- createQubit Zero >>= hadamard
+  q4 <- createQubit Zero >>= hadamard
+  
+  let qubits = [q1, q2, q3, q4]
+      edges = [(0,1), (1,2), (2,3), (3,0)]  -- Square graph
+      params = [(0.5, 0.3), (0.4, 0.6)]     -- Two QAOA layers
+  
+  -- Apply QAOA
+  finalQubits <- qaoa params qubits edges
+  
+  -- Measure all qubits
+  mapM measureQubit finalQubits
+```
+
+## Variational Quantum Eigensolver (VQE)
+
+VQE finds the ground state energy of quantum systems.
+
+### Theoretical Background
+
+VQE uses the variational principle:
+```
+E₀ ≤ ⟨ψ(θ)|H|ψ(θ)⟩
+```
+
+### Implementation
+
+```haskell
+-- Parameterized quantum circuit (ansatz)
+vqeAnsatz :: [Double] -> [Qubit] -> Circ [Qubit]
+vqeAnsatz params qubits = go params qubits
+  where
+    go [] qs = return qs
+    go (p:ps) qs = do
+      -- Apply parameterized gates
+      qs' <- mapM (rotateY p) qs
+      -- Apply entangling gates
+      qs'' <- applyEntangling qs'
+      go ps qs''
+
+applyEntangling :: [Qubit] -> Circ [Qubit]
+applyEntangling [] = return []
+applyEntangling [q] = return [q]
+applyEntangling (q1:q2:qs) = do
+  (q1', q2') <- cnot q1 q2
+  rest <- applyEntangling qs
+  return (q1' : q2' : rest)
+
+-- Hydrogen molecule VQE
+hydrogenVQE :: [Double] -> Circ Double
+hydrogenVQE params = do
+  -- Two qubits for H₂ minimal basis
+  q1 <- createQubit Zero
+  q2 <- createQubit Zero
+  
+  -- Apply ansatz
+  [q1', q2'] <- vqeAnsatz params [q1, q2]
+  
+  -- Measure energy expectation value
+  -- This would involve multiple Pauli measurements
+  energy <- measureEnergy [q1', q2']
+  return energy
+
+-- Mock energy measurement (would be real Hamiltonian)
+measureEnergy :: [Qubit] -> Circ Double  
+measureEnergy qubits = do
+  measurements <- mapM measureQubit qubits
+  -- Calculate energy from measurements
+  return $ fromIntegral $ length $ filter (== One) measurements
+```
+
+## Quantum Phase Estimation
+
+Estimate eigenvalues of unitary operators with exponential precision.
+
+### Algorithm
+
+```haskell
+-- Quantum Phase Estimation
+qpe :: Int -> (Qubit -> Circ Qubit) -> Qubit -> Circ [Measurement]
+qpe precision unitary eigenstate = do
+  -- Create control qubits in superposition
+  controls <- replicateM precision (createQubit Zero >>= hadamard)
+  
+  -- Apply controlled unitaries
+  (controls', eigenstate') <- controlledPowers controls unitary eigenstate
+  
+  -- Apply inverse QFT to control qubits
+  controls'' <- inverseQFT controls'
+  
+  -- Measure control qubits
+  mapM measureQubit controls''
+
+-- Apply controlled unitary raised to powers of 2
+controlledPowers :: [Qubit] -> (Qubit -> Circ Qubit) -> Qubit -> Circ ([Qubit], Qubit)
+controlledPowers [] _ target = return ([], target)
+controlledPowers (c:cs) unitary target = do
+  -- Apply controlled unitary 2^k times
+  target' <- applyControlledPower c unitary target
+  (cs', target'') <- controlledPowers cs unitary target'
+  return (c:cs', target'')
+
+applyControlledPower :: Qubit -> (Qubit -> Circ Qubit) -> Qubit -> Circ Qubit
+applyControlledPower control unitary target = do
+  -- This would apply the unitary conditionally
+  -- Simplified implementation
+  target' <- unitary target
+  return target'
+
+-- Example: Estimate phase of T gate
+tGatePhaseEstimation :: Circ [Measurement]
+tGatePhaseEstimation = do
+  -- Create eigenstate |1⟩ of T gate
+  eigenstate <- createQubit One
+  
+  -- Estimate phase (should be π/4)
+  qpe 4 gateT eigenstate
+```
+
+## Quantum Machine Learning Algorithms
+
+### Quantum Support Vector Machine
+
+```haskell
+-- Quantum kernel evaluation
+quantumKernel :: [Double] -> [Double] -> Circ Double
+quantumKernel x1 x2 = do
+  -- Encode data into quantum states
+  q1 <- encodeData x1
+  q2 <- encodeData x2
+  
+  -- Create entangled state
+  (q1', q2') <- hadamardTest q1 q2
+  
+  -- Measure overlap
+  overlap <- measureOverlap q1' q2'
+  return overlap
+
+encodeData :: [Double] -> Circ Qubit
+encodeData features = do
+  q <- createQubit Zero
+  -- Encode features as rotation angles
+  foldl' (\qCirc angle -> qCirc >>= rotateY angle) (return q) features
+
+hadamardTest :: Qubit -> Qubit -> Circ (Qubit, Qubit)
+hadamardTest q1 q2 = do
+  ancilla <- createQubit Zero >>= hadamard
+  -- Controlled swap
+  (ancilla', q1', q2') <- controlledSwap ancilla q1 q2
+  ancilla'' <- hadamard ancilla'
+  return (q1', q2')
+
+-- Quantum Neural Network Layer
+qnnLayer :: [Double] -> [Qubit] -> Circ [Qubit]
+qnnLayer weights qubits = do
+  -- Apply parameterized rotations
+  qubits' <- zipWithM rotateY weights qubits
+  -- Apply entangling pattern
+  entangleLayer qubits'
+
+entangleLayer :: [Qubit] -> Circ [Qubit]
+entangleLayer qubits = do
+  -- Circular entangling pattern
+  pairs <- createPairs qubits
+  foldl' (\qsCirc (i, j) -> do
+    qs <- qsCirc
+    let qi = qs !! i
+        qj = qs !! j
+    (qi', qj') <- cnot qi qj
+    return $ updateList i qi' $ updateList j qj' qs
+  ) (return qubits) pairs
+
+createPairs :: [a] -> Circ [(Int, Int)]
+createPairs xs = return $ zip [0..] [1..] ++ [(length xs - 1, 0)]
+```
+
+## Adiabatic Quantum Computing
+
+Solve optimization problems using quantum annealing.
+
+```haskell
+-- Adiabatic evolution
+adiabaticEvolution :: Double -> [Qubit] -> Circ [Qubit]
+adiabaticEvolution t qubits = do
+  -- Time-dependent Hamiltonian: H(t) = (1-t)H₀ + tH₁
+  let h0Weight = 1 - t
+      h1Weight = t
+  
+  -- Apply initial Hamiltonian (transverse field)
+  qubits' <- mapM (rotateX (h0Weight * pi)) qubits
+  
+  -- Apply problem Hamiltonian (Ising model)
+  qubits'' <- applyIsingModel h1Weight qubits'
+  
+  return qubits''
+
+applyIsingModel :: Double -> [Qubit] -> Circ [Qubit]
+applyIsingModel strength qubits = do
+  -- Apply ZZ interactions
+  pairs <- createAdjacentPairs qubits
+  foldl' (\qsCirc (i, j) -> do
+    qs <- qsCirc
+    let qi = qs !! i
+        qj = qs !! j
+    -- Apply ZZ rotation
+    (qi', qj') <- zzRotation strength qi qj
+    return $ updateList i qi' $ updateList j qj' qs
+  ) (return qubits) pairs
+
+zzRotation :: Double -> Qubit -> Qubit -> Circ (Qubit, Qubit)
+zzRotation angle q1 q2 = do
+  -- Implement ZZ rotation using CNOT and RZ
+  (q1', q2') <- cnot q1 q2
+  q2'' <- rotateZ angle q2'
+  (q1'', q2''') <- cnot q1' q2''
+  return (q1'', q2''')
+
+-- Quantum annealing schedule
+quantumAnnealing :: [Double] -> [Qubit] -> Circ [Qubit]
+quantumAnnealing schedule qubits = 
+  foldl' (\qsCirc t -> qsCirc >>= adiabaticEvolution t) (return qubits) schedule
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+| Algorithm | Classical | Quantum | Speedup |
+|-----------|-----------|---------|---------|
+| QAOA | O(2ⁿ) | O(poly(n)) | Exponential |
+| VQE | O(2ⁿ) | O(poly(n)) | Exponential |
+| QPE | O(2ⁿ) | O(n²) | Exponential |
+| QSVM | O(n³) | O(log n) | Polynomial |
+
+### Space Complexity
+
+All quantum algorithms use O(n) qubits for n-variable problems, compared to classical O(2ⁿ) state space.
+
+## Practical Considerations
+
+### Noise and Error Correction
+
+```haskell
+-- Error mitigation strategies
+errorMitigatedCircuit :: Circ Qubit -> Circ Qubit
+errorMitigatedCircuit circuit = do
+  -- Zero-noise extrapolation
+  result1 <- circuit
+  result2 <- noisyCircuit circuit
+  -- Extrapolate to zero noise
+  return result1  -- Simplified
+
+-- Quantum error correction
+quantumErrorCorrection :: [Qubit] -> Circ [Qubit]
+quantumErrorCorrection qubits = do
+  -- Three-qubit bit-flip code
+  encoded <- encodeThreeQubit qubits
+  corrected <- detectAndCorrect encoded
+  decoded <- decodeThreeQubit corrected
+  return decoded
+```
+
+## Research Applications
+
+These algorithms connect to our theoretical physics research:
+
+- **QAOA** → Optimization in [Romulus](https://romulus-rouge.vercel.app/) gravity models
+- **VQE** → Ground states in [Phantasius](https://phantasius.vercel.app/) consciousness theory  
+- **QPE** → Precision measurements in [Arcana Obscura](https://arcana-obscura.vercel.app/) harmonic analysis
+
+## Next Steps
+
+1. Implement hybrid classical-quantum optimization
+2. Explore fault-tolerant quantum computing
+3. Study quantum advantage in machine learning
+4. Investigate quantum-enhanced simulations
+
+---
+
+*These advanced algorithms showcase the cutting edge of quantum computing research and HaskQ's expressive power.* 
