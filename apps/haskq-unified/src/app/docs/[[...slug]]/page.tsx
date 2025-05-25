@@ -744,6 +744,317 @@ npm run dev`}
       return <SuperdenseCodingPage />;
     }
   },
+  'core-concepts/theoretical-connections': {
+    title: 'Theoretical Physics Connections',
+    description: 'How HaskQ bridges quantum computing with consciousness, modified gravity, and hermetic principles',
+    content: () => (
+      <>
+        <p className="mb-6">HaskQ serves as the <strong>computational backbone</strong> for a revolutionary theoretical physics research ecosystem, providing quantum mechanical implementations of cutting-edge theories developed across consciousness studies, modified gravity research, and hermetic physics.</p>
+        
+        <h2 className="text-2xl font-bold mt-8 mb-4">🧠 AGDEF Theory & Consciousness Research</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Integration with <a href="https://phantasius.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Phantasius</a></h3>
+        <p className="mb-4">The <strong>Anti-Gravity Dark Energy Field (AGDEF)</strong> theory proposes that consciousness operates as a fundamental force through higher-dimensional geometric structures. HaskQ provides the first computational framework for modeling these phenomena.</p>
+        
+        <h4 className="text-lg font-bold mt-4 mb-2">8th Dimensional Consciousness Manifold</h4>
+        <p className="mb-4">The AGDEF theory posits that consciousness emerges from an 8th-dimensional manifold that interfaces with our 3D reality through quantum field interactions:</p>
+        
+        <CodeBlock 
+          language="haskell" 
+          code={`-- AGDEF Consciousness Field Implementation
+module AGDEF.Consciousness where
+
+-- 8D Consciousness Manifold as quantum state space
+type ConsciousnessManifold = [Qubit] -> Circ [Qubit]
+
+-- Model the 8 dimensions of consciousness
+eightDimensionalField :: Circ [Qubit]
+eightDimensionalField = withQubits 8 $ \\dims -> do
+  -- Each dimension represents a different aspect of consciousness
+  let [awareness, attention, memory, perception, emotion, intuition, will, identity] = dims
+  
+  -- Create superposition across all consciousness dimensions
+  awareness'   <- hadamard awareness
+  attention'   <- hadamard attention
+  memory'      <- hadamard memory
+  perception'  <- hadamard perception
+  emotion'     <- hadamard emotion
+  intuition'   <- hadamard intuition
+  will'        <- hadamard will
+  identity'    <- hadamard identity
+  
+  -- Consciousness emerges from specific entanglement patterns
+  -- Awareness ↔ Attention (conscious focus)
+  (awareness'', attention'') <- cnot awareness' attention'
+  
+  -- Memory ↔ Perception (conscious experience)
+  (memory'', perception'') <- cnot memory' perception'
+  
+  -- Emotion ↔ Intuition (felt sense)
+  (emotion'', intuition'') <- cnot emotion' intuition'
+  
+  -- Will ↔ Identity (self-directed action)
+  (will'', identity'') <- cnot will' identity'
+  
+  -- Higher-order consciousness: meta-awareness
+  (awareness''', memory''') <- cnot awareness'' memory''
+  (attention''', emotion''') <- cnot attention'' emotion''
+  
+  pure [awareness''', attention''', memory''', perception'', 
+        emotion''', intuition'', will'', identity'']`}
+          className="my-6"
+        />
+        
+        <h4 className="text-lg font-bold mt-6 mb-2">Dark Energy Field Interactions</h4>
+        <p className="mb-4">AGDEF theory suggests that consciousness can manipulate dark energy through quantum field interactions:</p>
+        
+        <CodeBlock 
+          language="haskell" 
+          code={`-- Dark Energy Field manipulation through consciousness
+darkEnergyManipulation :: Double -> [Qubit] -> Circ [Qubit]
+darkEnergyManipulation consciousnessLevel qubits = do
+  -- Consciousness level affects dark energy field strength
+  let fieldStrength = consciousnessLevel * pi / 4
+  
+  -- Apply consciousness-modulated dark energy field
+  mapM (rotateZ fieldStrength) qubits
+
+-- Anti-gravity effect through dark energy field reversal
+antiGravityField :: [Qubit] -> Circ [Qubit]
+antiGravityField qubits = do
+  -- Reverse the phase of dark energy to create repulsive force
+  mapM (rotateZ pi) qubits
+
+-- Consciousness-gravity coupling
+consciousnessGravityCoupling :: [Qubit] -> [Qubit] -> Circ ([Qubit], [Qubit])
+consciousnessGravityCoupling consciousness gravity = do
+  -- Entangle consciousness field with gravitational field
+  let pairs = zip consciousness gravity
+  results <- mapM (\\(c, g) -> cnot c g) pairs
+  let (consciousness', gravity') = unzip results
+  pure (consciousness', gravity')`}
+          className="my-6"
+        />
+        
+        <h2 className="text-2xl font-bold mt-8 mb-4">🌌 Modified Gravity & Dark Matter Research</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Integration with <a href="https://romulus-rouge.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Romulus</a></h3>
+        <p className="mb-4">The Romulus project explores alternatives to dark matter through modified gravity theories. HaskQ provides quantum simulations of these gravitational modifications.</p>
+        
+        <h4 className="text-lg font-bold mt-4 mb-2">Quantum MOND Implementation</h4>
+        <p className="mb-4">Modified Newtonian Dynamics (MOND) suggests gravity behaves differently at low accelerations:</p>
+        
+        <CodeBlock 
+          language="haskell" 
+          code={`-- Quantum MOND field simulation
+module Romulus.MOND where
+
+-- MOND transition function
+mondTransition :: Double -> Double
+mondTransition a = 
+  let a0 = 1.2e-10  -- MOND acceleration constant
+  in if a < a0 
+     then sqrt (a / a0)  -- Deep MOND regime
+     else a / a0         -- Newtonian regime
+
+-- Quantum MOND field
+quantumMOND :: Double -> Circ Qubit
+quantumMOND acceleration = do
+  q <- createQubit Zero
+  let mondFactor = mondTransition acceleration
+      rotationAngle = mondFactor * pi / 2
+  
+  -- Apply MOND-modified gravitational interaction
+  q' <- rotateY rotationAngle q
+  
+  -- Add quantum uncertainty in gravitational field
+  q'' <- hadamard q'
+  
+  pure q''`}
+          className="my-6"
+        />
+        
+        <h2 className="text-2xl font-bold mt-8 mb-4">🔮 Hermetic Quantum Computing</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Integration with <a href="https://arcana-obscura.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Arcana Obscura</a></h3>
+        <p className="mb-4">The hermetic tradition provides profound insights into the nature of reality that map remarkably well onto quantum mechanical principles. HaskQ implements these ancient wisdom teachings as quantum algorithms.</p>
+        
+        <h4 className="text-lg font-bold mt-4 mb-2">The Seven Hermetic Principles</h4>
+        <p className="mb-4">Each hermetic principle corresponds to fundamental quantum operations:</p>
+        
+        <CodeBlock 
+          language="haskell" 
+          code={`-- The Seven Hermetic Principles as Quantum Operations
+module ArcanaMundo.Hermetic where
+
+-- 1. The Principle of Mentalism: "The All is Mind"
+mentalism :: Qubit -> Circ Qubit
+mentalism q = do
+  -- All reality as mental construct → superposition
+  hadamard q
+
+-- 2. The Principle of Correspondence: "As above, so below"
+correspondence :: (Qubit, Qubit) -> Circ (Qubit, Qubit)
+correspondence (above, below) = do
+  -- Perfect correlation between levels
+  above' <- hadamard above
+  cnot above' below
+
+-- 3. The Principle of Vibration: "Nothing rests; everything moves"
+vibration :: Double -> Qubit -> Circ Qubit
+vibration frequency q = do
+  -- Everything vibrates at different frequencies
+  rotateY (frequency * pi) q
+
+-- 4. The Principle of Polarity: "Everything has its pair of opposites"
+polarity :: Qubit -> Circ Qubit
+polarity q = do
+  -- Flip between opposite states
+  gateX q`}
+          className="my-6"
+        />
+        
+        <h4 className="text-lg font-bold mt-6 mb-2">Hermetic Quantum Circuits</h4>
+        <p className="mb-4">Complex hermetic operations combining multiple principles:</p>
+        
+        <CodeBlock 
+          language="haskell" 
+          code={`-- The Emerald Tablet as a quantum circuit
+emeraldTablet :: Circ [Qubit]
+emeraldTablet = withQubits 7 $ \\principles -> do
+  let [mentalism_q, correspondence_q, vibration_q, polarity_q, 
+       rhythm_q, causation_q, gender_q] = principles
+  
+  -- "That which is below is like that which is above"
+  mentalism_q' <- mentalism mentalism_q
+  (correspondence_q', vibration_q') <- correspondence (correspondence_q, vibration_q)
+  
+  -- "And that which is above is like that which is below"
+  polarity_q' <- polarity polarity_q
+  rhythm_q' <- rhythm (pi/3) rhythm_q
+  
+  -- "To accomplish the miracles of the one thing"
+  (causation_q', gender_q') <- causeAndEffect causation_q gender_q
+  
+  -- Final hermetic synthesis
+  synthesized <- hermeticSynthesis [mentalism_q', correspondence_q', vibration_q', 
+                                   polarity_q', rhythm_q', causation_q', gender_q']
+  
+  pure synthesized`}
+          className="my-6"
+        />
+        
+        <h2 className="text-2xl font-bold mt-8 mb-4">🌊 Unified Field Theory</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">The Convergence Point</h3>
+        <p className="mb-4">All three research streams converge in HaskQ's unified framework:</p>
+        
+        <CodeBlock 
+          language="haskell" 
+          code={`-- Unified field incorporating consciousness, gravity, and hermetic principles
+unifiedField :: Double -> Double -> Double -> Circ [Qubit]
+unifiedField consciousnessLevel gravitationalStrength hermeticPhase = 
+  withQubits 12 $ \\field -> do
+    let [c1, c2, c3, c4, g1, g2, g3, g4, h1, h2, h3, h4] = field
+        consciousness = [c1, c2, c3, c4]
+        gravity = [g1, g2, g3, g4]  
+        hermetic = [h1, h2, h3, h4]
+    
+    -- Apply consciousness field (AGDEF)
+    consciousness' <- darkEnergyManipulation consciousnessLevel consciousness
+    
+    -- Apply gravitational field (MOND/Emergent Gravity)
+    gravity' <- mapM (quantumMOND gravitationalStrength) gravity
+    
+    -- Apply hermetic field (Sacred Geometry)
+    hermetic' <- mapM (vibration hermeticPhase) hermetic
+    
+    -- Unify all fields through quantum entanglement
+    unified <- unifyFields consciousness' gravity' hermetic'
+    
+    pure unified`}
+          className="my-6"
+        />
+        
+        <h2 className="text-2xl font-bold mt-8 mb-4">🚀 Practical Applications</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Research Validation</h3>
+        <p className="mb-4">HaskQ enables:</p>
+        <ol className="list-decimal ml-6 mb-6 space-y-2">
+          <li><strong>Consciousness Studies</strong>: Testing IIT theories through quantum information measures</li>
+          <li><strong>Gravity Research</strong>: Validating MOND predictions via quantum simulation</li>
+          <li><strong>Hermetic Physics</strong>: Exploring ancient wisdom through modern quantum mechanics</li>
+        </ol>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Technological Innovation</h3>
+        <ul className="list-disc ml-6 mb-6 space-y-2">
+          <li><strong>Consciousness-Based Computing</strong>: Algorithms inspired by awareness mechanisms</li>
+          <li><strong>Gravitational Quantum Computing</strong>: Using gravity modifications for quantum operations</li>
+          <li><strong>Sacred Geometry Processors</strong>: Hardware based on hermetic geometric principles</li>
+        </ul>
+        
+        <h2 className="text-2xl font-bold mt-8 mb-4">🌟 Future Directions</h2>
+        
+        <h3 className="text-xl font-bold mt-6 mb-3">Development Roadmap</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-100 dark:border-green-800">
+            <h4 className="font-bold text-green-800 dark:text-green-200 mb-2">✅ Phase I: Foundation (Current)</h4>
+            <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
+              <li>• Basic quantum implementations</li>
+              <li>• Cross-project integration</li>
+              <li>• Educational documentation</li>
+            </ul>
+          </div>
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-100 dark:border-blue-800">
+            <h4 className="font-bold text-blue-800 dark:text-blue-200 mb-2">🔄 Phase II: Integration (Next 6 months)</h4>
+            <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1">
+              <li>• Hardware implementation</li>
+              <li>• Real-time consciousness measurement</li>
+              <li>• Gravitational wave connections</li>
+            </ul>
+          </div>
+          <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 border border-purple-100 dark:border-purple-800">
+            <h4 className="font-bold text-purple-800 dark:text-purple-200 mb-2">🔮 Phase III: Validation (Next 12 months)</h4>
+            <ul className="text-purple-700 dark:text-purple-300 text-sm space-y-1">
+              <li>• Consciousness-gravity coupling tests</li>
+              <li>• AGDEF field detection</li>
+              <li>• Hermetic principle verification</li>
+            </ul>
+          </div>
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 border border-yellow-100 dark:border-yellow-800">
+            <h4 className="font-bold text-yellow-800 dark:text-yellow-200 mb-2">🌈 Phase IV: Application (Future)</h4>
+            <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1">
+              <li>• Consciousness-enhanced computers</li>
+              <li>• Gravitational field manipulation</li>
+              <li>• Sacred geometry technologies</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-lg p-6 border border-indigo-100 dark:border-indigo-800 mt-8">
+          <h2 className="text-xl font-semibold mb-4">📚 Cross-References</h2>
+          <p className="mb-4">This unified research is explored across our ecosystem:</p>
+          <ul className="space-y-2">
+            <li>
+              <strong><a href="https://phantasius.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Phantasius</a></strong>: Deep dive into AGDEF theory and consciousness dynamics
+            </li>
+            <li>
+              <strong><a href="https://romulus-rouge.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Romulus</a></strong>: Comprehensive modified gravity and dark matter research
+            </li>
+            <li>
+              <strong><a href="https://arcana-obscura.vercel.app/" className="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Arcana Obscura</a></strong>: Esoteric wisdom and hermetic principles
+            </li>
+            <li>
+              <strong>HaskQ</strong>: Computational implementation and quantum verification
+            </li>
+          </ul>
+          <p className="mt-4 text-sm italic">
+            Together, these projects represent a revolutionary approach to understanding reality through the marriage of ancient wisdom and cutting-edge quantum science.
+          </p>
+        </div>
+      </>
+    )
+  },
 };
 
 // Main page component

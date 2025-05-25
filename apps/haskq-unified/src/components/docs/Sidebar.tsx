@@ -32,6 +32,7 @@ const sidebarItems = [
       { id: 'circuit-composition', label: 'Circuit Composition', href: '/docs/core-concepts/circuit-composition' },
       { id: 'simulation', label: 'Simulation', href: '/docs/core-concepts/simulation' },
       { id: 'error-correction', label: 'Error Correction', href: '/docs/core-concepts/error-correction' },
+      { id: 'theoretical-connections', label: 'Theoretical Connections', href: '/docs/core-concepts/theoretical-connections' },
     ],
   },
   {
