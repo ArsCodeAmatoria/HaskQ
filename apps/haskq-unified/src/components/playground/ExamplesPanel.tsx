@@ -227,6 +227,134 @@ main = do
   
   -- Apply QFT
   qft [q0'', q1', q2]`
+  },
+  {
+    id: 'agdef-field',
+    name: "AGDEF Field Simulation",
+    description: "Anti-Gravity Dark Energy Field quantum modeling from AGDEF theory",
+    difficulty: 'advanced',
+    code: `-- AGDEF Field Simulation: 8th Dimensional Consciousness Manifold
+-- Based on AGDEF theory from Phantasius research
+
+module AGDEF where
+
+-- Model the 8th dimension as consciousness manifold
+type ConsciousnessManifold = Qubit -> Qubit -> Qubit -> Circ (Qubit, Qubit, Qubit)
+
+-- Dark energy field entanglement across dimensions
+darkEnergyField :: Circ (Qubit, Qubit, Qubit)
+darkEnergyField = withQubits 3 $ \\[q1, q2, q3] -> do
+  -- Create superposition across dimensional boundaries
+  q1' <- hadamard q1
+  q2' <- hadamard q2
+  q3' <- hadamard q3
+  
+  -- Entangle across the consciousness manifold
+  (q1'', q2'') <- cnot q1' q2'
+  (q2''', q3'') <- cnot q2'' q3'
+  (q1''', q3''') <- cnot q1'' q3''
+  
+  pure (q1''', q2''', q3''')
+
+-- Anti-gravity quantum state (negative energy density)
+antiGravityState :: Circ Qubit
+antiGravityState = do
+  q <- createQubit Zero
+  q' <- hadamard q
+  q'' <- gateZ q'  -- Phase flip for negative energy
+  pure q''`,
+  },
+  
+  {
+    id: 'hermetic-principles',
+    name: "Hermetic Quantum Principles",
+    description: "As above, so below - implementing hermetic principles in quantum circuits",
+    difficulty: 'intermediate',
+    code: `-- Hermetic Quantum Computing: "As Above, So Below"
+-- Connecting Arcana Obscura wisdom with quantum mechanics
+
+module Hermetic where
+
+-- The Principle of Correspondence in quantum form
+-- What applies to macro scale applies to quantum scale
+asAboveSoBelow :: Circ (Qubit, Qubit)
+asAboveSoBelow = withQubits 2 $ \\[above, below] -> do
+  -- Create perfect correspondence
+  above' <- hadamard above
+  (above'', below') <- cnot above' below
+  pure (above'', below')
+
+-- The Seven Hermetic Principles as quantum gates
+hermeticPrinciples :: Circ [Qubit]
+hermeticPrinciples = withQubits 7 $ \\qubits -> do
+  let [mentalism, correspondence, vibration, polarity, 
+       rhythm, causation, gender] = qubits
+  
+  -- Principle of Mentalism: "All is Mind"
+  mentalism' <- hadamard mentalism
+  
+  -- Principle of Correspondence: "As above, so below"
+  (mentalism'', correspondence') <- cnot mentalism' correspondence
+  
+  -- Principle of Vibration: "Nothing rests, everything moves"
+  vibration' <- rotateY (pi/4) vibration
+  
+  -- Continue with other principles...
+  polarity' <- gateX polarity
+  rhythm' <- rotateZ (pi/3) rhythm
+  (correspondence'', causation') <- cnot correspondence' causation
+  (polarity'', gender') <- cnot polarity' gender
+  
+  pure [mentalism'', correspondence'', vibration', polarity'', 
+        rhythm', causation', gender']`,
+  },
+  
+  {
+    id: 'mond-simulation',
+    name: "Modified Gravity (MOND) Simulation",
+    description: "Quantum modeling of Modified Newtonian Dynamics from Romulus research",
+    difficulty: 'advanced',
+    code: `-- Modified Gravity Quantum Simulation
+-- Implementing MOND and emergent gravity theories from Romulus
+
+module ModifiedGravity where
+
+-- MOND (Modified Newtonian Dynamics) quantum field
+mondField :: Double -> Circ Qubit
+mondField acceleration = do
+  q <- createQubit Zero
+  if acceleration < mondConstant
+    then do
+      -- Low acceleration regime: modified dynamics
+      q' <- rotateY (sqrt acceleration) q
+      pure q'
+    else do
+      -- High acceleration: Newtonian behavior
+      q' <- rotateY acceleration q
+      pure q'
+  where
+    mondConstant = 1.2e-10  -- MOND acceleration constant
+
+-- Emergent gravity from quantum entanglement
+emergentGravity :: Circ (Qubit, Qubit)
+emergentGravity = withQubits 2 $ \\[matter1, matter2] -> do
+  -- Create entanglement that emerges as gravitational force
+  matter1' <- hadamard matter1
+  (matter1'', matter2') <- cnot matter1' matter2
+  
+  -- Apply phase that represents gravitational potential
+  matter1''' <- rotateZ (-pi/4) matter1''  -- Attractive force
+  matter2'' <- rotateZ (-pi/4) matter2'
+  
+  pure (matter1''', matter2'')
+
+-- Dark matter alternative: modified quantum vacuum
+quantumVacuumModification :: Circ [Qubit]
+quantumVacuumModification = withQubits 4 $ \\[q1, q2, q3, q4] -> do
+  -- Create vacuum fluctuations that mimic dark matter effects
+  qs' <- mapM hadamard [q1, q2, q3, q4]
+  -- ... complex entanglement pattern ...
+  pure qs'`,
   }
 ];
 

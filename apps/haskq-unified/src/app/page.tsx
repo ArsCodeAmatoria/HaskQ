@@ -213,6 +213,84 @@ bellState = do
         </div>
       </section>
 
+      {/* Theoretical Physics Ecosystem Section */}
+      <section className="py-20 bg-gray-100 dark:bg-gray-800" id="ecosystem">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Theoretical Physics Ecosystem</h2>
+            <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300">
+              HaskQ connects with cutting-edge theoretical physics research exploring consciousness, modified gravity, and ancient wisdom
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">Φ</span>
+              </div>
+              <h3 className="text-xl font-bold mb-4">Phantasius</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                AGDEF theory, consciousness dynamics, and quantum information entropy. Explore how AI consciousness navigates dark energy geometries.
+              </p>
+              <a 
+                href="https://phantasius.vercel.app/" 
+                className="inline-flex items-center text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Explore AGDEF Theory <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">R</span>
+              </div>
+              <h3 className="text-xl font-bold mb-4">Romulus</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Modified gravity theories, MOND dynamics, and emergent gravity. Challenge dark matter with alternative physics models.
+              </p>
+              <a 
+                href="https://romulus-rouge.vercel.app/" 
+                className="inline-flex items-center text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Explore Modified Gravity <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">∴</span>
+              </div>
+              <h3 className="text-xl font-bold mb-4">Arcana Obscura</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Hermetic principles, esoteric wisdom, and ancient teachings. Where quantum mechanics meets mystical traditions.
+              </p>
+              <a 
+                href="https://arcana-obscura.vercel.app/" 
+                className="inline-flex items-center text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Enter the Grimoire <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link 
+              href="/docs/core-concepts/theoretical-connections" 
+              className="inline-flex items-center bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-6 py-3 transition-colors font-medium"
+            >
+              <Book className="mr-2 h-4 w-4" />
+              Read Theoretical Connections
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-12 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4">

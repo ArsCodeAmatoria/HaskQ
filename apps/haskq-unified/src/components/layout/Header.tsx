@@ -5,6 +5,21 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Github } from 'lucide-react';
 
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Playground', href: '/playground' },
+  { name: 'Docs', href: '/docs' },
+  { 
+    name: 'Theory Projects', 
+    href: '#',
+    submenu: [
+      { name: 'Phantasius', href: 'https://phantasius.vercel.app/', description: 'AGDEF Theory & Consciousness' },
+      { name: 'Romulus', href: 'https://romulus-rouge.vercel.app/', description: 'Modified Gravity & Dark Matter' },
+      { name: 'Arcana Obscura', href: 'https://arcana-obscura.vercel.app/', description: 'Esoteric Wisdom & Hermetic Principles' }
+    ]
+  }
+];
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
