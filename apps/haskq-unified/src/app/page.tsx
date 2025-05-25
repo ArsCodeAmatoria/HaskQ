@@ -326,7 +326,7 @@ bellState = do
               <ul className="space-y-2">
                 <li><a href="https://github.com/ArsCodeAmatoria/HaskQ/discussions" className="text-gray-600 dark:text-gray-400 hover:text-indigo-500 transition-colors">Join Us</a></li>
                 <li><a href="https://github.com/ArsCodeAmatoria/HaskQ" className="text-gray-600 dark:text-gray-400 hover:text-indigo-500 transition-colors">GitHub</a></li>
-                <li><Link href="/blog" className="text-gray-600 dark:text-gray-400 hover:text-indigo-500 transition-colors">Blog</Link></li>
+                <li><a href="https://phantasius.vercel.app/" className="text-gray-600 dark:text-gray-400 hover:text-indigo-500 transition-colors" target="_blank" rel="noopener noreferrer">Blog</a></li>
               </ul>
             </div>
           </div>
