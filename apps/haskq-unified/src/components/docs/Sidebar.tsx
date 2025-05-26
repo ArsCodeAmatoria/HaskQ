@@ -44,6 +44,7 @@ const sidebarItems = [
       { id: 'superdense-coding', label: 'Superdense Coding', href: '/docs/tutorials/superdense-coding' },
       { id: 'grovers-algorithm', label: 'Grover\'s Algorithm', href: '/docs/tutorials/grovers-algorithm' },
       { id: 'qft', label: 'Quantum Fourier Transform', href: '/docs/tutorials/qft' },
+      { id: 'advanced-algorithms', label: 'Advanced Algorithms', href: '/docs/tutorials/advanced-algorithms' },
       { id: 'consciousness-algorithms', label: 'Consciousness Algorithms', href: '/docs/tutorials/consciousness-algorithms' },
     ],
   },

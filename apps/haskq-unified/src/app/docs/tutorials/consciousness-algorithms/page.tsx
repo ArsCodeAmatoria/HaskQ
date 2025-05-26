@@ -1,15 +1,3 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Consciousness Algorithms | HaskQ Tutorials',
-  description: 'Quantum algorithms for modeling consciousness phenomena, from Penrose-Hameroff microtubules to AGDEF consciousness dynamics.',
-  openGraph: {
-    title: 'Consciousness Algorithms - HaskQ',
-    description: 'Explore quantum theories of consciousness with computational implementations.',
-    type: 'article',
-  },
-};
-
 export default function ConsciousnessAlgorithmsPage() {
   return (
     <div className="max-w-4xl mx-auto py-8">

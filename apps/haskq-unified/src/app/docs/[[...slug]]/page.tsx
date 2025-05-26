@@ -744,6 +744,22 @@ npm run dev`}
       return <SuperdenseCodingPage />;
     }
   },
+  'tutorials/consciousness-algorithms': {
+    title: 'Consciousness Algorithms',
+    description: 'Quantum algorithms for consciousness research: Penrose-Hameroff microtubules, IIT Phi measures, and AGDEF fields',
+    content: () => {
+      const ConsciousnessAlgorithmsPage = dynamic(() => import('@/app/docs/tutorials/consciousness-algorithms/page'), { ssr: true });
+      return <ConsciousnessAlgorithmsPage />;
+    }
+  },
+  'tutorials/advanced-algorithms': {
+    title: 'Advanced Quantum Algorithms',
+    description: 'Comprehensive guide to cutting-edge quantum algorithms with HaskQ implementations',
+    content: () => {
+      const AdvancedAlgorithmsPage = dynamic(() => import('@/app/docs/tutorials/advanced-algorithms/page'), { ssr: true });
+      return <AdvancedAlgorithmsPage />;
+    }
+  },
   'core-concepts/theoretical-connections': {
     title: 'Theoretical Physics Connections',
     description: 'How HaskQ bridges quantum computing with consciousness, modified gravity, and hermetic principles',
