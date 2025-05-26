@@ -3,19 +3,15 @@
 //! This module provides C-compatible functions for interfacing with
 //! the HaskQ quantum computing engine from other languages.
 
+use libc::{c_char, c_double, c_int, c_void};
 use std::ffi::{CStr, CString};
-use std::os::raw::{c_char, c_double, c_int, c_void};
 use std::slice;
-use std::ptr;
-use std::sync::{Mutex, MutexGuard};
+use std::sync::Mutex;
 use std::collections::HashMap;
-
-use nalgebra::DVector;
-use num_complex::Complex64;
+use std::ptr;
 use once_cell::sync::Lazy;
-use serde_json;
 
-use crate::{QuantumSimulator, QuantumState, GateOps, ComplexF64, Result, HaskQError};
+use crate::{QuantumSimulator, QuantumState, GateOps, ComplexF64, Result};
 
 /// Global simulator storage for FFI
 static SIMULATORS: Lazy<Mutex<HashMap<u32, QuantumSimulator>>> = 
@@ -266,16 +262,19 @@ pub extern "C" fn haskq_measure_all(sim_id: u32, results: *mut bool, len: usize)
 
     if let Ok(mut sims) = SIMULATORS.lock() {
         if let Some(sim) = sims.get_mut(&sim_id) {
-            let measurements = sim.state.measure_all();
-            let actual_len = std::cmp::min(len, measurements.len());
-            
-            unsafe {
-                let slice = slice::from_raw_parts_mut(results, actual_len);
-                for (i, &result) in measurements.iter().take(actual_len).enumerate() {
-                    slice[i] = result;
+            if let Ok(measurements) = sim.state.measure_all() {
+                let actual_len = std::cmp::min(len, measurements.len());
+                
+                unsafe {
+                    let slice = slice::from_raw_parts_mut(results, actual_len);
+                    for (i, &result) in measurements.iter().take(actual_len).enumerate() {
+                        slice[i] = result;
+                    }
                 }
+                true
+            } else {
+                false
             }
-            true
         } else {
             false
         }
@@ -314,14 +313,14 @@ pub extern "C" fn haskq_get_state_size(sim_id: u32) -> usize {
 
 /// Process a JSON circuit description and apply all gates
 #[no_mangle]
-pub extern "C" fn haskq_apply_circuit_json(sim_id: u32, json_str: *const c_char) -> bool {
+pub extern "C" fn haskq_apply_circuit_json(_sim_id: u32, json_str: *const c_char) -> bool {
     if json_str.is_null() {
         return false;
     }
 
     unsafe {
         let c_str = CStr::from_ptr(json_str);
-        if let Ok(json) = c_str.to_str() {
+        if let Ok(_json) = c_str.to_str() {
             // Parse JSON and apply gates (simplified for now)
             // In a full implementation, this would parse the circuit JSON
             // and apply each gate sequentially

@@ -3,14 +3,12 @@
 //! This module implements various quantum error correction codes, noise models,
 //! and fault-tolerant quantum computation techniques for realistic quantum simulation.
 
-use nalgebra::{DMatrix, DVector};
+use nalgebra::DMatrix;
 use num_complex::Complex64;
 use rand::prelude::*;
-#[cfg(feature = "parallel")]
-use rayon::prelude::*;
 use std::collections::HashMap;
 
-use crate::{QuantumState, QuantumSimulator, GateOps, Result, HaskQError};
+use crate::{QuantumState, QuantumSimulator, GateOps, Result};
 
 /// Quantum error correction and noise modeling
 pub struct ErrorCorrection;
@@ -200,12 +198,12 @@ impl ErrorCorrection {
         }
     }
     
-    /// Correct errors based on syndrome
+    /// Correct detected errors
     pub fn correct_errors(
         simulator: &mut QuantumSimulator,
         physical_qubits: &[usize],
         syndrome: &Syndrome,
-        code: &ErrorCorrectionCode
+        _code: &ErrorCorrectionCode
     ) -> Result<bool> {
         if let Some(error_locations) = &syndrome.error_location {
             for &location in error_locations {
@@ -652,7 +650,7 @@ impl ErrorCorrection {
     fn decode_surface_syndrome(
         x_syndrome: &[bool], 
         z_syndrome: &[bool], 
-        distance: usize
+        _distance: usize
     ) -> Option<Vec<usize>> {
         // Surface code syndrome decoding using minimum-weight perfect matching
         if x_syndrome.iter().any(|&x| x) || z_syndrome.iter().any(|&z| z) {

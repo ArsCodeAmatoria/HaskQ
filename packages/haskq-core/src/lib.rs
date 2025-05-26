@@ -7,6 +7,7 @@ use nalgebra::DVector;
 use num_complex::Complex64;
 #[cfg(feature = "parallel")]
 use rayon::prelude::*;
+use rand;
 use serde::{Deserialize, Serialize};
 use std::sync::{Mutex, MutexGuard};
 use std::collections::HashMap;
@@ -137,6 +138,17 @@ impl QuantumState {
     /// Get all measurement probabilities
     pub fn get_probabilities(&self) -> Vec<f64> {
         self.amplitudes.iter().map(|amp| amp.norm_sqr()).collect()
+    }
+    
+    /// Measure all qubits and return the classical bit string
+    pub fn measure_all(&mut self) -> Result<Vec<bool>> {
+        let mut results = Vec::with_capacity(self.num_qubits);
+        for qubit in 0..self.num_qubits {
+            let prob_zero = self.get_zero_probability(qubit)?;
+            let measurement = rand::random::<f64>() > prob_zero;
+            results.push(measurement);
+        }
+        Ok(results)
     }
     
     /// Normalize the quantum state
@@ -292,16 +304,24 @@ impl QuantumSimulator {
     pub fn get_probabilities(&self) -> Vec<f64> {
         self.state.get_probabilities()
     }
-    
+
+    /// Get state amplitudes (for FFI)
+    pub fn get_amplitudes(&self) -> Vec<ComplexF64> {
+        self.state.amplitudes.iter()
+            .map(|&c| ComplexF64::from(c))
+            .collect()
+    }
+
     /// Apply noise if noise model is present
     fn apply_noise(&mut self, gate_name: &str) -> Result<()> {
-        if let Some(ref noise_model) = self.noise_model {
-            ErrorCorrection::apply_noise(&mut self.state, noise_model, gate_name)?;
+        if let Some(ref noise_model) = self.noise_model.clone() {
+            ErrorCorrection::apply_noise(&mut self.state, &noise_model, gate_name)?;
+            self.stats.error_rate += 0.001; // Simplified error tracking
         }
         Ok(())
     }
-    
-    /// Measure a single qubit
+
+    /// Measure a specific qubit
     pub fn measure_qubit(&mut self, qubit: usize) -> Result<bool> {
         if qubit >= self.state.num_qubits {
             return Err(HaskQError::InvalidQubitIndex(qubit));
@@ -346,15 +366,6 @@ impl QuantumSimulator {
         }
         
         Ok(())
-    }
-    
-    /// Measure all qubits
-    pub fn measure_all(&mut self) -> Result<Vec<bool>> {
-        let mut results = Vec::new();
-        for qubit in 0..self.state.num_qubits {
-            results.push(self.measure_qubit(qubit)?);
-        }
-        Ok(results)
     }
     
     /// Get current memory usage in bytes
@@ -448,12 +459,12 @@ pub fn register_simulator(simulator: QuantumSimulator) -> u32 {
 }
 
 /// Get a mutable reference to a simulator by ID
-pub fn get_simulator_mut(id: u32) -> Option<MutexGuard<'static, HashMap<u32, QuantumSimulator>>> {
+pub fn get_simulator_mut(_id: u32) -> Option<MutexGuard<'static, HashMap<u32, QuantumSimulator>>> {
     SIMULATORS.lock().ok()
 }
 
 /// Get an immutable reference to a simulator by ID  
-pub fn get_simulator(id: u32) -> Option<MutexGuard<'static, HashMap<u32, QuantumSimulator>>> {
+pub fn get_simulator(_id: u32) -> Option<MutexGuard<'static, HashMap<u32, QuantumSimulator>>> {
     SIMULATORS.lock().ok()
 }
 

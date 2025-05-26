@@ -41,4 +41,9 @@ dist-newstyle/
 *.o
 *.dyn_hi
 *.dyn_o
-cabal.project.local 
+cabal.project.local
+
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk 
