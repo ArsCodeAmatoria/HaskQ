@@ -1,0 +1,54 @@
+name:                haskq-dsl
+version:             0.1.0.0
+synopsis:            Type-safe quantum circuit DSL for HaskQ
+description:         A Haskell domain-specific language for quantum circuit composition 
+                     with linear types ensuring quantum no-cloning at compile time.
+license:             MIT
+license-file:        LICENSE
+author:              HaskQ Contributors
+maintainer:          haskq@example.com
+category:            Quantum, Physics
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  exposed-modules:     HaskQ.Core
+                      ,HaskQ.Types
+                      ,HaskQ.Gates
+                      ,HaskQ.Circuits
+                      ,HaskQ.Export
+  other-modules:       HaskQ.Internal.Types
+                      ,HaskQ.Internal.Utils
+  hs-source-dirs:      src
+  build-depends:       base >=4.7 && <5
+                      ,aeson >=2.0
+                      ,text >=1.2
+                      ,bytestring >=0.10
+                      ,containers >=0.6
+                      ,vector >=0.12
+                      ,linear >=1.20
+  default-language:    Haskell2010
+  ghc-options:         -Wall -fno-warn-orphans
+
+executable haskq-cli
+  main-is:             Main.hs
+  hs-source-dirs:      app
+  build-depends:       base >=4.7 && <5
+                      ,haskq-dsl
+                      ,optparse-applicative >=0.16
+                      ,aeson >=2.0
+                      ,text >=1.2
+                      ,bytestring >=0.10
+  default-language:    Haskell2010
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+
+test-suite haskq-test
+  type:                exitcode-stdio-1.0
+  main-is:             Spec.hs
+  hs-source-dirs:      test
+  build-depends:       base >=4.7 && <5
+                      ,haskq-dsl
+                      ,hspec >=2.7
+                      ,QuickCheck >=2.14
+  default-language:    Haskell2010
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N 

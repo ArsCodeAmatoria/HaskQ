@@ -82,6 +82,16 @@ export default function Header() {
               >
                 Playground
               </Link>
+              <Link 
+                href="/downloads" 
+                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                  isActive('/downloads') 
+                    ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                    : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
+                }`}
+              >
+                Downloads
+              </Link>
             </nav>
           </div>
 
@@ -165,6 +175,16 @@ export default function Header() {
             }`}
           >
             Playground
+          </Link>
+          <Link
+            href="/downloads"
+            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+              isActive('/downloads')
+                ? `border-indigo-500 ${scrolled ? 'text-indigo-600 dark:text-indigo-400' : 'text-white'}`
+                : `border-transparent ${scrolled ? 'text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-400' : 'text-indigo-100 hover:text-white hover:border-indigo-200'}`
+            }`}
+          >
+            Downloads
           </Link>
           <a
             href="https://github.com/ArsCodeAmatoria/HaskQ"
