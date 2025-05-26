@@ -1,16 +1,17 @@
-//! FFI Interface for HaskQ Core
+//! FFI (Foreign Function Interface) bindings for HaskQ
 //! 
-//! This module provides C-compatible functions that can be called from Haskell
-//! using the Foreign Function Interface (FFI). It acts as the bridge between
-//! the high-level Haskell DSL and the high-performance Rust computation engine.
+//! This module provides C-compatible functions for interfacing with
+//! the HaskQ quantum computing engine from other languages.
 
 use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_double, c_int, c_void};
 use std::slice;
 use std::ptr;
+use std::sync::{Mutex, MutexGuard};
 use std::collections::HashMap;
-use std::sync::Mutex;
 
+use nalgebra::DVector;
+use num_complex::Complex64;
 use once_cell::sync::Lazy;
 use serde_json;
 

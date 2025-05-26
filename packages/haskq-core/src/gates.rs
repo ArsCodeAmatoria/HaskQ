@@ -5,6 +5,7 @@
 
 use nalgebra::DVector;
 use num_complex::Complex64;
+#[cfg(feature = "parallel")]
 use rayon::prelude::*;
 use std::f64::consts::PI;
 
@@ -111,6 +112,7 @@ impl TwoQubitGates {
         let size = amplitudes.len();
         let mut new_amplitudes = amplitudes.clone();
         
+        #[cfg(feature = "parallel")]
         if size > 1024 {
             // Parallel execution for large states
             (0..size).into_par_iter().for_each(|i| {
@@ -136,6 +138,20 @@ impl TwoQubitGates {
             }
         }
         
+        #[cfg(not(feature = "parallel"))]
+        {
+            for i in 0..size {
+                let control_bit = (i >> control) & 1;
+                if control_bit == 1 {
+                    let target_bit = (i >> target) & 1;
+                    let new_target_bit = 1 - target_bit;
+                    let j = (i & !(1 << target)) | (new_target_bit << target);
+                    new_amplitudes[j] = amplitudes[i];
+                    new_amplitudes[i] = Complex64::new(0.0, 0.0);
+                }
+            }
+        }
+        
         *amplitudes = new_amplitudes;
     }
 
@@ -143,6 +159,7 @@ impl TwoQubitGates {
     pub fn cz(control: usize, target: usize, amplitudes: &mut DVector<Complex64>) {
         let size = amplitudes.len();
         
+        #[cfg(feature = "parallel")]
         if size > 1024 {
             (0..size).into_par_iter().for_each(|i| {
                 let control_bit = (i >> control) & 1;
@@ -152,6 +169,17 @@ impl TwoQubitGates {
                 }
             });
         } else {
+            for i in 0..size {
+                let control_bit = (i >> control) & 1;
+                let target_bit = (i >> target) & 1;
+                if control_bit == 1 && target_bit == 1 {
+                    amplitudes[i] *= -1.0;
+                }
+            }
+        }
+        
+        #[cfg(not(feature = "parallel"))]
+        {
             for i in 0..size {
                 let control_bit = (i >> control) & 1;
                 let target_bit = (i >> target) & 1;
@@ -314,9 +342,10 @@ impl GateOps for QuantumState {
 
     fn apply_toffoli(&mut self, control1: usize, control2: usize, target: usize) -> Result<()> {
         if control1 >= self.num_qubits || control2 >= self.num_qubits || target >= self.num_qubits {
-            return Err(HaskQError::InvalidQubit(
+            return Err(HaskQError::InvalidQubit(format!(
+                "Qubit index out of bounds: max index is {}", 
                 std::cmp::max(control1, std::cmp::max(control2, target))
-            ));
+            )));
         }
         
         ThreeQubitGates::toffoli(control1, control2, target, &mut self.amplitudes);
@@ -326,9 +355,10 @@ impl GateOps for QuantumState {
 
     fn apply_fredkin(&mut self, control: usize, target1: usize, target2: usize) -> Result<()> {
         if control >= self.num_qubits || target1 >= self.num_qubits || target2 >= self.num_qubits {
-            return Err(HaskQError::InvalidQubit(
+            return Err(HaskQError::InvalidQubit(format!(
+                "Qubit index out of bounds: max index is {}", 
                 std::cmp::max(control, std::cmp::max(target1, target2))
-            ));
+            )));
         }
         
         ThreeQubitGates::fredkin(control, target1, target2, &mut self.amplitudes);

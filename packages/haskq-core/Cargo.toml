@@ -2,60 +2,69 @@
 name = "haskq-core"
 version = "0.1.0"
 edition = "2021"
-description = "High-performance quantum computing core engine for HaskQ Framework"
+description = "High-performance quantum computing simulation engine for HaskQ"
 license = "MIT"
-repository = "https://github.com/HaskQ/haskq-framework"
+authors = ["HaskQ Team"]
+repository = "https://github.com/ArsCodeAmatoria/HaskQ"
 
 [lib]
-name = "haskq_core"
-crate-type = ["cdylib", "rlib", "staticlib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-# Linear algebra and mathematics
-nalgebra = "0.32"
-ndarray = "0.15"
-num-complex = "0.4"
-num-traits = "0.2"
-rayon = "1.8"
-
-# Serialization
+nalgebra = { version = "0.32", features = ["serde-serialize"] }
+num-complex = { version = "0.4", features = ["serde"] }
+rayon = { version = "1.7", optional = true }
+rand = "0.8"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-
-# Error handling
 thiserror = "1.0"
-anyhow = "1.0"
-
-# Memory management
+lazy_static = "1.4"
+log = "0.4"
 once_cell = "1.19"
 
-# Parallel processing
-crossbeam = "0.8"
+# Optional dependencies for different backends
+blas-src = { version = "0.8", optional = true }
+openblas-src = { version = "0.10", optional = true }
+intel-mkl-src = { version = "0.8", optional = true }
 
-# Random number generation for quantum measurements
-rand = "0.8"
-rand_distr = "0.4"
-
-# Optional WASM support
-[dependencies.wasm-bindgen]
-version = "0.2"
-optional = true
-
-[dependencies.js-sys]
-version = "0.3"
-optional = true
+# WASM support
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
+web-sys = { version = "0.3", optional = true }
 
 [features]
-default = ["parallel"]
-parallel = ["rayon"]
-wasm = ["wasm-bindgen", "js-sys"]
+default = ["simd"]
 
-# Optimization for performance
+# Core features
+simd = []
+parallel = ["rayon"]
+blas = ["blas-src"]
+mkl = ["intel-mkl-src", "blas"]
+openblas = ["openblas-src", "blas"]
+
+# Platform features  
+wasm = ["wasm-bindgen", "js-sys", "web-sys"]
+gpu = []
+experimental = []
+
+# Build profiles
+full = ["parallel", "simd", "mkl"]
+minimal = []
+
 [profile.release]
-opt-level = 3
 lto = true
 codegen-units = 1
 panic = "abort"
+opt-level = 3
 
-[profile.dev]
-opt-level = 1 
+[profile.bench]
+inherits = "release"
+debug = true
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+approx = "0.5"
+
+[package.metadata.docs.rs]
+features = ["full"]
+rustdoc-args = ["--cfg", "docsrs"] 
