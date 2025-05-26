@@ -1,0 +1,411 @@
+# Advanced Quantum Algorithms Tutorial
+
+Welcome to the advanced quantum algorithms tutorial! This guide covers cutting-edge quantum algorithms that demonstrate quantum advantage and enable breakthrough applications in cryptography, optimization, machine learning, and scientific simulation.
+
+## Table of Contents
+
+1. [Shor's Algorithm](#shors-algorithm) - Integer Factorization
+2. [Variational Quantum Eigensolver (VQE)](#variational-quantum-eigensolver-vqe) - Quantum Chemistry
+3. [Quantum Approximate Optimization Algorithm (QAOA)](#quantum-approximate-optimization-algorithm-qaoa) - Combinatorial Optimization
+4. [Quantum Walk Search](#quantum-walk-search) - Enhanced Graph Search
+5. [Quantum Machine Learning](#quantum-machine-learning) - Neural Networks
+6. [BB84 Quantum Cryptography](#bb84-quantum-cryptography) - Secure Communication
+7. [Quantum Error Correction](#quantum-error-correction) - Fault-Tolerant Computing
+8. [Quantum Phase Estimation](#quantum-phase-estimation) - Precision Measurement
+9. [Adiabatic Quantum Computing](#adiabatic-quantum-computing) - Optimization by Evolution
+10. [Quantum Supremacy Circuits](#quantum-supremacy-circuits) - Computational Advantage
+
+## Prerequisites
+
+Before diving into these advanced algorithms, ensure you understand:
+- Basic quantum gates (Hadamard, CNOT, Pauli gates)
+- Quantum superposition and entanglement
+- Quantum measurement and probability amplitudes
+- The Quantum Fourier Transform (QFT)
+
+## Shor's Algorithm
+
+### Overview
+Shor's algorithm revolutionized cryptography by demonstrating that quantum computers can factor large integers exponentially faster than classical computers, threatening RSA encryption.
+
+### Key Concepts
+- **Period Finding**: The core of Shor's algorithm
+- **Modular Exponentiation**: Computing powers modulo n
+- **Quantum Fourier Transform**: Extracting the period from quantum superposition
+
+### Implementation Structure
+```haskell
+shorsAlgorithm :: Integer -> Circ [Measurement]
+shorsAlgorithm n = withQubits 8 $ \qubits -> do
+  let (controlQubits, targetQubits) = splitAt 4 qubits
+  
+  -- Step 1: Create superposition in control register
+  controlSuper <- mapM hadamard controlQubits
+  
+  -- Step 2: Controlled modular exponentiation
+  resultQubits <- controlledModularExp 2 15 controlSuper targetQubits
+  
+  -- Step 3: Inverse QFT on control register  
+  invQFTResult <- inverseQFT (fst resultQubits)
+  
+  -- Step 4: Measure to extract period
+  measurements <- mapM measure invQFTResult
+  pure $ map fst measurements
+```
+
+### Applications
+- **Cryptanalysis**: Breaking RSA, elliptic curve cryptography
+- **Number Theory**: Factoring research and mathematical analysis
+- **Quantum Advantage**: Demonstrating exponential speedup over classical algorithms
+
+## Variational Quantum Eigensolver (VQE)
+
+### Overview
+VQE combines quantum and classical computation to find ground state energies of molecular systems, enabling quantum chemistry simulations on near-term quantum devices.
+
+### Key Concepts
+- **Ansatz Circuits**: Parameterized quantum circuits representing molecular wavefunctions
+- **Energy Expectation**: Measuring Hamiltonian expectation values
+- **Classical Optimization**: Optimizing circuit parameters to minimize energy
+
+### Implementation Structure
+```haskell
+vqeH2 :: [Double] -> Circ Double
+vqeH2 parameters = withQubits 4 $ \qubits -> do
+  -- Create parameterized ansatz circuit
+  ansatzQubits <- hardwareEfficientAnsatz parameters qubits
+  
+  -- Measure Hamiltonian expectation value
+  energy <- measureH2Hamiltonian ansatzQubits
+  
+  pure energy
+```
+
+### Applications
+- **Drug Discovery**: Simulating molecular interactions and binding energies
+- **Catalyst Design**: Understanding chemical reaction mechanisms
+- **Materials Science**: Predicting properties of new materials
+
+## Quantum Approximate Optimization Algorithm (QAOA)
+
+### Overview
+QAOA tackles combinatorial optimization problems by encoding them into quantum circuits, providing approximate solutions with potential quantum advantage.
+
+### Key Concepts
+- **Cost Hamiltonian**: Encoding the optimization problem
+- **Mixer Hamiltonian**: Enabling exploration of solution space
+- **Parameter Optimization**: Finding optimal rotation angles
+
+### Implementation Structure
+```haskell
+qaoaMaxCut :: [Double] -> Circ [Measurement]
+qaoaMaxCut parameters = withQubits 3 $ \qubits -> do
+  -- Initialize uniform superposition
+  superposition <- mapM hadamard qubits
+  
+  -- Apply QAOA layers
+  let (gamma, beta) = (head parameters, parameters !! 1)
+  finalQubits <- applyQAOALayer gamma beta superposition
+  
+  -- Measure final state
+  measurements <- mapM measure finalQubits
+  pure $ map fst measurements
+```
+
+### Applications
+- **Graph Problems**: Max-Cut, graph coloring, traveling salesman
+- **Portfolio Optimization**: Financial risk management
+- **Logistics**: Vehicle routing and scheduling problems
+
+## Quantum Walk Search
+
+### Overview
+Quantum walks provide quadratic speedup for search problems on graphs, generalizing Grover's algorithm to structured search spaces.
+
+### Key Concepts
+- **Coin Operation**: Quantum superposition of directions
+- **Conditional Shift**: Moving based on coin state
+- **Quantum Interference**: Amplifying desired outcomes
+
+### Implementation Structure
+```haskell
+quantumWalk :: Int -> Circ [Measurement]
+quantumWalk steps = withQubits 4 $ \qubits -> do
+  let (positionQubits, [coinQubit]) = splitAt 3 qubits
+  
+  -- Initialize coin in superposition
+  coinSuper <- hadamard coinQubit
+  
+  -- Apply quantum walk steps
+  (finalCoin, finalPosition) <- quantumWalkSteps steps coinSuper positionQubits
+  
+  -- Measure final position
+  positionMeasurements <- mapM measure finalPosition
+  pure $ map fst positionMeasurements
+```
+
+### Applications
+- **Database Search**: Spatial and structured databases
+- **Network Analysis**: Finding paths and communities in graphs
+- **Algorithm Design**: Building blocks for quantum algorithms
+
+## Quantum Machine Learning
+
+### Overview
+Quantum machine learning leverages quantum superposition and entanglement to potentially accelerate pattern recognition, classification, and optimization tasks.
+
+### Key Concepts
+- **Data Encoding**: Mapping classical data to quantum states
+- **Parameterized Circuits**: Quantum neural network layers
+- **Quantum Advantage**: Exponential state space and parallel processing
+
+### Implementation Structure
+```haskell
+quantumNeuralNetwork :: [Double] -> [Double] -> Circ [Measurement]
+quantumNeuralNetwork inputs parameters = withQubits 4 $ \qubits -> do
+  -- Encode classical data into quantum states
+  encodedQubits <- dataEncoding inputs qubits
+  
+  -- Apply parameterized quantum circuit
+  processedQubits <- quantumLayers parameters encodedQubits
+  
+  -- Measure outputs for classification
+  measurements <- mapM measure processedQubits
+  pure $ map fst measurements
+```
+
+### Applications
+- **Pattern Recognition**: Image and speech recognition
+- **Financial Modeling**: Risk analysis and fraud detection
+- **Optimization**: Training quantum neural networks
+
+## BB84 Quantum Cryptography
+
+### Overview
+BB84 provides provably secure quantum key distribution, using quantum mechanics principles to detect eavesdropping and establish secure communication channels.
+
+### Key Concepts
+- **Quantum Key Distribution**: Secure key exchange using quantum states
+- **Basis Selection**: Random choice between computational and diagonal bases
+- **Eavesdropping Detection**: Quantum no-cloning theorem prevents perfect copying
+
+### Implementation Structure
+```haskell
+bb84Protocol :: Circ ([Measurement], [Measurement])
+bb84Protocol = withQubits 4 $ \qubits -> do
+  -- Alice's random bits and basis choices
+  let aliceBits = [False, True, False, True]
+      aliceBases = [Computational, Diagonal, Computational, Diagonal]
+      bobBases = [Computational, Computational, Diagonal, Diagonal]
+  
+  -- Alice prepares qubits
+  aliceQubits <- zipWithM encodeQubit aliceBits aliceBases qubits
+  
+  -- Bob measures in his chosen bases
+  bobMeasurements <- zipWithM measureInBasis aliceQubits bobBases
+  
+  -- Extract secure key from matching basis measurements
+  pure (aliceKey, bobKey)
+```
+
+### Applications
+- **Secure Communications**: Government and military communications
+- **Banking**: Secure financial transactions
+- **Internet Security**: Next-generation encryption protocols
+
+## Quantum Error Correction
+
+### Overview
+Quantum error correction protects quantum information from decoherence and operational errors, enabling fault-tolerant quantum computation.
+
+### Key Concepts
+- **Logical Qubits**: Encoding quantum information across multiple physical qubits
+- **Syndrome Measurement**: Detecting errors without destroying quantum information
+- **Error Recovery**: Correcting identified errors
+
+### Implementation Structure
+```haskell
+errorCorrectionCycle :: Qubit -> Circ Qubit
+errorCorrectionCycle logicalQubit = do
+  -- Encode logical qubit into 3 physical qubits
+  encodedQubits <- bitFlipCode logicalQubit
+  
+  -- Measure syndrome to detect errors
+  (syndromes, measuredQubits) <- measureSyndrome encodedQubits
+  
+  -- Correct detected errors
+  correctedQubits <- correctError syndromes measuredQubits
+  
+  -- Decode logical qubit
+  logicalResult <- decodeLogical correctedQubits
+  pure logicalResult
+```
+
+### Applications
+- **Fault-Tolerant Computing**: Large-scale quantum computers
+- **Quantum Memory**: Long-term storage of quantum information
+- **Scientific Computing**: High-precision quantum simulations
+
+## Quantum Phase Estimation
+
+### Overview
+Quantum phase estimation determines eigenvalues of unitary operators with exponential precision, serving as a building block for many quantum algorithms.
+
+### Key Concepts
+- **Eigenvalue Estimation**: Finding phases of unitary operator eigenvalues
+- **Controlled Operations**: Applying powers of the unitary operator
+- **Inverse QFT**: Extracting phase information from quantum superposition
+
+### Implementation Structure
+```haskell
+quantumPhaseEstimation :: Double -> Circ [Measurement]
+quantumPhaseEstimation targetPhase = withQubits 5 $ \qubits -> do
+  let (countingQubits, [eigenQubit]) = splitAt 4 qubits
+  
+  -- Prepare eigenstate
+  eigenState <- gateX eigenQubit
+  
+  -- Apply controlled powers of unitary
+  controlledQubits <- applyControlledUnitaries targetPhase countingSuper eigenState
+  
+  -- Extract phase via inverse QFT
+  invQFTResult <- inverseQFT (fst controlledQubits)
+  measurements <- mapM measure invQFTResult
+  pure $ map fst measurements
+```
+
+### Applications
+- **Quantum Chemistry**: Finding molecular energy levels
+- **Prime Factorization**: Core component of Shor's algorithm
+- **Quantum Metrology**: High-precision measurements
+
+## Adiabatic Quantum Computing
+
+### Overview
+Adiabatic quantum computing solves optimization problems by slowly evolving from a simple Hamiltonian to one encoding the problem, following the quantum adiabatic theorem.
+
+### Key Concepts
+- **Adiabatic Evolution**: Slow parameter changes maintaining ground state
+- **Hamiltonian Interpolation**: Gradual transition from simple to complex problems
+- **Quantum Annealing**: Practical implementation with thermal fluctuations
+
+### Implementation Structure
+```haskell
+adiabaticOptimization :: Circ [Measurement]
+adiabaticOptimization = withQubits 3 $ \qubits -> do
+  -- Initialize in ground state of simple Hamiltonian
+  initialState <- mapM hadamard qubits
+  
+  -- Slowly evolve to problem Hamiltonian
+  evolvedState <- adiabaticEvolution 10 initialState
+  
+  -- Measure final optimization result
+  measurements <- mapM measure evolvedState
+  pure $ map fst measurements
+```
+
+### Applications
+- **Combinatorial Optimization**: NP-hard problem solving
+- **Machine Learning**: Training optimization for quantum ML models
+- **Scientific Computing**: Finding ground states of complex systems
+
+## Quantum Supremacy Circuits
+
+### Overview
+Quantum supremacy circuits demonstrate computational tasks where quantum computers significantly outperform classical computers, proving quantum advantage.
+
+### Key Concepts
+- **Random Circuits**: Complex quantum circuits hard to simulate classically
+- **Circuit Depth**: Sufficient depth to exceed classical simulation capabilities
+- **Sampling Problems**: Generating distributions impossible to sample classically
+
+### Implementation Structure
+```haskell
+quantumSupremacyCircuit :: Int -> Circ [Measurement]
+quantumSupremacyCircuit depth = withQubits 8 $ \qubits -> do
+  -- Initialize random state
+  initialState <- mapM hadamard qubits
+  
+  -- Apply deep random circuit layers
+  finalState <- applyRandomLayers depth initialState
+  
+  -- Sample from quantum distribution
+  measurements <- mapM measure finalState
+  pure $ map fst measurements
+```
+
+### Applications
+- **Quantum Advantage Demonstration**: Proving quantum computational superiority
+- **Benchmarking**: Testing quantum computer performance
+- **Research**: Understanding quantum-classical computational boundaries
+
+## Getting Started
+
+### Running the Examples
+
+1. **Open the Playground**: Navigate to the HaskQ playground
+2. **Select an Algorithm**: Choose from the examples panel
+3. **Study the Code**: Understand the algorithm structure and operations
+4. **Modify Parameters**: Experiment with different values
+5. **Run Simulations**: Execute and analyze results
+
+### Parameter Tuning
+
+Each algorithm includes configurable parameters:
+- **Circuit Depth**: Number of layers or iterations
+- **Optimization Parameters**: Angles for variational algorithms
+- **Problem Size**: Number of qubits and problem complexity
+
+### Experimental Guidelines
+
+- Start with small examples to understand the basics
+- Gradually increase complexity as you gain familiarity
+- Compare results with classical algorithms where possible
+- Analyze quantum advantage in terms of scaling and performance
+
+## Advanced Topics
+
+### Noise and Error Mitigation
+- Understanding how real quantum devices introduce errors
+- Implementing error mitigation techniques
+- Designing noise-resilient algorithms
+
+### Hybrid Quantum-Classical Algorithms
+- Combining quantum and classical processing
+- Optimization loops and parameter updates
+- Leveraging the strengths of both paradigms
+
+### Scaling Considerations
+- Algorithm complexity as problem size grows
+- Resource requirements for practical implementations
+- Trade-offs between accuracy and computational cost
+
+## Conclusion
+
+These advanced quantum algorithms represent the cutting edge of quantum computing research and applications. Each algorithm demonstrates unique quantum advantages and opens new possibilities for solving previously intractable problems.
+
+As you explore these implementations:
+1. Focus on understanding the quantum principles behind each algorithm
+2. Experiment with different parameters and problem instances
+3. Consider how these algorithms might apply to your specific use cases
+4. Stay current with the rapidly evolving field of quantum algorithms
+
+The future of quantum computing lies in these advanced algorithms and their continued development. Through hands-on experimentation with HaskQ, you're participating in the quantum revolution that will transform computation, cryptography, optimization, and scientific discovery.
+
+## Further Reading
+
+- Nielsen & Chuang: "Quantum Computation and Quantum Information"
+- Preskill: "Quantum Computing in the NISQ Era and Beyond"
+- Cerezo et al.: "Variational Quantum Algorithms"
+- Farhi et al.: "A Quantum Approximate Optimization Algorithm"
+- Recent research papers on quantum algorithms and applications
+
+## Practice Exercises
+
+1. **Modify Shor's Algorithm**: Try factoring different small integers
+2. **Design VQE Circuits**: Create ansatz circuits for different molecules
+3. **Optimize QAOA**: Find better parameters for graph problems
+4. **Implement Variations**: Create your own quantum walk or ML models
+5. **Combine Algorithms**: Use quantum phase estimation in other contexts
+
+Happy quantum programming with HaskQ! 

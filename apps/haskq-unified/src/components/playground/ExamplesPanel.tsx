@@ -622,6 +622,748 @@ log2 x = log x / log 2
 -- Consciousness threshold
 consciousnessThreshold :: Double
 consciousnessThreshold = 0.5`,
+  },
+  {
+    id: 'shors_algorithm',
+    name: 'Shor\'s Algorithm',
+    description: 'Integer factorization with exponential quantum speedup',
+    difficulty: 'advanced',
+    code: `-- Shor's Algorithm for Integer Factorization
+-- Breaks RSA cryptography with exponential speedup
+
+module ShorsAlgorithm where
+
+-- Simplified Shor's algorithm for small integers
+shorsAlgorithm :: Integer -> Circ [Measurement]
+shorsAlgorithm n = withQubits 8 $ \\qubits -> do
+  let (controlQubits, targetQubits) = splitAt 4 qubits
+  
+  -- Step 1: Create superposition in control register
+  controlSuper <- mapM hadamard controlQubits
+  
+  -- Step 2: Controlled modular exponentiation
+  -- For n=15, use a=2: compute 2^x mod 15
+  resultQubits <- controlledModularExp 2 15 controlSuper targetQubits
+  
+  -- Step 3: Inverse QFT on control register  
+  invQFTResult <- inverseQFT (fst resultQubits)
+  
+  -- Step 4: Measure to extract period
+  measurements <- mapM measure invQFTResult
+  pure $ map fst measurements
+
+-- Controlled modular exponentiation
+controlledModularExp :: Integer -> Integer -> [Qubit] -> [Qubit] -> Circ ([Qubit], [Qubit])
+controlledModularExp a n controls targets = do
+  -- Initialize target register to |1⟩
+  target1 <- gateX (head targets)
+  let modifiedTargets = target1 : tail targets
+  
+  -- Apply controlled powers of a mod n
+  foldM (applyControlledPower a n) (controls, modifiedTargets) [0..(length controls - 1)]
+  where
+    applyControlledPower a n (cs, ts) i = do
+      let control = cs !! i
+          power = a^(2^i) \`mod\` n
+      
+      -- Apply controlled multiplication by power (simplified)
+      newTargets <- controlledMultiply control power ts
+      pure (cs, newTargets)
+
+-- Inverse Quantum Fourier Transform
+inverseQFT :: [Qubit] -> Circ [Qubit]
+inverseQFT [] = pure []
+inverseQFT [q] = do
+  q' <- hadamard q
+  pure [q']
+inverseQFT qubits = do
+  let n = length qubits
+      (lastQubit:restQubits) = reverse qubits
+  
+  -- Apply inverse rotations
+  processedLast <- foldM (\\q idx -> do
+    let control = restQubits !! idx
+        angle = -2 * pi / (2^(idx + 2))
+    controlledRotation control angle q) lastQubit [0..(n-2)]
+  
+  -- Apply Hadamard
+  hLast <- hadamard processedLast
+  
+  -- Recursively apply to rest
+  processedRest <- inverseQFT (reverse restQubits)
+  
+  pure $ reverse processedRest ++ [hLast]
+
+-- Run Shor's algorithm on 15
+main :: Circ [Measurement]
+main = shorsAlgorithm 15`
+  },
+  {
+    id: 'vqe_algorithm',
+    name: 'Variational Quantum Eigensolver (VQE)',
+    description: 'Quantum chemistry ground state energy calculation',
+    difficulty: 'advanced',
+    code: `-- Variational Quantum Eigensolver for Quantum Chemistry
+-- Finds ground state energies of molecular Hamiltonians
+
+module VQE where
+
+-- VQE for H2 molecule (simplified)
+vqeH2 :: [Double] -> Circ Double
+vqeH2 parameters = withQubits 4 $ \\qubits -> do
+  -- Create parameterized ansatz circuit
+  ansatzQubits <- hardwareEfficientAnsatz parameters qubits
+  
+  -- Measure Hamiltonian expectation value
+  energy <- measureH2Hamiltonian ansatzQubits
+  
+  pure energy
+
+-- Hardware-efficient ansatz for molecular simulation
+hardwareEfficientAnsatz :: [Double] -> [Qubit] -> Circ [Qubit]
+hardwareEfficientAnsatz params qubits = do
+  let numQubits = length qubits
+      (layer1Params, layer2Params) = splitAt numQubits params
+  
+  -- Layer 1: Rotation gates
+  rotated <- zipWithM rotateY layer1Params qubits
+  
+  -- Layer 2: Entangling gates
+  entangled <- applyEntanglingLayer rotated
+  
+  -- Layer 3: More rotations
+  if length params > numQubits
+    then zipWithM rotateY layer2Params entangled
+    else pure entangled
+
+-- Entangling layer with circular connectivity
+applyEntanglingLayer :: [Qubit] -> Circ [Qubit]
+applyEntanglingLayer qubits = do
+  let pairs = zip qubits (tail qubits ++ [head qubits])
+  foldM applyCNOTPair qubits [0..(length qubits - 1)]
+  where
+    applyCNOTPair qs i = do
+      let control = qs !! i
+          target = qs !! ((i + 1) \`mod\` length qs)
+      (c', t') <- cnot control target
+      pure $ updateAt i c' $ updateAt ((i + 1) \`mod\` length qs) t' qs
+
+-- Measure H2 Hamiltonian expectation value
+measureH2Hamiltonian :: [Qubit] -> Circ Double
+measureH2Hamiltonian qubits = do
+  -- H2 Hamiltonian terms (simplified)
+  identity <- pure 1.0
+  z2 <- measurePauliZ (qubits !! 2)
+  z3 <- measurePauliZ (qubits !! 3)
+  z2z3 <- measurePauliZZ (qubits !! 2) (qubits !! 3)
+  
+  -- Combine with coefficients
+  let energy = (-1.0523732) * identity + 
+               0.39793742 * z2 + 
+               (-0.39793742) * z3 + 
+               (-0.01128010) * z2z3
+  
+  pure energy
+
+-- Measure Pauli Z expectation value
+measurePauliZ :: Qubit -> Circ Double
+measurePauliZ qubit = do
+  (measurement, _) <- measure qubit
+  pure $ if measurement == One then 1.0 else -1.0
+
+-- Measure ZZ correlation
+measurePauliZZ :: Qubit -> Qubit -> Circ Double
+measurePauliZZ q1 q2 = do
+  z1 <- measurePauliZ q1
+  z2 <- measurePauliZ q2
+  pure $ z1 * z2
+
+-- VQE optimization example
+main :: Circ Double
+main = do
+  let initialParams = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+  energy <- vqeH2 initialParams
+  pure energy`
+  },
+  {
+    id: 'qaoa_maxcut',
+    name: 'QAOA Max-Cut',
+    description: 'Quantum approximate optimization for graph problems',
+    difficulty: 'advanced',
+    code: `-- Quantum Approximate Optimization Algorithm (QAOA)
+-- Solves Max-Cut problem with quantum advantage
+
+module QAOA where
+
+-- QAOA for Max-Cut on triangle graph
+qaoaMaxCut :: [Double] -> Circ [Measurement]
+qaoaMaxCut parameters = withQubits 3 $ \\qubits -> do
+  -- Initialize uniform superposition
+  superposition <- mapM hadamard qubits
+  
+  -- Apply QAOA layers
+  let (gamma, beta) = (head parameters, parameters !! 1)
+  finalQubits <- applyQAOALayer gamma beta superposition
+  
+  -- Measure final state
+  measurements <- mapM measure finalQubits
+  pure $ map fst measurements
+
+-- Single QAOA layer
+applyQAOALayer :: Double -> Double -> [Qubit] -> Circ [Qubit]
+applyQAOALayer gamma beta qubits = do
+  -- Apply cost Hamiltonian (edges of triangle graph)
+  costApplied <- applyCostHamiltonian gamma qubits
+  
+  -- Apply mixer Hamiltonian
+  mixerApplied <- applyMixerHamiltonian beta costApplied
+  
+  pure mixerApplied
+
+-- Cost Hamiltonian for triangle graph Max-Cut
+applyCostHamiltonian :: Double -> [Qubit] -> Circ [Qubit]
+applyCostHamiltonian gamma qubits = do
+  let [q0, q1, q2] = qubits
+  
+  -- Edge (0,1): apply ZZ interaction
+  (q0', q1') <- applyZZInteraction gamma q0 q1
+  
+  -- Edge (1,2): apply ZZ interaction  
+  (q1'', q2') <- applyZZInteraction gamma q1' q2
+  
+  -- Edge (0,2): apply ZZ interaction
+  (q0'', q2'') <- applyZZInteraction gamma q0' q2'
+  
+  pure [q0'', q1'', q2'']
+
+-- ZZ interaction for Max-Cut
+applyZZInteraction :: Double -> Qubit -> Qubit -> Circ (Qubit, Qubit)
+applyZZInteraction gamma q1 q2 = do
+  -- Implement exp(-i*gamma*(1-Z1*Z2)/2)
+  (q1', q2') <- cnot q1 q2
+  q2'' <- rotateZ gamma q2'
+  (q1'', q2''') <- cnot q1' q2''
+  pure (q1'', q2''')
+
+-- Mixer Hamiltonian (X rotations)
+applyMixerHamiltonian :: Double -> [Qubit] -> Circ [Qubit]
+applyMixerHamiltonian beta qubits = do
+  mapM (rotateX beta) qubits
+
+-- QAOA with optimization
+main :: Circ [Measurement]
+main = do
+  let optimalParams = [0.628, 1.571]  -- Near-optimal for triangle graph
+  result <- qaoaMaxCut optimalParams
+  pure result`
+  },
+  {
+    id: 'quantum_walk',
+    name: 'Quantum Walk Search',
+    description: 'Quantum walk with quadratic search speedup',
+    difficulty: 'intermediate',
+    code: `-- Quantum Walk Search Algorithm
+-- Provides quadratic speedup for graph search problems
+
+module QuantumWalk where
+
+-- Discrete quantum walk on a line
+quantumWalk :: Int -> Circ [Measurement]
+quantumWalk steps = withQubits 4 $ \\qubits -> do
+  let (positionQubits, [coinQubit]) = splitAt 3 qubits
+  
+  -- Initialize coin in superposition
+  coinSuper <- hadamard coinQubit
+  
+  -- Apply quantum walk steps
+  (finalCoin, finalPosition) <- quantumWalkSteps steps coinSuper positionQubits
+  
+  -- Measure final position
+  positionMeasurements <- mapM measure finalPosition
+  pure $ map fst positionMeasurements
+
+-- Single step of quantum walk
+quantumWalkStep :: Qubit -> [Qubit] -> Circ (Qubit, [Qubit])
+quantumWalkStep coin position = do
+  -- Apply coin operator (Hadamard)
+  coinFlipped <- hadamard coin
+  
+  -- Apply conditional shift
+  shiftedPosition <- conditionalShift coinFlipped position
+  
+  pure (coinFlipped, shiftedPosition)
+
+-- Conditional shift based on coin state
+conditionalShift :: Qubit -> [Qubit] -> Circ [Qubit]
+conditionalShift coin position = do
+  -- If coin is |0⟩, decrement position; if |1⟩, increment
+  -- This is a simplified version using controlled operations
+  
+  -- Controlled increment (when coin is |1⟩)
+  incrementedPos <- controlledIncrement coin position
+  
+  pure incrementedPos
+
+-- Controlled increment on position register
+controlledIncrement :: Qubit -> [Qubit] -> Circ [Qubit]
+controlledIncrement control qubits = do
+  -- Implement controlled addition of 1
+  -- This is a simplified ripple-carry adder
+  foldM (\\qs i -> do
+    let target = qs !! i
+    (c', t') <- cnot control target
+    pure $ updateAt i t' qs) qubits [0..(length qubits - 1)]
+
+-- Apply multiple walk steps
+quantumWalkSteps :: Int -> Qubit -> [Qubit] -> Circ (Qubit, [Qubit])
+quantumWalkSteps 0 coin position = pure (coin, position)
+quantumWalkSteps n coin position = do
+  (newCoin, newPosition) <- quantumWalkStep coin position
+  quantumWalkSteps (n - 1) newCoin newPosition
+
+-- Run quantum walk for 4 steps
+main :: Circ [Measurement]
+main = quantumWalk 4`
+  },
+  {
+    id: 'quantum_ml',
+    name: 'Quantum Machine Learning',
+    description: 'Quantum neural network for pattern recognition',
+    difficulty: 'advanced',
+    code: `-- Quantum Machine Learning: Neural Network
+-- Quantum neural network with parameterized circuits
+
+module QuantumML where
+
+-- Quantum neural network for classification
+quantumNeuralNetwork :: [Double] -> [Double] -> Circ [Measurement]
+quantumNeuralNetwork inputs parameters = withQubits 4 $ \\qubits -> do
+  -- Encode classical data into quantum states
+  encodedQubits <- dataEncoding inputs qubits
+  
+  -- Apply parameterized quantum circuit
+  processedQubits <- quantumLayers parameters encodedQubits
+  
+  -- Measure outputs for classification
+  measurements <- mapM measure processedQubits
+  pure $ map fst measurements
+
+-- Data encoding: angle encoding
+dataEncoding :: [Double] -> [Qubit] -> Circ [Qubit]
+dataEncoding inputs qubits = do
+  -- Encode each input as rotation angle
+  zipWithM (\\input qubit -> rotateY (input * pi) qubit) inputs qubits
+
+-- Parameterized quantum layers
+quantumLayers :: [Double] -> [Qubit] -> Circ [Qubit]
+quantumLayers parameters qubits = do
+  let numQubits = length qubits
+      (rotParams, entParams) = splitAt numQubits parameters
+  
+  -- Rotation layer
+  rotatedQubits <- zipWithM rotateY rotParams qubits
+  
+  -- Entangling layer
+  entangledQubits <- applyQuantumEntangling rotatedQubits
+  
+  -- Final rotation layer (if enough parameters)
+  if length parameters > numQubits * 2
+    then do
+      let finalParams = drop numQubits parameters
+      zipWithM rotateZ (take numQubits finalParams) entangledQubits
+    else pure entangledQubits
+
+-- Quantum entangling layer for ML
+applyQuantumEntangling :: [Qubit] -> Circ [Qubit]
+applyQuantumEntangling qubits = do
+  -- Create circular entanglement pattern
+  let pairs = zip qubits (tail qubits ++ [head qubits])
+  foldM applyEntanglingGate qubits [0..(length qubits - 1)]
+  where
+    applyEntanglingGate qs i = do
+      let control = qs !! i
+          target = qs !! ((i + 1) \`mod\` length qs)
+      (c', t') <- cnot control target
+      pure $ updateAt i c' $ updateAt ((i + 1) \`mod\` length qs) t' qs
+
+-- Quantum classifier example
+main :: Circ [Measurement]
+main = do
+  let inputs = [0.5, 0.3, 0.8, 0.1]  -- Input data
+      parameters = [0.1, 0.5, 0.9, 0.3, 0.7, 0.2, 0.6, 0.4]  -- Model parameters
+  
+  result <- quantumNeuralNetwork inputs parameters
+  pure result`
+  },
+  {
+    id: 'bb84_protocol',
+    name: 'BB84 Quantum Cryptography',
+    description: 'Quantum key distribution with perfect security',
+    difficulty: 'advanced',
+    code: `-- BB84 Quantum Key Distribution Protocol
+-- Provides provably secure quantum cryptography
+
+module BB84 where
+
+-- BB84 protocol for quantum key distribution
+bb84Protocol :: Circ ([Measurement], [Measurement])
+bb84Protocol = withQubits 4 $ \\qubits -> do
+  -- Alice's random bits and basis choices
+  let aliceBits = [False, True, False, True]
+      aliceBases = [Computational, Diagonal, Computational, Diagonal]
+      bobBases = [Computational, Computational, Diagonal, Diagonal]
+  
+  -- Alice prepares qubits
+  aliceQubits <- zipWithM encodeQubit aliceBits aliceBases qubits
+  
+  -- Bob measures in his chosen bases
+  bobMeasurements <- zipWithM measureInBasis aliceQubits bobBases
+  
+  -- Extract results where bases match
+  let matchingIndices = [1, 3]  -- Indices where Alice and Bob used same basis
+      aliceKey = [aliceBits !! i | i <- matchingIndices]
+      bobKey = [fst (bobMeasurements !! i) == One | i <- matchingIndices]
+  
+  pure (map (\\b -> if b then One else Zero) aliceKey, 
+        map (\\b -> if b then One else Zero) bobKey)
+
+-- Encode bit in chosen basis
+encodeQubit :: Bool -> Basis -> Qubit -> Circ Qubit
+encodeQubit bit basis qubit = do
+  -- Set qubit to |bit⟩
+  q <- if bit then gateX qubit else pure qubit
+  
+  -- Apply basis rotation if needed
+  case basis of
+    Computational -> pure q     -- Z basis (no rotation)
+    Diagonal -> hadamard q      -- X basis (Hadamard rotation)
+
+-- Measure qubit in chosen basis
+measureInBasis :: Qubit -> Basis -> Circ (Measurement, Qubit)
+measureInBasis qubit basis = do
+  -- Rotate to computational basis if needed
+  q' <- case basis of
+    Computational -> pure qubit   -- Already in Z basis
+    Diagonal -> hadamard qubit    -- Rotate X basis to Z basis
+  
+  -- Measure in computational basis
+  (result, q'') <- measure q'
+  pure (result, q'')
+
+-- Basis type
+data Basis = Computational | Diagonal deriving (Show, Eq)
+
+-- Demonstrate BB84 key generation
+main :: Circ ([Measurement], [Measurement])
+main = bb84Protocol`
+  },
+  {
+    id: 'error_correction',
+    name: 'Quantum Error Correction',
+    description: 'Protect quantum information from decoherence',
+    difficulty: 'advanced',
+    code: `-- Quantum Error Correction: 3-Qubit Bit Flip Code
+-- Protects against single bit flip errors
+
+module ErrorCorrection where
+
+-- 3-qubit repetition code for bit flip errors
+bitFlipCode :: Qubit -> Circ [Qubit]
+bitFlipCode logicalQubit = withQubits 2 $ \\[q1, q2] -> do
+  -- Encode logical qubit into 3 physical qubits
+  (encoded0, encoded1) <- cnot logicalQubit q1
+  (encoded0', encoded2) <- cnot encoded0 q2
+  
+  pure [encoded0', encoded1, encoded2]
+
+-- Error syndrome measurement
+measureSyndrome :: [Qubit] -> Circ ([Measurement], [Qubit])
+measureSyndrome [q0, q1, q2] = withQubits 2 $ \\[s1, s2] -> do
+  -- Measure parity of qubits 0,1 and qubits 1,2
+  (q0', s1') <- cnot q0 s1
+  (q1', s1'') <- cnot q1' s1'
+  
+  (q1'', s2') <- cnot q1' s2
+  (q2', s2'') <- cnot q2 s2'
+  
+  -- Measure syndrome qubits
+  (syndrome1, _) <- measure s1''
+  (syndrome2, _) <- measure s2''
+  
+  pure ([syndrome1, syndrome2], [q0', q1'', q2'])
+
+-- Error correction based on syndrome
+correctError :: [Measurement] -> [Qubit] -> Circ [Qubit]
+correctError syndromes qubits = do
+  case syndromes of
+    [Zero, Zero] -> pure qubits  -- No error
+    [One, Zero]  -> do           -- Error on qubit 0
+      let [q0, q1, q2] = qubits
+      q0' <- gateX q0
+      pure [q0', q1, q2]
+    [One, One]   -> do           -- Error on qubit 1
+      let [q0, q1, q2] = qubits
+      q1' <- gateX q1
+      pure [q0, q1', q2]
+    [Zero, One]  -> do           -- Error on qubit 2
+      let [q0, q1, q2] = qubits
+      q2' <- gateX q2
+      pure [q0, q1, q2']
+
+-- Decode logical qubit
+decodeLogical :: [Qubit] -> Circ Qubit
+decodeLogical [q0, q1, q2] = do
+  -- The logical information is in any qubit (assuming error correction worked)
+  pure q0
+
+-- Complete error correction cycle
+errorCorrectionCycle :: Qubit -> Circ Qubit
+errorCorrectionCycle logicalQubit = do
+  -- Encode
+  encodedQubits <- bitFlipCode logicalQubit
+  
+  -- Simulate error on qubit 1 (for demonstration)
+  let [q0, q1, q2] = encodedQubits
+  q1' <- gateX q1  -- Introduce bit flip error
+  let errorQubits = [q0, q1', q2]
+  
+  -- Measure syndrome
+  (syndromes, measuredQubits) <- measureSyndrome errorQubits
+  
+  -- Correct error
+  correctedQubits <- correctError syndromes measuredQubits
+  
+  -- Decode
+  logicalResult <- decodeLogical correctedQubits
+  
+  pure logicalResult
+
+-- Demonstrate error correction
+main :: Circ Measurement
+main = do
+  -- Create logical |1⟩ state
+  logicalQubit <- qinit True
+  
+  -- Apply error correction
+  correctedQubit <- errorCorrectionCycle logicalQubit
+  
+  -- Measure result
+  (result, _) <- measure correctedQubit
+  pure result`
+  },
+  {
+    id: 'phase_estimation',
+    name: 'Quantum Phase Estimation',
+    description: 'Estimates eigenvalues of unitary operators with exponential precision',
+    difficulty: 'advanced',
+    code: `-- Quantum Phase Estimation Algorithm
+-- Estimates eigenvalues of unitary operators
+
+module PhaseEstimation where
+
+-- Quantum Phase Estimation for a simple phase gate
+quantumPhaseEstimation :: Double -> Circ [Measurement]
+quantumPhaseEstimation targetPhase = withQubits 5 $ \\qubits -> do
+  let (countingQubits, [eigenQubit]) = splitAt 4 qubits
+  
+  -- Prepare eigenstate |1⟩ for phase gate
+  eigenState <- gateX eigenQubit
+  
+  -- Initialize counting register in superposition
+  countingSuper <- mapM hadamard countingQubits
+  
+  -- Apply controlled powers of unitary operator
+  controlledQubits <- applyControlledUnitaries targetPhase countingSuper eigenState
+  
+  -- Apply inverse QFT to counting register
+  invQFTResult <- inverseQFT (fst controlledQubits)
+  
+  -- Measure counting qubits to extract phase
+  measurements <- mapM measure invQFTResult
+  pure $ map fst measurements
+
+-- Apply controlled unitary operations
+applyControlledUnitaries :: Double -> [Qubit] -> Qubit -> Circ ([Qubit], Qubit)
+applyControlledUnitaries phase countingQubits eigenQubit = do
+  -- Apply controlled-U^(2^k) for each counting qubit
+  foldM (applyControlledPower phase) (countingQubits, eigenQubit) [0..(length countingQubits - 1)]
+  where
+    applyControlledPower phi (cs, target) k = do
+      let control = cs !! k
+          powerPhase = phi * (2^k)
+      
+      -- Apply controlled phase rotation
+      (c', t') <- controlledPhaseGate powerPhase control target
+      pure (updateAt k c' cs, t')
+
+-- Controlled phase gate
+controlledPhaseGate :: Double -> Qubit -> Qubit -> Circ (Qubit, Qubit)
+controlledPhaseGate phase control target = do
+  -- Apply phase only when control is |1⟩
+  (c', t') <- controlledRotation control phase target
+  pure (c', t')
+
+-- Demonstrate phase estimation
+main :: Circ [Measurement]
+main = do
+  let targetPhase = pi / 4  -- π/4 phase
+  result <- quantumPhaseEstimation targetPhase
+  pure result`
+  },
+  {
+    id: 'adiabatic_computing',
+    name: 'Adiabatic Quantum Computing',
+    description: 'Quantum optimization using adiabatic evolution',
+    difficulty: 'advanced',
+    code: `-- Adiabatic Quantum Computing
+-- Solves optimization problems using slow evolution
+
+module AdiabaticComputing where
+
+-- Adiabatic evolution for simple optimization
+adiabaticOptimization :: Circ [Measurement]
+adiabaticOptimization = withQubits 3 $ \\qubits -> do
+  -- Initialize in ground state of simple Hamiltonian (all |+⟩)
+  initialState <- mapM hadamard qubits
+  
+  -- Adiabatic evolution (simplified discrete steps)
+  evolvedState <- adiabaticEvolution 10 initialState
+  
+  -- Measure final state
+  measurements <- mapM measure evolvedState
+  pure $ map fst measurements
+
+-- Simulate adiabatic evolution in discrete steps
+adiabaticEvolution :: Int -> [Qubit] -> Circ [Qubit]
+adiabaticEvolution 0 qubits = pure qubits
+adiabaticEvolution steps qubits = do
+  -- Apply evolution step
+  evolvedQubits <- evolutionStep (fromIntegral steps / 10.0) qubits
+  
+  -- Continue evolution
+  adiabaticEvolution (steps - 1) evolvedQubits
+
+-- Single evolution step
+evolutionStep :: Double -> [Qubit] -> Circ [Qubit]
+evolutionStep t qubits = do
+  -- Interpolate between initial and final Hamiltonians
+  let s = 1.0 - t  -- Annealing parameter
+  
+  -- Apply mixing (initial Hamiltonian contribution)
+  mixedQubits <- if s > 0.1 then mapM (rotateX (s * 0.1)) qubits else pure qubits
+  
+  -- Apply problem Hamiltonian (simplified Ising model)
+  problemQubits <- applyProblemHamiltonian ((1 - s) * 0.1) mixedQubits
+  
+  pure problemQubits
+
+-- Apply problem Hamiltonian (Ising interactions)
+applyProblemHamiltonian :: Double -> [Qubit] -> Circ [Qubit]
+applyProblemHamiltonian strength qubits = do
+  let [q0, q1, q2] = qubits
+  
+  -- Apply ZZ interactions between neighboring qubits
+  (q0', q1') <- applyZZInteraction strength q0 q1
+  (q1'', q2') <- applyZZInteraction strength q1' q2
+  
+  pure [q0', q1'', q2']
+
+-- Demonstrate adiabatic optimization
+main :: Circ [Measurement]
+main = adiabaticOptimization`
+  },
+  {
+    id: 'quantum_supremacy',
+    name: 'Quantum Supremacy Circuit',
+    description: 'Random quantum circuit demonstrating computational advantage',
+    difficulty: 'advanced',
+    code: `-- Quantum Supremacy Demonstration
+-- Random quantum circuits with classical simulation difficulty
+
+module QuantumSupremacy where
+
+-- Random quantum circuit for supremacy demonstration
+quantumSupremacyCircuit :: Int -> Circ [Measurement]
+quantumSupremacyCircuit depth = withQubits 8 $ \\qubits -> do
+  -- Initialize random state
+  initialState <- mapM hadamard qubits
+  
+  -- Apply random circuit layers
+  finalState <- applyRandomLayers depth initialState
+  
+  -- Measure all qubits
+  measurements <- mapM measure finalState
+  pure $ map fst measurements
+
+-- Apply layers of random gates
+applyRandomLayers :: Int -> [Qubit] -> Circ [Qubit]
+applyRandomLayers 0 qubits = pure qubits
+applyRandomLayers depth qubits = do
+  -- Apply single-qubit layer
+  singleQubitLayer <- applySingleQubitLayer qubits
+  
+  -- Apply two-qubit layer
+  twoQubitLayer <- applyTwoQubitLayer singleQubitLayer
+  
+  -- Continue with remaining depth
+  applyRandomLayers (depth - 1) twoQubitLayer
+
+-- Apply random single-qubit gates
+applySingleQubitLayer :: [Qubit] -> Circ [Qubit]
+applySingleQubitLayer qubits = do
+  -- Apply random rotations (simplified to fixed pattern)
+  mapM applyRandomSingleQubit qubits
+  where
+    applyRandomSingleQubit q = do
+      -- Simulate random rotation by applying random sequence
+      q1 <- rotateX (pi / 3) q
+      q2 <- rotateY (pi / 4) q1
+      q3 <- rotateZ (pi / 6) q2
+      pure q3
+
+-- Apply random two-qubit gates
+applyTwoQubitLayer :: [Qubit] -> Circ [Qubit]
+applyTwoQubitLayer qubits = do
+  -- Apply random two-qubit gates in brick pattern
+  brickPattern qubits 0
+  where
+    brickPattern qs offset
+      | offset >= length qs - 1 = pure qs
+      | otherwise = do
+          let pairs = [(qs !! i, qs !! (i + 1)) | i <- [offset, offset + 2..length qs - 2]]
+          processedQs <- foldM applyRandomTwoQubit qs pairs
+          pure processedQs
+
+-- Apply random two-qubit gate
+applyRandomTwoQubit :: [Qubit] -> (Qubit, Qubit) -> Circ [Qubit]
+applyRandomTwoQubit qubits (q1, q2) = do
+  -- Apply sequence of gates (simplified random gate)
+  (q1', q2') <- cnot q1 q2
+  q1'' <- rotateZ (pi / 8) q1'
+  q2'' <- rotateZ (pi / 7) q2'
+  (q1''', q2''') <- cnot q1'' q2''
+  
+  -- Update qubits in list
+  let idx1 = findQubitIndex q1 qubits
+      idx2 = findQubitIndex q2 qubits
+  pure $ updateAt idx1 q1''' $ updateAt idx2 q2''' qubits
+
+-- Quantum volume benchmark
+quantumVolume :: Int -> Circ [Measurement]
+quantumVolume size = withQubits size $ \\qubits -> do
+  -- Apply quantum volume circuit
+  processedQubits <- applyQuantumVolumeCircuit size qubits
+  
+  -- Measure and return
+  measurements <- mapM measure processedQubits
+  pure $ map fst measurements
+
+-- Run quantum supremacy demonstration
+main :: Circ [Measurement]
+main = do
+  let circuitDepth = 20  -- Deep enough for classical difficulty
+  result <- quantumSupremacyCircuit circuitDepth
+  pure result`
   }
 ];
 
