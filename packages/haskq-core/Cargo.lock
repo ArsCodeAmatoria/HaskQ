@@ -576,6 +576,7 @@ dependencies = [
  "intel-mkl-src",
  "js-sys",
  "lazy_static",
+ "libc",
  "log",
  "nalgebra",
  "num-complex",

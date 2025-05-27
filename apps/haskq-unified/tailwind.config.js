@@ -5,10 +5,14 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'class',
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
+        background: '#111827',
+        foreground: '#f3f4f6',
+        card: '#1f2937',
+        border: '#374151',
         primary: {
           50: '#e7e9ff',
           100: '#c5caff',
@@ -49,28 +53,6 @@ module.exports = {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: theme('colors.gray.700'),
-            a: {
-              color: theme('colors.indigo.600'),
-              '&:hover': {
-                color: theme('colors.indigo.800'),
-              },
-            },
-            'h1, h2, h3, h4, h5, h6': {
-              color: theme('colors.gray.900'),
-              marginTop: theme('spacing.10'),
-              marginBottom: theme('spacing.4'),
-            },
-            code: {
-              color: theme('colors.indigo.700'),
-              backgroundColor: theme('colors.gray.100'),
-              borderRadius: theme('borderRadius.md'),
-              padding: `${theme('spacing.1')} ${theme('spacing.1.5')}`,
-            },
-          },
-        },
-        dark: {
-          css: {
             color: theme('colors.gray.300'),
             a: {
               color: theme('colors.indigo.400'),
@@ -80,10 +62,14 @@ module.exports = {
             },
             'h1, h2, h3, h4, h5, h6': {
               color: theme('colors.gray.100'),
+              marginTop: theme('spacing.10'),
+              marginBottom: theme('spacing.4'),
             },
             code: {
               color: theme('colors.indigo.300'),
               backgroundColor: theme('colors.gray.800'),
+              borderRadius: theme('borderRadius.md'),
+              padding: `${theme('spacing.1')} ${theme('spacing.1.5')}`,
             },
           },
         },

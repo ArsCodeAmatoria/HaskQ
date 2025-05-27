@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
-/* Force dark mode globally */
+/* Force dark mode globally and override ALL light mode styling */
 :root {
   --background: #111827 !important;
   --foreground: #f3f4f6 !important;
+  --card: #1f2937 !important;
+  --border: #374151 !important;
   color-scheme: dark !important;
 }
 
-/* Override all light mode preferences */
+/* Override all light mode preferences and force dark mode */
 :root,
 html,
 html[data-theme="light"],
-html.light {
+html.light,
+body {
   --background: #111827 !important;
   --foreground: #f3f4f6 !important;
   color-scheme: dark !important;
@@ -19,63 +22,46 @@ html.light {
   color: #f3f4f6 !important;
 }
 
+/* Add dark class by default */
+html {
+  @apply dark;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* Force dark mode regardless of media queries */
+/* Force dark mode regardless of media queries or preferences */
 @media (prefers-color-scheme: light) {
-  :root {
+  :root, html, body {
     --background: #111827 !important;
     --foreground: #f3f4f6 !important;
     color-scheme: dark !important;
-  }
-  
-  html {
-    background-color: #111827 !important;
-    color: #f3f4f6 !important;
-  }
-  
-  body {
     background-color: #111827 !important;
     color: #f3f4f6 !important;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root, html, body {
     --background: #111827 !important;
     --foreground: #f3f4f6 !important;
     color-scheme: dark !important;
-  }
-  
-  html {
-    background-color: #111827 !important;
-    color: #f3f4f6 !important;
-  }
-  
-  body {
     background-color: #111827 !important;
     color: #f3f4f6 !important;
   }
 }
 
 @media (prefers-color-scheme: no-preference) {
-  :root {
+  :root, html, body {
     --background: #111827 !important;
     --foreground: #f3f4f6 !important;
     color-scheme: dark !important;
-  }
-  
-  html {
-    background-color: #111827 !important;
-    color: #f3f4f6 !important;
-  }
-  
-  body {
     background-color: #111827 !important;
     color: #f3f4f6 !important;
   }
@@ -92,9 +78,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Override any potential light mode styling */
+/* Override ALL potential light mode Tailwind classes */
 .bg-white { 
-  background-color: #111827 !important; 
+  background-color: #1f2937 !important; 
 }
 
 .text-black { 
@@ -105,7 +91,52 @@ body {
   color: #f3f4f6 !important; 
 }
 
-/* Specific override for Get Started Guide button */
+.text-gray-800 { 
+  color: #f3f4f6 !important; 
+}
+
+.text-gray-700 { 
+  color: #d1d5db !important; 
+}
+
+.text-gray-600 { 
+  color: #d1d5db !important; 
+}
+
+.border-gray-200 {
+  border-color: #374151 !important;
+}
+
+.border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+.bg-gray-50 {
+  background-color: #1f2937 !important;
+}
+
+.bg-gray-100 {
+  background-color: #374151 !important;
+}
+
+.hover\:bg-gray-50:hover {
+  background-color: #374151 !important;
+}
+
+.hover\:bg-indigo-50:hover {
+  background-color: #312e81 !important;
+}
+
+/* Specific overrides for components that might use light mode */
+.prose {
+  color: #d1d5db !important;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: #ffffff !important;
+}
+
+/* Override specific button styling */
 a[href="/docs/intro"] {
   background-color: #ffffff !important;
   color: #3730a3 !important;
@@ -233,8 +264,6 @@ code {
 .prose ol {
   @apply list-decimal;
 }
-
-/* Add additional styles for documentation at the end of the file */
 
 /* Documentation-specific styles */
 .markdown-content h2 {

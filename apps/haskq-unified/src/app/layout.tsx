@@ -25,16 +25,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
+    <html lang="en" className="dark" style={{ colorScheme: 'dark' }} data-theme="dark">
       <head>
         <meta name="color-scheme" content="dark" />
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Force dark mode immediately */
+            :root { color-scheme: dark !important; }
+            html { color-scheme: dark !important; background: #111827 !important; }
+            body { background: #111827 !important; color: #f3f4f6 !important; }
+            * { color-scheme: dark !important; }
+          `
+        }} />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 // Immediately apply dark mode before any rendering
                 document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
                 document.documentElement.style.colorScheme = 'dark';
+                document.documentElement.style.background = '#111827';
                 
                 // Override localStorage to prevent any theme switching
                 const originalSetItem = localStorage.setItem;
@@ -45,7 +56,7 @@ export default function RootLayout({
                   return originalSetItem.call(this, key, value);
                 };
                 
-                // Override any attempts to remove dark class
+                // Override any attempts to remove dark class or data-theme
                 const originalRemove = document.documentElement.classList.remove;
                 document.documentElement.classList.remove = function(className) {
                   if (className === 'dark') {
@@ -53,6 +64,29 @@ export default function RootLayout({
                   }
                   return originalRemove.call(this, className);
                 };
+                
+                const originalRemoveAttribute = document.documentElement.removeAttribute;
+                document.documentElement.removeAttribute = function(name) {
+                  if (name === 'data-theme') {
+                    return;
+                  }
+                  return originalRemoveAttribute.call(this, name);
+                };
+                
+                // Override setAttribute to prevent light theme
+                const originalSetAttribute = document.documentElement.setAttribute;
+                document.documentElement.setAttribute = function(name, value) {
+                  if (name === 'data-theme' && value !== 'dark') {
+                    return originalSetAttribute.call(this, name, 'dark');
+                  }
+                  return originalSetAttribute.call(this, name, value);
+                };
+                
+                // Force dark mode on body when it loads
+                document.addEventListener('DOMContentLoaded', function() {
+                  document.body.style.backgroundColor = '#111827';
+                  document.body.style.color = '#f3f4f6';
+                });
               })();
             `,
           }}
@@ -61,6 +95,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-gray-100`}
         style={{ backgroundColor: '#111827', color: '#f3f4f6' }}
+        data-theme="dark"
       >
         <DarkModeEnforcer />
         <Layout>
