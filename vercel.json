@@ -3,6 +3,7 @@
   "buildCommand": "cd apps/haskq-unified && npm run build",
   "outputDirectory": "apps/haskq-unified/.next",
   "installCommand": "cd apps/haskq-unified && npm install",
+  "rootDirectory": "apps/haskq-unified",
   "github": {
     "silent": true,
     "enabled": false
