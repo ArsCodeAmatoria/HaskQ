@@ -1,20 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/haskq-unified/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": ".next"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/apps/haskq-unified/$1"
-    }
-  ],
+  "buildCommand": "cd apps/haskq-unified && npm run build",
+  "outputDirectory": "apps/haskq-unified/.next",
+  "installCommand": "cd apps/haskq-unified && npm install",
   "github": {
     "silent": true,
     "enabled": false
