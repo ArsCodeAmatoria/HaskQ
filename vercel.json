@@ -1,9 +1,23 @@
 {
   "version": 2,
-  "framework": "nextjs",
-  "buildCommand": "cd haskq && npm run build",
-  "outputDirectory": "haskq/.next",
-  "installCommand": "cd haskq && npm install",
+  "builds": [
+    {
+      "src": "haskq/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "distDir": ".next"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/haskq/$1"
+    }
+  ],
   "github": {
     "silent": true,
     "enabled": true
