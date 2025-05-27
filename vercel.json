@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "buildCommand": "cd apps/haskq-unified && npm run build",
+  "outputDirectory": "apps/haskq-unified/.next",
+  "installCommand": "cd apps/haskq-unified && npm install",
   "github": {
     "silent": true,
     "enabled": false
