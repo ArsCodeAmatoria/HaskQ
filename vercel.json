@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "framework": "nextjs",
   "buildCommand": "cd haskq && npm run build",
   "outputDirectory": "haskq/.next",
   "installCommand": "cd haskq && npm install",
