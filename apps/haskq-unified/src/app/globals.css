@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Configure dark mode variant for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Force dark mode globally and override ALL light mode styling */
 :root {
   --background: #111827 !important;
@@ -22,9 +25,16 @@ body {
   color: #f3f4f6 !important;
 }
 
-/* Add dark class by default */
+/* Add dark class by default - ensure dark mode styling */
 html {
-  @apply dark;
+  background-color: #111827;
+  color: #f3f4f6;
+}
+
+html.dark {
+  color-scheme: dark;
+  background-color: #111827;
+  color: #f3f4f6;
 }
 
 @theme inline {
@@ -174,11 +184,15 @@ a[href="/docs/intro"]:hover {
 
 /* Styling for code blocks */
 pre {
-  @apply overflow-x-auto rounded-md bg-gray-800 p-4 text-sm;
+  overflow-x: auto;
+  border-radius: 0.375rem;
+  background-color: #1f2937;
+  padding: 1rem;
+  font-size: 0.875rem;
 }
 
 code {
-  @apply font-mono;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 /* Syntax highlighting for code blocks */
@@ -186,11 +200,11 @@ code {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  @apply text-gray-400;
+  color: #9ca3af;
 }
 
 .token.punctuation {
-  @apply text-gray-300;
+  color: #d1d5db;
 }
 
 .token.property,
@@ -198,12 +212,12 @@ code {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  @apply text-red-400;
+  color: #f87171;
 }
 
 .token.boolean,
 .token.number {
-  @apply text-orange-400;
+  color: #fb923c;
 }
 
 .token.selector,
@@ -212,7 +226,7 @@ code {
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply text-green-400;
+  color: #34d399;
 }
 
 .token.operator,
@@ -220,153 +234,207 @@ code {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  @apply text-yellow-400;
+  color: #fbbf24;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  @apply text-blue-400;
+  color: #60a5fa;
 }
 
 .token.function,
 .token.class-name {
-  @apply text-purple-400;
+  color: #c084fc;
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  @apply text-pink-400;
+  color: #f472b6;
 }
 
 /* Basic prose styling for content */
 .prose {
-  @apply text-gray-200;
+  color: #e5e7eb;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-  @apply text-white font-bold;
+  color: white;
+  font-weight: bold;
 }
 
 .prose a {
-  @apply text-indigo-400 hover:underline;
+  color: #818cf8;
+}
+
+.prose a:hover {
+  text-decoration: underline;
 }
 
 .prose ul, .prose ol {
-  @apply list-inside;
+  list-style-position: inside;
 }
 
 .prose ul {
-  @apply list-disc;
+  list-style-type: disc;
 }
 
 .prose ol {
-  @apply list-decimal;
+  list-style-type: decimal;
 }
 
 /* Documentation-specific styles */
 .markdown-content h2 {
-  @apply text-2xl font-bold mt-8 mb-4 text-white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: white;
 }
 
 .markdown-content h3 {
-  @apply text-xl font-bold mt-6 mb-3 text-white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: white;
 }
 
 .markdown-content p {
-  @apply mb-4 text-gray-300;
+  margin-bottom: 1rem;
+  color: #d1d5db;
 }
 
 .markdown-content ul, .markdown-content ol {
-  @apply list-disc ml-6 mb-6 space-y-2 text-gray-300;
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #d1d5db;
+}
+
+.markdown-content ul li, .markdown-content ol li {
+  margin-bottom: 0.5rem;
 }
 
 .markdown-content code:not(pre code) {
-  @apply bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-indigo-400;
+  background-color: #1f2937;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: 'Courier New', Courier, monospace;
+  color: #818cf8;
 }
 
 .markdown-content pre {
-  @apply rounded-lg overflow-hidden shadow-md my-6;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem 0;
 }
 
 .markdown-content a {
-  @apply text-indigo-400 hover:underline;
+  color: #818cf8;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
 }
 
 .markdown-content blockquote {
-  @apply pl-4 border-l-4 border-indigo-400 italic my-6;
+  padding-left: 1rem;
+  border-left-width: 4px;
+  border-left-color: #818cf8;
+  font-style: italic;
+  margin: 1.5rem 0;
 }
 
 .markdown-content table {
-  @apply w-full border-collapse my-6;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
 }
 
 .markdown-content table th {
-  @apply bg-gray-800 text-left p-3 font-bold;
+  background-color: #1f2937;
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: bold;
 }
 
 .markdown-content table td {
-  @apply border-t border-gray-700 p-3;
+  border-top-width: 1px;
+  border-top-color: #374151;
+  padding: 0.75rem;
 }
 
 /* Info boxes for documentation */
 .info-box {
-  @apply p-6 rounded-lg border my-8;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  margin: 2rem 0;
 }
 
 .info-box.note {
-  @apply bg-blue-900/20 border-blue-800;
+  background-color: rgba(30, 58, 138, 0.2);
+  border-color: #1e3a8a;
 }
 
 .info-box.warning {
-  @apply bg-amber-900/20 border-amber-800;
+  background-color: rgba(146, 64, 14, 0.2);
+  border-color: #92400e;
 }
 
 .info-box.tip {
-  @apply bg-green-900/20 border-green-800;
+  background-color: rgba(20, 101, 58, 0.2);
+  border-color: #14a3a8;
 }
 
 /* Improved code highlighting */
 .token.comment {
-  @apply text-gray-400 italic;
+  color: #9ca3af;
+  font-style: italic;
 }
 
 .token.keyword {
-  @apply text-indigo-400 font-medium;
+  color: #818cf8;
+  font-weight: 500;
 }
 
 .token.string {
-  @apply text-emerald-400;
+  color: #10b981;
 }
 
 .token.function {
-  @apply text-pink-400;
+  color: #ec4899;
 }
 
 .token.number {
-  @apply text-amber-400;
+  color: #f59e0b;
 }
 
 .token.operator {
-  @apply text-teal-400;
+  color: #14b8a6;
 }
 
 .token.class-name {
-  @apply text-yellow-400;
+  color: #eab308;
 }
 
 /* Improved spacing for mobile devices */
 @media (max-width: 640px) {
   .markdown-content h2 {
-    @apply text-xl mt-6 mb-3;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
   }
   
   .markdown-content h3 {
-    @apply text-lg;
+    font-size: 1.125rem;
   }
   
   .markdown-content pre {
-    @apply text-sm;
+    font-size: 0.875rem;
   }
 }
