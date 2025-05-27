@@ -4,6 +4,9 @@ import { useEffect } from 'react';
 
 export default function DarkModeEnforcer() {
   useEffect(() => {
+    // Only run on client side after hydration
+    if (typeof window === 'undefined') return;
+
     // Enforce dark mode immediately and aggressively
     const enforceDarkMode = () => {
       const html = document.documentElement;
@@ -12,13 +15,6 @@ export default function DarkModeEnforcer() {
       // Set HTML attributes
       html.classList.add('dark');
       html.setAttribute('data-theme', 'dark');
-      html.style.colorScheme = 'dark';
-      html.style.backgroundColor = '#111827';
-      html.style.color = '#f3f4f6';
-      
-      // Set body styles
-      body.style.backgroundColor = '#111827';
-      body.style.color = '#f3f4f6';
       
       // Override any white backgrounds that might slip through
       const whiteBgElements = document.querySelectorAll('.bg-white, [style*="background-color: white"], [style*="background: white"]');
@@ -33,8 +29,8 @@ export default function DarkModeEnforcer() {
       });
     };
 
-    // Run enforcement immediately
-    enforceDarkMode();
+    // Run enforcement after a small delay to avoid hydration conflicts
+    const timeoutId = setTimeout(enforceDarkMode, 100);
 
     // Set up a MutationObserver to watch for changes to the DOM
     const observer = new MutationObserver((mutations) => {
@@ -82,7 +78,8 @@ export default function DarkModeEnforcer() {
       });
       
       if (needsEnforcement) {
-        enforceDarkMode();
+        // Use a small delay to batch updates and avoid conflicts
+        setTimeout(enforceDarkMode, 10);
       }
     });
 
@@ -109,34 +106,11 @@ export default function DarkModeEnforcer() {
       return result;
     };
 
-    // Override getComputedStyle to prevent light mode detection
-    const originalGetComputedStyle = window.getComputedStyle;
-    window.getComputedStyle = function(element, pseudoElement) {
-      const styles = originalGetComputedStyle.call(this, element, pseudoElement);
-      
-      // Create a proxy to override specific properties
-      return new Proxy(styles, {
-        get(target, prop) {
-          const value = (target as any)[prop];
-          if (prop === 'backgroundColor' && value === 'rgb(255, 255, 255)') {
-            return 'rgb(31, 41, 55)'; // gray-800
-          }
-          if (prop === 'color' && value === 'rgb(0, 0, 0)') {
-            return 'rgb(243, 244, 246)'; // gray-100
-          }
-          return value;
-        }
-      });
-    };
-
     // Add a global style that forces dark mode on all elements
     const forceStyleElement = document.createElement('style');
+    forceStyleElement.id = 'dark-mode-enforcer';
     forceStyleElement.textContent = `
       /* Force dark mode on everything */
-      * {
-        color-scheme: dark !important;
-      }
-      
       .bg-white {
         background-color: #1f2937 !important;
       }
@@ -171,13 +145,19 @@ export default function DarkModeEnforcer() {
         color: #f3f4f6 !important;
       }
     `;
-    document.head.appendChild(forceStyleElement);
+    
+    // Only add the style element if it doesn't exist
+    if (!document.getElementById('dark-mode-enforcer')) {
+      document.head.appendChild(forceStyleElement);
+    }
 
     // Cleanup
     return () => {
       observer.disconnect();
-      if (forceStyleElement.parentNode) {
-        forceStyleElement.parentNode.removeChild(forceStyleElement);
+      clearTimeout(timeoutId);
+      const existingStyle = document.getElementById('dark-mode-enforcer');
+      if (existingStyle && existingStyle.parentNode) {
+        existingStyle.parentNode.removeChild(existingStyle);
       }
     };
   }, []);

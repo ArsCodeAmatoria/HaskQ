@@ -25,18 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: 'dark' }} data-theme="dark">
+    <html lang="en" className="dark" data-theme="dark">
       <head>
         <meta name="color-scheme" content="dark" />
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            /* Force dark mode immediately */
-            :root { color-scheme: dark !important; }
-            html { color-scheme: dark !important; background: #111827 !important; }
-            body { background: #111827 !important; color: #f3f4f6 !important; }
-            * { color-scheme: dark !important; }
-          `
-        }} />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -44,8 +35,6 @@ export default function RootLayout({
                 // Immediately apply dark mode before any rendering
                 document.documentElement.classList.add('dark');
                 document.documentElement.setAttribute('data-theme', 'dark');
-                document.documentElement.style.colorScheme = 'dark';
-                document.documentElement.style.background = '#111827';
                 
                 // Override localStorage to prevent any theme switching
                 const originalSetItem = localStorage.setItem;
@@ -81,12 +70,6 @@ export default function RootLayout({
                   }
                   return originalSetAttribute.call(this, name, value);
                 };
-                
-                // Force dark mode on body when it loads
-                document.addEventListener('DOMContentLoaded', function() {
-                  document.body.style.backgroundColor = '#111827';
-                  document.body.style.color = '#f3f4f6';
-                });
               })();
             `,
           }}
@@ -94,7 +77,6 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-gray-100`}
-        style={{ backgroundColor: '#111827', color: '#f3f4f6' }}
         data-theme="dark"
       >
         <DarkModeEnforcer />
