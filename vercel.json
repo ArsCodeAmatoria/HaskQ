@@ -1,6 +1,25 @@
 {
   "version": 2,
-  "outputDirectory": "apps/haskq-unified/.next",
+  "functions": {
+    "apps/haskq-unified/src/app/**/*.{js,ts,tsx}": {
+      "runtime": "@vercel/node@18.20.4"
+    }
+  },
+  "builds": [
+    {
+      "src": "apps/haskq-unified/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": ".next"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/apps/haskq-unified/$1"
+    }
+  ],
   "github": {
     "silent": true,
     "enabled": false
