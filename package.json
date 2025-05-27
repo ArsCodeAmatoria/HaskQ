@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cd apps/haskq-unified && npm run dev",
-    "build": "cd apps/haskq-unified && npm run build",
-    "start": "cd apps/haskq-unified && npm run start",
-    "lint": "cd apps/haskq-unified && npm run lint"
+    "dev": "cd haskq && npm run dev",
+    "build": "cd haskq && npm run build",
+    "start": "cd haskq && npm run start",
+    "lint": "cd haskq && npm run lint"
   },
   "dependencies": {
     "next": "15.3.1",
