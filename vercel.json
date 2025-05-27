@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "cd apps/haskq-unified && npm run build",
-  "outputDirectory": "apps/haskq-unified/.next",
-  "installCommand": "cd apps/haskq-unified && npm install",
+  "buildCommand": "cd haskq && npm run build",
+  "outputDirectory": "haskq/.next",
+  "installCommand": "cd haskq && npm install",
   "github": {
     "silent": true,
-    "enabled": false
+    "enabled": true
   }
 } 
